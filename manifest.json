@@ -11,16 +11,16 @@
   },
   "devtools_page": "main.html",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": [ "main.html", "panel.html", "build/backend.js"],
+  "web_accessible_resources": [ "main.html", "panel/index.html"],
+  "background": {
+    "scripts": ["build/background.js"],
+    "persistent": false
+  },
   "permissions": [
     "file:///*",
     "http://*/*",
     "https://*/*"
   ],
-  "background": {
-    "scripts": ["build/background.js"],
-    "persistent": true
-  },
   "icons": {
     "48": "icon.png"
   }
