@@ -4,14 +4,19 @@
   "name": "react-vt-chrome-ext",
   "description": "Front-end for react-vt",
   "version": "1.0",
-
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["content-script/script.js"]
+    }
+  ],
   "browser_action": {
     "default_icon": "icon.png",
     "default_title": "React Visual Testing Tool"
   },
-  "devtools_page": "main.html",
+  "devtools_page": "devtools.html",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": [ "main.html", "panel/index.html"],
+  "web_accessible_resources": [ "devtools.html", "panel/index.html"],
   "background": {
     "scripts": ["build/background.js"],
     "persistent": false
