@@ -1,35 +1,38 @@
-var treeData = [
-  {
-    name: "Top Level",
-    parent: "null",
-    children: [
-      {
-        name: "Level 2: A",
-        parent: "Top Level",
-        children: [
-          {
-            name: "Son of A",
-            parent: "Level 2: A"
-          },
-          {
-            name: "Daughter of A",
-            parent: "Level 2: A"
-          }
-        ]
-      },
-      {
-        name: "Level 2: B",
-        parent: "Top Level"
-      }
-    ]
-  }
-];
+var treeData = [];
+// Create a connection to the background page
+var backgroundPageConnection = chrome.runtime.connect({
+    name: "panel"
+});
+console.log('in d3tree', chrome.devtools.inspectedWindow.tabId);
+// send tabId to backgroundjs to establish connection
+backgroundPageConnection.postMessage({
+    name: 'init',
+    tabId: chrome.devtools.inspectedWindow.tabId
+});
+
+backgroundPageConnection.onMessage.addListener(function(data) {
+    console.log('d3tree received message from content script', data);
+    if(data.type === 'virtualdom') {
+      console.log('in virtual dom condition');
+      treeData.push(data.data);
+      console.log(treeData);
+      treeRender();
+    }
+  });
+// chrome.runtime.onMessage.addListener(function(port) {
+//   console.log('listening on port ', port);
+//   // port.postMessage({type: "backgroundmsg", message:"greetings from d3 msg"});
+//   port.onMessage.addListener(function(data) {
+//     console.log('d3tree received message from content script', data);
+//   });
+// });
 
 
+function treeRender() {
 // ************** Generate the tree diagram	 *****************
 var margin = {top: 20, right: 120, bottom: 20, left: 120},
-	width = 960 - margin.right - margin.left,
-	height = 500 - margin.top - margin.bottom;
+	width = 2000 - margin.right - margin.left,
+	height = 1000 - margin.top - margin.bottom;
 	
 var i = 0,
 	duration = 750,
@@ -160,4 +163,5 @@ function click(d) {
 	d._children = null;
   }
   update(d);
+}
 }

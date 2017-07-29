@@ -6,7 +6,8 @@ window.addEventListener('message', function(event) {
   if (event.source != window) return;
   // specify message type to target specific message
   // filter out other messages floating around in existing context
-  if (event.data.type === 'sample') {
+  if (event.data.type === 'virtualdom') {
+    // send received data to backgroundjs
     port.postMessage(event.data);
     console.log("content script received this from webpage: ", event.data);
   }
