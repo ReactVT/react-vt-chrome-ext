@@ -3,30 +3,21 @@ var treeData = [];
 var backgroundPageConnection = chrome.runtime.connect({
     name: "panel"
 });
-console.log('in d3tree', chrome.devtools.inspectedWindow.tabId);
 // send tabId to backgroundjs to establish connection
 backgroundPageConnection.postMessage({
     name: 'init',
     tabId: chrome.devtools.inspectedWindow.tabId
 });
 
+// Listens for messages from backgroundjs to get the parsed dom tree
 backgroundPageConnection.onMessage.addListener(function(data) {
     console.log('d3tree received message from content script', data);
     if(data.type === 'virtualdom') {
-      console.log('in virtual dom condition');
       treeData.push(data.data);
       console.log(treeData);
       treeRender();
     }
-  });
-// chrome.runtime.onMessage.addListener(function(port) {
-//   console.log('listening on port ', port);
-//   // port.postMessage({type: "backgroundmsg", message:"greetings from d3 msg"});
-//   port.onMessage.addListener(function(data) {
-//     console.log('d3tree received message from content script', data);
-//   });
-// });
-
+});
 
 function treeRender() {
 // ************** Generate the tree diagram	 *****************
