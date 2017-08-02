@@ -5,10 +5,9 @@ var backgroundPageConnection = chrome.runtime.connect({
 });
 // send tabId to backgroundjs to establish connection
 backgroundPageConnection.postMessage({
-    name: 'init',
-    tabId: chrome.devtools.inspectedWindow.tabId
+	name: 'panelToBackgroundInit',
+	tabId: chrome.devtools.inspectedWindow.tabId
 });
-
 // Listens for messages from backgroundjs to get the parsed dom tree
 backgroundPageConnection.onMessage.addListener(function(data) {
     console.log('d3tree received message from content script', data);
@@ -17,6 +16,11 @@ backgroundPageConnection.onMessage.addListener(function(data) {
       console.log(treeData);
       treeRender();
     }
+});
+
+backgroundPageConnection.postMessage({
+	type: 'assertion',
+	message: 'hello from d3tree js'
 });
 
 function treeRender() {

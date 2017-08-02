@@ -11,11 +11,8 @@ chrome.runtime.onConnect.addListener(function(port) {
   var extensionListener = function (message, sender, sendResponse) {
     // The original connection event doesn't include the tab ID of the
     // DevTools page, so we need to send it explicitly.
-      console.log('in extension listener', message);
-    if (message.name == "init") {
-      console.log('in init conditional', message.tabId);
+    if (message.name == "panelToBackgroundInit") {
       connections[message.tabId] = port;
-      console.log(connections)
       return;
     }
 	// other message handling
@@ -37,30 +34,21 @@ chrome.runtime.onConnect.addListener(function(port) {
   //connection to devtools d3tree -->
 
   // post message to content script
-  port.postMessage({type: "backgroundmsg", message:"greetings from backgroundjs"});
-  // listen for messages from content script
+  setTimeout(()=>{
+    console.log('sent out backgroundjs msg to webpage from port ', port)
+    port.postMessage({type: "backgroundmsg", message:"greetings from backgroundjs"});
+  }, 0);
+
+    
+  // listen for messages from content script and from panel
   port.onMessage.addListener(function(data) {
-    console.log('background received message from content script', data);
+    console.log('background received message', data);
     if (data.type === 'virtualdom') virtualDOM = data;
-    else if (data.name === 'init') connections[data.tabId].postMessage(virtualDOM);
+    else if (data.name === 'panelToBackgroundInit') connections[data.tabId].postMessage(virtualDOM);
+    else if (data.type === 'assertion') {
+      port = chrome.runtime.connect({name: "contentscript-port"});
+      console.log('in assertion condtiional', port)
+      port.postMessage(data);
+    }
   });
 });
-
-// //
-// // Receive message from content script and relay to the devTools page for the
-// // current tab
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//   console.log('in chrome runtime onmessage');
-//     // Messages from content scripts should have sender.tab set
-//     if (sender.tab) {
-//       var tabId = sender.tab.id;
-//       if (tabId in connections) {
-//         connections[tabId].postMessage(request);
-//       } else {
-//         console.log("Tab not found in connection list.");
-//       }
-//     } else {
-//       console.log("sender.tab not defined.");
-//     }
-//     return true;
-// });
