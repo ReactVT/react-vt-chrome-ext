@@ -46,7 +46,7 @@ chrome.runtime.onConnect.addListener(function(port) {
     console.log('background received message', data);
     if (data.type === 'virtualdom') {
       virtualDOM = data;
-      panelId.postMessage(virtualDOM);
+      if (panelId) panelId.postMessage(virtualDOM);
     }
     else if (data.name === 'panelToBackgroundInit') {
       panelId = connections[data.tabId]
