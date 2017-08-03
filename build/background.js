@@ -5,6 +5,7 @@ chrome.tabs.executeScript({file: "content-script/script.js"}, function() {
 
 var connections = {};
 var virtualDOM;
+var panelId; 
 // handles incoming connections
 chrome.runtime.onConnect.addListener(function(port) {
   //<-- connection to devtools d3tree
@@ -43,8 +44,15 @@ chrome.runtime.onConnect.addListener(function(port) {
   // listen for messages from content script and from panel
   port.onMessage.addListener(function(data) {
     console.log('background received message', data);
-    if (data.type === 'virtualdom') virtualDOM = data;
-    else if (data.name === 'panelToBackgroundInit') connections[data.tabId].postMessage(virtualDOM);
+    if (data.type === 'virtualdom') {
+      virtualDOM = data;
+      panelId.postMessage(virtualDOM);
+    }
+    else if (data.name === 'panelToBackgroundInit') {
+      panelId = connections[data.tabId]
+      console.log('checking connection', connections);
+      connections[data.tabId].postMessage(virtualDOM);
+    }
     else if (data.type === 'assertion') {
       port = chrome.runtime.connect({name: "contentscript-port"});
       console.log('in assertion condtiional', port)
