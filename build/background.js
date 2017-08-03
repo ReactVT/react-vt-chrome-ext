@@ -5,7 +5,7 @@ chrome.tabs.executeScript({file: "content-script/script.js"}, function() {
 
 var connections = {};
 var virtualDOM;
-var bgToScriptPort;
+var panelId; 
 // handles incoming connections
 chrome.runtime.onConnect.addListener(function(port) {
   //<-- connection to devtools d3tree
@@ -33,18 +33,30 @@ chrome.runtime.onConnect.addListener(function(port) {
         }
     });
   //connection to devtools d3tree -->
-  // if port is content-panel port, keep reference to it at bgToScriptPort
-  if (port.name === 'contentscript-port') bgToScriptPort = port;
 
+  // post message to content script
+  setTimeout(()=>{
+    console.log('sent out backgroundjs msg to webpage from port ', port)
+    port.postMessage({type: "backgroundmsg", message:"greetings from backgroundjs"});
+  }, 0);
+
+    
   // listen for messages from content script and from panel
   port.onMessage.addListener(function(data) {
-    // contentscript -> background: traversed DOM data
-    // store data in virtualDOM to be sent after panel->background connection is made
-    if (data.type === 'virtualdom') virtualDOM = data;
-    // establishing panel -> background connection
-    else if (data.name === 'panelToBackgroundInit') connections[data.tabId].postMessage(virtualDOM);
-    // after receiving assertion object from panel -> backgroundjs
-    // relay/send to content script
-    else if (data.type === 'assertion') bgToScriptPort.postMessage(data);
+    console.log('background received message', data);
+    if (data.type === 'virtualdom') {
+      virtualDOM = data;
+      panelId.postMessage(virtualDOM);
+    }
+    else if (data.name === 'panelToBackgroundInit') {
+      panelId = connections[data.tabId]
+      console.log('checking connection', connections);
+      connections[data.tabId].postMessage(virtualDOM);
+    }
+    else if (data.type === 'assertion') {
+      port = chrome.runtime.connect({name: "contentscript-port"});
+      console.log('in assertion condtiional', port)
+      port.postMessage(data);
+    }
   });
 });
