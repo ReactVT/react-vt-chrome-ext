@@ -13,17 +13,9 @@ window.addEventListener('message', function(event) {
   }
 }, false);
 
-// listening for events from backgroundjs
+// listening for messages from backgroundjs
 port.onMessage.addListener(function(message,sender){
   console.log('content script received this from backgroundjs: ', message, sender);
   // send message from background js to webpage
   window.postMessage(message, "*");
 });
-// listens for events from backgroundjs
-// chrome.runtime.onConnect.addListener(function(port) {
-//   console.log('IN EVENT ScRIPT', port);
-//     port.onMessage.addListener(function(message, sender){
-//       console.log('content script received this from backgroundjs: ', message, sender);      
-//     }
-//   );
-// });
