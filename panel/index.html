@@ -3,41 +3,60 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Tree Example</title>
+    <title>React-VT</title>
 
-    <style>
-	
+<style type="text/css">
+  
 	.node {
-		cursor: pointer;
-	}
+    cursor: pointer;
+  }
 
-	.node circle {
-	  fill: #fff;
-	  stroke: steelblue;
-	  stroke-width: 3px;
-	}
+  .overlay{
+      background-color:#EEE;
+  }
+   
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+   
+  .node text {
+    font-size:10px; 
+    font-family:sans-serif;
+  }
+   
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
 
-	.node text {
-	  font: 12px sans-serif;
-	}
+  .templink {
+    fill: none;
+    stroke: red;
+    stroke-width: 3px;
+  }
 
-	.link {
-	  fill: none;
-	  stroke: #ccc;
-	  stroke-width: 2px;
-	}
-	
-    </style>
+  .ghostCircle.show{
+      display:block;
+  }
+
+  .ghostCircle, .activeDrag .ghostCircle{
+       display: none;
+  }
+
+</style>
 
   </head>
 
-  <body>
+  <body oncontextmenu="return false;">
 
 <!-- load the d3.js library -->	
-<!-- <script src="lib/d3-min.js"></script> -->
-<!--<script src="lib/jquery-min.js"></script>-->
-<div id='root'></div>
-<script src="bundle.js"></script>
-	
+<script src="lib/d3-min.js"></script>
+<script src="lib/jquery-min.js"></script>
+
+    <script src="d3tree.js"></script>
+	<div id="tree-container"></div>
   </body>
 </html>
