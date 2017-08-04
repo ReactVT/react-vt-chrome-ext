@@ -52,10 +52,35 @@
 
   <body oncontextmenu="return false;">
     <!-- load the d3.js library -->	
-    <div id="tree-container"></div>
     <div id="assertion-container">
-      <button id="send-assertion">send assertion to react app</button>
+      <h2>Assertion</h2>
+      <h3>Action</h3>
+      Event: <div><input id="event-type"></div>
+      <br />
+      Node Address <div id="node-address"></div>
+      <button id="save-action">save action</button>
+      <h3>Test</h3>
+      <!-- Node: <div id="node-address-test"></div> -->
+      State/Prop: <div><input id="state-props"></div>
+      Key: <div><input id="key"></div>
+      Value: <div><input id="expectation"></div>
+      <button id="save-test">save test</button>
+      <br />
+      <br />
+      <button id="save-assertion-block">SAVE ASSERTION BLOCK</button>
     </div>
+    <div id="details-container">
+      <h2>Details</h2>
+      Name: <div id="details-name"></div>
+      State: 
+      <div id="details-state">
+        <div id="state-property"></div>
+        
+
+      </div>
+      Props: <div id="details-props"></div>
+    </div>
+    <div id="tree-container"></div>
     <script src="lib/d3-min.js"></script>
     <script src="lib/jquery-min.js"></script>
     <script src="d3tree.js"></script>

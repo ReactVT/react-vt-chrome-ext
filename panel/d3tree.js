@@ -1,6 +1,8 @@
 console.log('in d3 panel context');
-var data = JSON.parse('{"name":"Board","component":true,"state":{"squares":[null,null,null,null,null,null,null,null,null],"xIsNext":true,"current":"cat is next","done":false},"children":[{"children":[],"name":"h2","component":false,"state":null,"props":{"children":"sup"}},{"children":[],"name":"h3","component":false,"state":null,"props":{"children":"cat is next"}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":0}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":1}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":2}}],"name":"Row","component":true,"state":null,"props":{"keys":[0,1,2],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":3}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":4}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":5}}],"name":"Row","component":true,"state":null,"props":{"keys":[3,4,5],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":6}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":7}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":8}}],"name":"Row","component":true,"state":null,"props":{"keys":[6,7,8],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[],"name":"Status","component":true,"state":{"isAwesome":true},"props":{"current":"cat is next"}}]}')
-// console.log('data', data);
+var data = {};
+// if data hasn't been received, add wait message
+// if website doesn't have valid hooks, show wait message
+if(Object.keys(data).length === 0) $("#tree-container").append('Waiting for data...');
 
 // Create a connection to the background page
 const backgroundPageConnection = chrome.runtime.connect({
@@ -24,19 +26,41 @@ backgroundPageConnection.onMessage.addListener(function(newdata) {
         tree();
     }
 });
-
+var listOfAssertionBlocks = [];
+var assertionBlock = [];
+var currentNode;
 
 // send assertions to webpage panel -> backgroundjs
-$('#send-assertion').click(() => {
-    console.log('clicked')
-    backgroundPageConnection.postMessage({
-        type: 'assertion',
-        message: 'hello from d3tree js'
-    });
+$('#save-action').click(() => {
+    let action = {};
+    action.type = 'action';
+    action.event = $('#event-type').val();
+    action.loc = currentNode.address;
+    console.log('action to be saved: ', action);
+    assertionBlock.push(action);
+    console.log('assertion block: ', assertionBlock);
 });
 
+$('#save-test').click(() => {
+    let test = {};
+    test.type = 'equal';
+    test.loc = currentNode.address;
+    test.dataType = $('#state-props').val();
+    test.property = $('#key').val();
+    test.value = $('#expectation').val();
+    console.log('test to be saved: ', test);
+    assertionBlock.push(test);
+});
 
-
+$('#save-assertion-block').click(() => {
+    // send assertion block to webpage, panel -> backgroundjs
+    backgroundPageConnection.postMessage({
+        type: 'assertion',
+        data: assertionBlock
+    });
+    listOfAssertionBlocks.push(assertionBlock);
+    console.log('list of assertion blocks: ', listOfAssertionBlocks);
+});
 // setTimeout(() => {
 //     console.log('hello');
 //     $("#tree-container").empty();
@@ -129,8 +153,11 @@ function tree() {
     // Sort the tree initially incase the JSON isn't in a sorted order.
     sortTree();
 
-    function test(node) {
+    // Access node details
+    function nodeDetails(node) {
         console.log('node vals', node);
+        currentNode = node;
+        $('#node-address').text(node.address);
     }
 
     // TODO: Pan function, can be better implemented.
@@ -288,7 +315,7 @@ function tree() {
                 return "translate(" + source.y0 + "," + source.x0 + ")";
             })
             .on('contextmenu', click)
-            .on('click', test);
+            .on('click', nodeDetails);
 
         nodeEnter.append("circle")
             .attr('class', 'nodeCircle')
