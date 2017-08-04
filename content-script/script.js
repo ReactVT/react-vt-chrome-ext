@@ -10,6 +10,7 @@ window.addEventListener('message', function(event) {
     // send received data to backgroundjs
     port.postMessage(event.data);
     console.log("content script received this from webpage: ", event.data);
+    // console.log("stringified dom ", JSON.stringify(event.data.data));
   }
 }, false);
 
