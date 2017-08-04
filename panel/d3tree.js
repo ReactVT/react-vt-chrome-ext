@@ -1,5 +1,6 @@
 console.log('in d3 panel context');
 var data = {};
+var result;
 // if data hasn't been received, add wait message
 // if website doesn't have valid hooks, show wait message
 if(Object.keys(data).length === 0) $("#tree-container").append('Waiting for data...');
@@ -18,13 +19,19 @@ backgroundPageConnection.postMessage({
 // Listens for messages from backgroundjs to get the parsed dom tree
 backgroundPageConnection.onMessage.addListener(function(newdata) {
   console.log('d3tree received message from content script', newdata);
-  if(newdata.type === 'virtualdom') {
+  if (newdata.type === 'virtualdom') {
     data = newdata.data;
         // console.log(JSON.stringify(data))
         // console.log('object treedata: ', data);
     $("#tree-container").empty();
     tree();
-  }
+	}
+	// Display test results
+	if (newdata.type === 'test-result') {
+		console.log('d3 received result from content script');
+		result = newdata.data;
+		$('#test-result').text(result);
+	}
 });
 var listOfAssertionBlocks = [];
 var assertionId = 0;
