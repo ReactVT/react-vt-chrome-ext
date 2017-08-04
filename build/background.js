@@ -35,8 +35,8 @@ chrome.runtime.onConnect.addListener(function(port) {
           }
         }
     });
-  //connection to devtools d3tree -->
-     
+  // connection to devtools d3tree -->
+
   // Store contentscript port in variable once contentscript->backgroundjs connection established
   if (port.name === 'contentscript-port') {
     console.log('found contentscript port');
