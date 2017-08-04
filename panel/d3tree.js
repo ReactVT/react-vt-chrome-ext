@@ -54,7 +54,8 @@ $('#save-test').click(() => {
   test.type = 'equal';
   test.loc = currentNode.address;
   test.dataType = $('#state-props').val();
-  test.property = $('#key').val();
+	test.property = $('#key').val() 
+	test.modifier = $('#modifier').val();
   test.value = $('#expectation').val();
   console.log('test to be saved: ', test);
   assertionBlock.push(test);
