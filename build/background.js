@@ -2,10 +2,13 @@
 chrome.tabs.executeScript({file: "content-script/script.js"}, function() {
         console.log("content script loaded");
       });
-
-var connections = {};
+// Define virtualDOM variable
 var virtualDOM;
-var panelId; 
+// Define ports
+var connections = {};
+var panelId;
+var contentscriptPort;
+
 // handles incoming connections
 chrome.runtime.onConnect.addListener(function(port) {
   //<-- connection to devtools d3tree
@@ -33,30 +36,34 @@ chrome.runtime.onConnect.addListener(function(port) {
         }
     });
   //connection to devtools d3tree -->
-
-  // post message to content script
-  setTimeout(()=>{
-    console.log('sent out backgroundjs msg to webpage from port ', port)
-    port.postMessage({type: "backgroundmsg", message:"greetings from backgroundjs"});
-  }, 0);
-
-    
+     
+  // Store contentscript port in variable once contentscript->backgroundjs connection established
+  if (port.name === 'contentscript-port') {
+    console.log('found contentscript port');
+    contentscriptPort = port;
+  }
   // listen for messages from content script and from panel
   port.onMessage.addListener(function(data) {
     console.log('background received message', data);
+    // Backgroundjs receives virtualdom data from content script
+    // relay virtualDOM data to d3 panel with established panelID port
     if (data.type === 'virtualdom') {
       virtualDOM = data;
       if (panelId) panelId.postMessage(virtualDOM);
     }
+    // Establish connection from d3panel to backgroundjs
     else if (data.name === 'panelToBackgroundInit') {
+      // Save port to panelID variable
       panelId = connections[data.tabId]
       console.log('checking connection', connections);
-      connections[data.tabId].postMessage(virtualDOM);
+      // Relay virtualDOM data to d3panel after initial connection made
+      panelId.postMessage(virtualDOM);
     }
     else if (data.type === 'assertion') {
-      port = chrome.runtime.connect({name: "contentscript-port"});
-      console.log('in assertion condtiional', port)
-      port.postMessage(data);
+      // Relay assertion data to content script
+      // port = chrome.runtime.connect({name: "contentscript-port"});
+      console.log('in assertion condtional', port)
+      contentscriptPort.postMessage(data);
     }
   });
 });

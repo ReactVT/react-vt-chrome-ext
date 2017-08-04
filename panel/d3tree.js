@@ -1,37 +1,40 @@
-
-
-
+console.log('in d3 panel context');
 var data = JSON.parse('{"name":"Board","component":true,"state":{"squares":[null,null,null,null,null,null,null,null,null],"xIsNext":true,"current":"cat is next","done":false},"children":[{"children":[],"name":"h2","component":false,"state":null,"props":{"children":"sup"}},{"children":[],"name":"h3","component":false,"state":null,"props":{"children":"cat is next"}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":0}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":1}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":2}}],"name":"Row","component":true,"state":null,"props":{"keys":[0,1,2],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":3}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":4}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":5}}],"name":"Row","component":true,"state":null,"props":{"keys":[3,4,5],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":6}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":7}},{"children":[{"children":[],"name":"img","component":false,"state":null,"props":{"src":null}}],"name":"Box","component":true,"state":null,"props":{"value":null,"location":8}}],"name":"Row","component":true,"state":null,"props":{"keys":[6,7,8],"squares":[null,null,null,null,null,null,null,null,null]}},{"children":[],"name":"Status","component":true,"state":{"isAwesome":true},"props":{"current":"cat is next"}}]}')
-console.log('data', data);
+// console.log('data', data);
 
 // Create a connection to the background page
-    const backgroundPageConnection = chrome.runtime.connect({
-        name: "panel"
-    });
+const backgroundPageConnection = chrome.runtime.connect({
+    name: "panel"
+});
 
-    // send tabId to backgroundjs to establish connection
+// send tabId to backgroundjs to establish connection
+backgroundPageConnection.postMessage({
+    name: 'panelToBackgroundInit',
+    tabId: chrome.devtools.inspectedWindow.tabId
+});
+
+// Listens for messages from backgroundjs to get the parsed dom tree
+backgroundPageConnection.onMessage.addListener(function(newdata) {
+    console.log('d3tree received message from content script', newdata);
+    if(newdata.type === 'virtualdom') {
+        data = newdata.data;
+        // console.log(JSON.stringify(data))
+        // console.log('object treedata: ', data);
+        $("#tree-container").empty();
+        tree();
+    }
+});
+
+
+// send assertions to webpage panel -> backgroundjs
+$('#send-assertion').click(() => {
+    console.log('clicked')
     backgroundPageConnection.postMessage({
-      name: 'panelToBackgroundInit',
-      tabId: chrome.devtools.inspectedWindow.tabId
+        type: 'assertion',
+        message: 'hello from d3tree js'
     });
+});
 
-    // Listens for messages from backgroundjs to get the parsed dom tree
-    backgroundPageConnection.onMessage.addListener(function(newdata) {
-        console.log('d3tree received message from content script', newdata);
-        if(newdata.type === 'virtualdom') {
-          data = newdata.data;
-          console.log(JSON.stringify(data))
-          console.log('object treedata: ', data);
-          $("#tree-container").empty();
-          tree();
-        }
-    });
-
-    // send assertions to webpage panel -> backgroundjs
-    backgroundPageConnection.postMessage({
-      type: 'assertion',
-      message: 'hello from d3tree js'
-    });
 
 
 // setTimeout(() => {
