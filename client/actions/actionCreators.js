@@ -1,7 +1,6 @@
-export function getTreeData(payload) {
+export function loadTreeData(payload) {
   return {
-    type: 'GET_TREE_DATA',
+    type: 'LOAD_TREE_DATA',
     payload
   }
 }
-

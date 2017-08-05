@@ -4,7 +4,7 @@ import treeDataReducer from './treeDataReducer';
 
 const rootReducer = combineReducers(
     {
-        treeData: treeDataReducer
+        treeData: treeDataReducer,
         
     });
 

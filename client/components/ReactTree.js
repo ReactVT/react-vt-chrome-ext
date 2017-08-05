@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Tree from 'react-d3-tree';
+import Nodes from './Nodes.js';
+import Links from './Links.js';
+
 
 class ReactTree extends Component {
 
-  componentDidMount() {
-    let self = this;
+
+  componentWillMount() {
+    const self = this;
     // Create a connection to the background page
-    const backgroundPageConnection = chrome.runtime.connect({
+    var backgroundPageConnection = chrome.runtime.connect({
         name: "panel"
     });
 
@@ -21,12 +24,7 @@ class ReactTree extends Component {
     backgroundPageConnection.onMessage.addListener(function(data) {
         console.log('d3tree received message from content script', data);
         if(data.type === 'virtualdom') {
-          const treeData = [];
-          treeData.push(data.data);
-          console.log(JSON.stringify(treeData))
-          console.log('object treedata: ', treeData);
-          console.log('react frontend props', self.props);
-         self.props.getTreeData(treeData);
+          self.props.loadTreeData(data.data)
         }
     });
 
@@ -35,31 +33,32 @@ class ReactTree extends Component {
       type: 'assertion',
       message: 'hello from d3tree js'
     });
+
   }
 
-  render() {     
-        // document.addEventListener('click', () => {
-        //   this.props.getTreeData(this.props.stateIsNowProp.treeData)
-        //   console.log('this.props after action', this.props)
-        // });
+  render() {
 
-
-console.log('this.props.stateIsNowProp.treeData: ', this.props.stateIsNowProp.treeData)
-    if(Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
-      return (<h1>Waiting for Data</h1>)
-    }
-    else{
-       return(
+    if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
+        return (<h1>Waiting for Data</h1>)
+    } else {
+        return (
         <div>
-          <h1> React VT</h1>
-          <div>NEW BUNDLE HERE</div>
-          <div id="treeWrapper" style={{width: '1000px', height: '1000px'}}>
-             <Tree data={this.props.stateIsNowProp.treeData} /> 
-          </div> 
-        </div> 
-      )
+          <h1> Tree From Scratch </h1>
+
+            <svg 
+            style={{"border": "2px solid black", "margin": "10px"}}
+            width={1000}
+            height={1000}>
+                <g transform={"translate(100,0)"}>
+                  {this.props.stateIsNowProp.treeData[0]} 
+                  {this.props.stateIsNowProp.treeData[1]}
+                </g>
+          </svg> 
+        </div>
+        )
     }
   }
-};
+
+}
 
 export default ReactTree;
