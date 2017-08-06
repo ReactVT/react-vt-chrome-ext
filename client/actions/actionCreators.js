@@ -4,3 +4,11 @@ export function loadTreeData(payload) {
     payload
   }
 }
+
+export function getNodeData(payload) {
+  return {
+    type: 'GET_NODE_DATA',
+    payload
+  }
+}
+

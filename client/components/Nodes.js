@@ -6,7 +6,9 @@ class Nodes extends Component {
   render() {
     return (
         <g transform={"translate(" + this.props.ytranslate + "," + this.props.xtranslate + ")"}>
-          <circle r={3}  onClick={()=>console.log('this',this.props.props)}/>
+          <circle r={3}  onClick={()=>{
+             this.props.getNodeData(this.props) 
+            }}/>
           <text  
             style={{"fontFamily": "Times Roman", "fontSize": "12px"}}
             dx={8}
