@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { tree, hierarchy } from 'd3'
-import Nodes from '../components/Nodes';
+import NodesContainer from '../components/NodesContainer';
 import Links from '../components/Links';
 
 function treeDataReducer(state = [], action) {
@@ -15,16 +15,19 @@ function treeDataReducer(state = [], action) {
 }
 
 function nodeRender(nodes) {
-  console.log('inside Node Render')
   const allTheNodes = [];
       nodes.map(function (d, i) {
-        return (allTheNodes.push(<Nodes
+        return (allTheNodes.push(<NodesContainer
         xtranslate={d.x}
         ytranslate={d.y}
         key={i}
         name={d.data.name}
         props={d.data.props}
         state={d.data.state}
+        address={d.data.address}
+        debugId={d.data.debugId}
+        children={d.data.children}
+        parent={d.data.parent}
       />)) 
       })
   return allTheNodes
