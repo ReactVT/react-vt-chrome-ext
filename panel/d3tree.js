@@ -51,12 +51,13 @@ $('#save-action').click(() => {
 
 $('#save-test').click(() => {
   let test = {};
-  test.type = 'equal';
+  test.type = $('#eval-type').val();
   test.loc = currentNode.address;
-  test.dataType = $('#state-props').val();
+  test.source = $('#state-props').val();
 	test.property = $('#key').val() 
 	test.modifier = $('#modifier').val();
   test.value = $('#expectation').val();
+  test.dataType = $('#data-type').val();
   console.log('test to be saved: ', test);
   assertionBlock.push(test);
 });
