@@ -6,13 +6,19 @@ import Links from '../components/Links';
 function treeDataReducer(state = [], action) {
   switch(action.type) {
     case 'LOAD_TREE_DATA':
-      const d3Tree = tree().size([500, 500])(hierarchy(action.payload))
+      let d3Tree = tree().size([500, 500])(hierarchy(action.payload))
       let nodes = d3Tree.descendants()
-      return [nodeRender(nodes), linkRender(d3Tree,nodes)]
+      let insertNewItem = [nodeRender(nodes), linkRender(d3Tree,nodes)]
+      let updateArray = state.slice()
+      updateArray.splice(0,1, insertNewItem)
+      return updateArray
     default:
       return state;
   }
 }
+
+export default treeDataReducer;
+
 
 function nodeRender(nodes) {
   const allTheNodes = [];
@@ -34,7 +40,6 @@ function nodeRender(nodes) {
 }
 
 function linkRender(d3Tree,nodes){
-      console.log('inside Link Render')
       const linksArr = d3Tree.links(nodes);
       const allTheLinks = []
       linksArr.map(function (link, index) {
@@ -44,4 +49,3 @@ function linkRender(d3Tree,nodes){
       return allTheLinks
 }   
 
-export default treeDataReducer;

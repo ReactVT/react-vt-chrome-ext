@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import {ReactSVGPanZoom} from 'react-svg-pan-zoom';
+
 import Nodes from './Nodes.js';
 import Links from './Links.js';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import KeyInformation from '../components/KeyInformation';
-import ValueInformation from '../components/ValueInformation';
+import Details from '../components/Details';
+import Assertions from '../components/Assertions';
+import AssertionsList from './AssertionsList.js';
 
 class ReactTree extends Component {
 
@@ -40,54 +42,90 @@ class ReactTree extends Component {
 
   render() {
 
-    let stateKey;
-    let stateValue;
-    let propKey;
-    let propValue;
+      let compAddress;
+      let compName;
 
-    if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
-      stateKey = '';
-      stateValue = '';
-      propKey = '';
-      propValue = ''
-    } else {
-      stateKey = this.props.stateIsNowProp.nodeData[0][0][0];
-      stateValue = this.props.stateIsNowProp.nodeData[0][1][0];
-      propKey = this.props.stateIsNowProp.nodeData[0][1][0];
-      propValue = this.props.stateIsNowProp.nodeData[1][1][0];
-    }
+      if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
+        compAddress = '';
+        compName = '';
+      } else {
+        if(this.props.stateIsNowProp.nodeData[0][2] !== compAddress)
+        compAddress = this.props.stateIsNowProp.nodeData[0][2];
+        compName = this.props.stateIsNowProp.nodeData[0][3];
+      }
+      
+      let stateKey;
+      let stateValue;
+      let propKey;
+      let propValue;
+
+      if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
+        stateKey = '';
+        stateValue = '';
+        propKey = '';
+        propValue = ''
+      } else {
+        stateKey = this.props.stateIsNowProp.nodeData[0][0][0][0];
+        stateValue = this.props.stateIsNowProp.nodeData[0][0][1][0];
+        propKey = this.props.stateIsNowProp.nodeData[0][0][1][0];
+        propValue = this.props.stateIsNowProp.nodeData[0][1][1][0];
+
+        // console.log('stateKey', this.props.stateIsNowProp.nodeData[0][0][0])
+        // console.log('stateValue' , this.props.stateIsNowProp.nodeData[0][1][0])
+        // console.log('propKey' , this.props.stateIsNowProp.nodeData[0][1][0])
+        // console.log( 'propValue' , this.props.stateIsNowProp.nodeData[1][1][0])
+
+      }
 
     if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
         return (<h1>Waiting for Data</h1>)
     } else {
         return (
-        <div>
-          <h1> React VT </h1>
 
-            <svg 
-            style={{"border": "2px solid black", "margin": "10px"}}
-            width={1000}
-            height={500}>
-                <g transform={"translate(100,0)"}>
-                  {this.props.stateIsNowProp.treeData[0]} 
-                  {this.props.stateIsNowProp.treeData[1]}
+        <div>
+
+       <h1 style={{'textAlign': 'center'}}> React VT </h1>
+        <ReactSVGPanZoom
+        width={500}
+        height={500}
+        style={{'borderStyle': 'solid', 'position': 'absolute'}}
+        > 
+            <svg
+            >
+                <g transform={"translate(100,0) "}>
+                  {this.props.stateIsNowProp.treeData[0][0]} 
+                  {this.props.stateIsNowProp.treeData[0][1]} 
                 </g>
             </svg> 
+       </ReactSVGPanZoom>   
+       
+        <div  style={{"float": "right"}}>
 
-           <Card>
-            <CardHeader
-              title="Details"
-            />
-            <CardText>
-   
-              State Key: {stateKey} 
-              State Value: {stateValue} 
+          <Details 
+          compAddress={compAddress}
+          compName={compName}
+          stateKey={stateKey}
+          stateValue={stateValue}
+          propKey={propKey}
+          propValue={propValue}
+          style={{"float": "right"}}
+          />
 
-              Prop Key: {propKey} 
-              Prop Value: {propValue}   
-                    
-            </CardText>
-          </Card> 
+          <Assertions 
+          compAddress={compAddress}
+          compName={compName}
+          stateKey={stateKey}
+          stateValue={stateValue}
+          propKey={propKey}
+          propValue={propValue}
+          saveActionAssertion={this.props.saveActionAssertion}
+          saveTestAssertion={this.props.saveTestAssertion}
+          style={{"float": "right"}}
+          {...this.props} 
+          />  
+
+          <AssertionsList {...this.props}/>  
+        </div>
 
         </div>
         )
