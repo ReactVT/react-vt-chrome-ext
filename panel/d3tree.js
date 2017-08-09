@@ -51,6 +51,7 @@ $('#save-action').click(() => {
 
 $('#save-test').click(() => {
   let test = {};
+  test.selector= $('#selector').val();
   test.type = $('#eval-type').val();
   test.loc = currentNode.address;
   test.source = $('#state-props').val();
