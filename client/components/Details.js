@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
 import KeyInformation from '../components/KeyInformation';
 import ValueInformation from '../components/ValueInformation';
 
