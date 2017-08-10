@@ -32,10 +32,11 @@ console.log('allBlocks', allBlocks)
       return (
         <div>
 
-       {allBlocks}
-
+        {allBlocks}
+        <button className="btn btn-primary" onClick={()=>this.props.renderEditMode()}> New Assertion Block</button>
+        {/* 
         <h3 className="page-header">Send Assertion Block</h3>
-        <button type="submit" className="btn btn-primary" onSubmit={(event)=>this.handleSubmitEventForSendingBlock(event)}>Send</button>
+        <button type="submit" className="btn btn-primary" onSubmit={(event)=>this.handleSubmitEventForSendingBlock(event)}>Send</button> */}
         </div>
 
       )

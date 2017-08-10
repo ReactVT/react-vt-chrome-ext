@@ -27,8 +27,9 @@ class AddAssertionBlock extends Component {
     return (
       <form onSubmit={(event)=>this.handleSubmitEventForAddingBlock(event, savedAction, savedTest)}>
 
-        <h3 className="page-header">Add Assertion Block</h3>
-        <button type="submit" className="btn btn-primary">Add</button>
+        {/* <h3 className="page-header">Add Assertion Block</h3> */}
+        {/* <button type="submit" className="btn btn-primary">Add</button> */}
+        <button className="btn btn-primary" onClick={()=>this.props.renderActionMode()}>New Assertion Block</button>
       </form>
     );
   }

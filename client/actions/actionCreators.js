@@ -78,3 +78,34 @@ export function deleteAssertionBlock(payload) {
     payload
   }
 }
+
+export function renderEditMode() {
+  return {
+    type: 'RENDER_EDIT_BLOCK'
+  }
+}
+
+export function renderActionMode() {
+  return {
+    type: 'RENDER_ACTION_MENU'
+  }
+}
+
+export function renderTestMode() {
+  return {
+    type: 'RENDER_TEST_MENU'
+  }
+}
+
+export function renderViewMode() {
+  return {
+    type: 'RENDER_VIEW_BLOCKS'
+  }
+}
+
+// REMOVE THIS FOR PROD - DUMMY DATA
+export function getTreeData() {
+  return {
+    type: 'GET_TREE_DATA'
+  }
+}
