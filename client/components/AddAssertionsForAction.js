@@ -20,9 +20,12 @@ class AddAssertionsForAction extends Component {
 
     return (
 
-      <form onSubmit={(event)=>this.handleSubmitEventForAction(event)}>
+      <form onSubmit={(event)=>{
+        this.props.renderEditMode();
+        this.handleSubmitEventForAction(event);
+        }}>
 
-        <h3 className="page-header">Add New Assertions For Action</h3>
+        <h3 className="subheader">Action</h3>
 
         <div className="form-group">
           <label>Component <span style={ {color: "#ffaaaa"} }>*</span></label>

@@ -11,39 +11,46 @@ import AssertionsList from './AssertionsList.js';
 class ReactTree extends Component {
 
 
-  componentWillMount() {
-    const self = this;
-    // Create a connection to the background page
-    var backgroundPageConnection = chrome.runtime.connect({
-        name: "panel"
-    });
+  // COMMENT THIS BACK IN FROM CHROME EXTENSION
+  // componentWillMount() {
+  //   // const self = this;
+  //   // // Create a connection to the background page
+  //   // var backgroundPageConnection = chrome.runtime.connect({
+  //   //     name: "panel"
+  //   // });
 
-    // send tabId to backgroundjs to establish connection
-    backgroundPageConnection.postMessage({
-      name: 'panelToBackgroundInit',
-      tabId: chrome.devtools.inspectedWindow.tabId
-    });
+  //   // // send tabId to backgroundjs to establish connection
+  //   // backgroundPageConnection.postMessage({
+  //   //   name: 'panelToBackgroundInit',
+  //   //   tabId: chrome.devtools.inspectedWindow.tabId
+  //   // });
 
-    // Listens for messages from backgroundjs to get the parsed dom tree
-    backgroundPageConnection.onMessage.addListener(function(data) {
-        console.log('d3tree received message from content script', data);
-        if(data.type === 'virtualdom') {
-          self.props.loadTreeData(data.data)
-        }
-    });
+  //   // // Listens for messages from backgroundjs to get the parsed dom tree
+  //   // backgroundPageConnection.onMessage.addListener(function(data) {
+  //   //     console.log('d3tree received message from content script', data);
+  //   //     if(data.type === 'virtualdom') {
+  //   //       self.props.loadTreeData(data.data)
+  //   //     }
+  //   // });
 
-    // send assertions to webpage panel -> backgroundjs
-    backgroundPageConnection.postMessage({
-      type: 'assertion',
-      message: 'hello from d3tree js'
-    });
+  //   // // send assertions to webpage panel -> backgroundjs
+  //   // backgroundPageConnection.postMessage({
+  //   //   type: 'assertion',
+  //   //   message: 'hello from d3tree js'
+  //   // });
 
-  }
+  // }
 
   render() {
 
       let compAddress;
       let compName;
+      // DELETE THIS FOR PROD DUMMY DATA
+      let self = this;
+      document.addEventListener('keydown', function(e) {
+        if(e.keyCode === 8) self.props.getTreeData();
+      });
+      // DELETE THIS FOR PROD DUMMY DATA      
 
       if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
         compAddress = '';
@@ -84,7 +91,7 @@ class ReactTree extends Component {
 
         <div>
 
-       <h1 style={{'textAlign': 'center'}}> React VT </h1>
+    
         <ReactSVGPanZoom
         width={500}
         height={500}
@@ -99,7 +106,7 @@ class ReactTree extends Component {
             </svg> 
        </ReactSVGPanZoom>   
        
-        <div  style={{"float": "right"}}>
+        <div id="panel" style={{"float": "right"}}>
 
           <Details 
           compAddress={compAddress}
@@ -124,7 +131,7 @@ class ReactTree extends Component {
           {...this.props} 
           />  
 
-          <AssertionsList {...this.props}/>  
+          {/* <AssertionsList {...this.props}/>   */}
         </div>
 
         </div>

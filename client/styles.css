@@ -1,0 +1,14 @@
+#details-panel {
+  border: solid 1px black;
+  height: 200px;
+}
+#assertions-panel {
+  border: solid 1px black;
+  height: 400px;
+}
+#panel {
+  width: 300px;
+}
+.subheader {
+  font-size: 14px;
+}

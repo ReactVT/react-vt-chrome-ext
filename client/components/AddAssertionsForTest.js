@@ -23,9 +23,12 @@ class AddAssertionsForTest extends Component {
   render () {
     
     return (
-      <form onSubmit={(event)=>this.handleSubmitEventForTest(event)}>
+      <form onSubmit={(event)=>{
+        this.props.renderEditMode();
+        this.handleSubmitEventForTest(event);
+        }}>
 
-        <h3 className="page-header">Add New Assertions For Test</h3>
+        <h3 className="subheader">Test</h3>
 
         <div className="form-group">
           <label htmlFor="componentName">Component <span style={ {color: "#ffaaaa"} }>*</span></label>

@@ -6,6 +6,8 @@ import actionAssertionReducer from './actionAssertionReducer';
 import testAssertionReducer from './testAssertionReducer';
 import assertionBlockReducer from './assertionBlockReducer';
 import assertionListReducer from './assertionListReducer';
+import viewModeReducer from './viewModeReducer';
+import treeData from './treeData';
 
 const rootReducer = combineReducers(
     {
@@ -14,7 +16,9 @@ const rootReducer = combineReducers(
         actionAssertion: actionAssertionReducer,
         testAssertion: testAssertionReducer,
         assertionBlock: assertionBlockReducer,
-        assertionList: assertionListReducer
+        assertionList: assertionListReducer,
+        viewMode: viewModeReducer,
+        treeData,
     });
 
 export default rootReducer;
