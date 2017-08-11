@@ -91,7 +91,10 @@ class ReactTree extends Component {
 
         <div>
 
-        <ReactSVGPanZoom
+         <ReactSVGPanZoom
+          width={700}
+          height={700}
+          tool={'auto'}
           style={{'position': 'absolute'}}
           toolbarPosition={'none'}
           miniaturePosition ={'none'}
@@ -99,14 +102,14 @@ class ReactTree extends Component {
           > 
               <svg width={'100%'}
               height={'100%'}>
-                  <g transform={"translate(20,350)"}>
+                  <g transform={"translate(20,0)"}>
                     {this.props.stateIsNowProp.treeData[0][1]} 
                     {this.props.stateIsNowProp.treeData[0][0]} 
                     
                   </g>
               </svg> 
         </ReactSVGPanZoom>    
-       
+
         <div id="panel" style={{"float": "right"}}>
 
           <Details 
