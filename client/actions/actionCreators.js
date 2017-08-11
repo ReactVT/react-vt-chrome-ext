@@ -12,19 +12,70 @@ export function getNodeData(payload) {
   }
 }
 
-export function saveActionAssertion(payload) {
+
+export function saveActionProperty(property, value) {
   return {
-    type: 'SAVE_ACTION_ASSERTION',
+    type: 'SAVE_ACTION_PROPERTY',
+    property: property,
+    value: value
+  }
+}
+
+export function setActionLocation(location) {
+  return {
+    type: 'SET_ACTION_LOCATION',
+    location
+  }
+}
+
+export function clearAction() {
+  return {
+    type: 'CLEAR_ACTION',
+  }
+}
+
+export function saveTestProperty(property, value) {
+  return {
+    type: 'SAVE_TEST_PROPERTY',
+    property: property,
+    value: value
+  }
+}
+
+export function setTestLocation(location) {
+  return {
+    type: 'SET_TEST_LOCATION',
+    location
+  }
+}
+
+export function clearTest() {
+  return {
+    type: 'CLEAR_TEST',
+  }
+}
+
+export function saveAssertion(payload) {
+  return {
+    type: 'SAVE_ASSERTION',
     payload
   }
 }
 
-export function saveTestAssertion(payload) {
+export function deleteAssertion(payload) {
   return {
-    type: 'SAVE_TEST_ASSERTION',
+    type: 'DELETE_ASSERTION',
     payload
   }
 }
+
+export function newAssertionBlock(name) {
+  return {
+    type: 'NEW_ASSERTION_BLOCK',
+    name
+  }
+}
+
 
 export function saveAssertionBlock(payload) {
   return {
@@ -33,6 +84,13 @@ export function saveAssertionBlock(payload) {
   }
 }
 
+
+export function deleteAssertionBlock(payload) {
+  return {
+    type: 'DELETE_ASSERTION_BLOCK',
+    payload
+  }
+}
 export function sendAssertionBlock(payload) {
   return {
     type: 'SEND_ASSERTION_BLOCK',
@@ -46,17 +104,6 @@ export function emptyAssertionBlock() {
   }
 }
 
-export function emptyActionAssertion() {
-  return {
-    type: 'EMPTY_ACTION_ASSERTION',
-  }
-}
-
-export function emptyTestAssertion() {
-  return {
-    type: 'EMPTY_TEST_ASSERTION',
-  }
-}
 
 export function addAssertionToList(payload) {
   return {
@@ -72,12 +119,6 @@ export function deleteAssertionList(payload) {
   }
 }
 
-export function deleteAssertionBlock(payload) {
-  return {
-    type: 'DELETE_ASSERTION_BLOCK',
-    payload
-  }
-}
 
 export function renderEditMode() {
   return {
@@ -100,6 +141,34 @@ export function renderTestMode() {
 export function renderViewMode() {
   return {
     type: 'RENDER_VIEW_BLOCKS'
+  }
+}
+
+export function renderNameAssertionMode() {
+  return {
+    type: 'RENDER_ASSERTION_NAME_MODE'
+  }
+}
+
+export function renderTest1() {
+  return {
+    type: 'RENDER_TEST1_MODE'
+  }
+}
+export function renderTest2() {
+  return {
+    type: 'RENDER_TEST2_MODE'
+  }
+}
+export function renderTest3() {
+  return {
+    type: 'RENDER_TEST3_MODE'
+  }
+}
+
+export function incrementAssertId() {
+  return {
+    type: 'INCREMENT_ASSERT_ID'
   }
 }
 

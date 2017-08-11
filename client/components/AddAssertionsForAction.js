@@ -5,23 +5,27 @@ class AddAssertionsForAction extends Component {
 
   handleSubmitEventForAction(event) {
       event.preventDefault();
-      const action = {}
-      action.type = 'action'
-      action.event = 'click'
-      action.loc = this.props.compAddress
-
-      console.log('action ASSERTION', action)
-
-      this.props.saveActionAssertion(action)
-
+      // this.props.saveActionProperty('assertID', this.props.stateIsNowProp.assertID);
+      this.props.setActionLocation(this.props.compAddress);
+      let newAction = this.props.stateIsNowProp.action;
+      newAction.loc = this.props.compAddress;
+      newAction.assertID = this.props.stateIsNowProp.assertID;
+      this.props.incrementAssertId();
+      this.props.saveAssertion(newAction);
+      this.props.clearAction();
+      this.props.renderEditMode();
     };
+
+    handleEventDropdown(event) {
+      this.props.saveActionProperty('event', event.target.value);
+      console.log('handled event dropdown', event.target.value)
+    }
 
   render () {
 
     return (
 
       <form onSubmit={(event)=>{
-        this.props.renderEditMode();
         this.handleSubmitEventForAction(event);
         }}>
 
@@ -34,7 +38,12 @@ class AddAssertionsForAction extends Component {
 
         <div className="form-group">
           <label>Type of Event <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <input type="text" className="form-control" required ref="actionEvent" value='click' disabled/>
+          <select onChange={(e)=>this.handleEventDropdown(e)}>
+            <option value="click">Click</option>
+            <option value="dblclick">Double Click</option>
+            <option value="contextmenu">Right Click</option>
+            <option value="onEnter">Enter</option>
+          </select>
         </div>
 
         <button type="submit" className="btn btn-primary">Save</button>
