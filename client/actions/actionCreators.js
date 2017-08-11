@@ -62,10 +62,10 @@ export function saveAssertion(payload) {
   }
 }
 
-export function deleteAssertion(payload) {
+export function deleteAssertion(id) {
   return {
     type: 'DELETE_ASSERTION',
-    payload
+    id
   }
 }
 
@@ -85,10 +85,10 @@ export function saveAssertionBlock(payload) {
 }
 
 
-export function deleteAssertionBlock(payload) {
+export function deleteAssertionBlock(name) {
   return {
     type: 'DELETE_ASSERTION_BLOCK',
-    payload
+    name
   }
 }
 export function sendAssertionBlock(payload) {

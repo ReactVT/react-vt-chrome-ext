@@ -8,23 +8,25 @@ import ValueInformation from './ValueInformation';
 
 
 class AssertionsList extends Component {
-
-  handleSubmitEventForSendingBlock(event) {
-      event.preventDefault();
-
-  };
-
-  handleNewAssertionBlock(event) {
+  
+  handleNewAssertionBlock() {
     this.props.renderNameAssertionMode();
   }
 
+  handleDelete(name) {
+    this.props.deleteAssertionBlock(name);
+  }
+
+  handleEdit() {
+    console.log('edit');
+  }
 
   render() {
     let assertionlist;
     let listArray = this.props.stateIsNowProp.assertionList;
-    if(listArray.length > 0) {
+    if (listArray.length > 0) {
       assertionlist = listArray.map((el, i) => {
-        return (<li key={i}> { el.name } </li>);
+        return (<li key={i} onClick={() => this.handleEdit()}> { el.name } <button onClick={() => this.handleDelete(el.name)}> X </button></li>);
       });
     }  
       return (
@@ -39,7 +41,3 @@ class AssertionsList extends Component {
 };
 
 export default AssertionsList;
-
-
-
-

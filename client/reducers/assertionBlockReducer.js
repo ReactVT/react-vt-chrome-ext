@@ -11,18 +11,24 @@ function assertionBlockReducer(state = { name: '', asserts: [] }, action) {
       return newState;
     case 'SAVE_ASSERTION':
       newState = Object.assign({}, state);
-      newState.asserts = state.asserts.slice()
-      console.log('inside of save assert reducer', newState, action)
+      newState.asserts = state.asserts.slice();
       newState.asserts.push(action.payload);
+      return newState;  
+    case 'DELETE_ASSERTION':
+      newState = Object.assign({}, state);
+      newState.asserts = state.asserts.slice();
+      for (let i = 0; i < newState.asserts.length; i += 1) {
+        if (newState.asserts[i].assertID === action.id) {
+          newState.asserts.splice(i, 1);
+          break;
+        }
+      }
       return newState;
     case 'SEND_ASSERTION_BLOCK':
       updateArray = state.slice()
       updateArray.splice(0,1, action.payload)
       console.log('SEND_ASSERTION_BLOCK', updateArray)
       return updateArray
-    case 'DELETE_ASSERTION_BLOCK':
-      console.log('DELETE ASSERTION BLOCK', [...state.slice(0, action.payload), ...state.slice(action.payload+1)]  )
-      return [...state.slice(0, action.payload), ...state.slice(action.payload+1)]   
     case 'EMPTY_ASSERTION_BLOCK':
       updateArray = []
       return updateArray
