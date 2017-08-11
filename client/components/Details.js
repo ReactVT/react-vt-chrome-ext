@@ -7,7 +7,6 @@ import ValueInformation from '../components/ValueInformation';
 class Details extends Component {
 
   render() {
-
     return (
       <div>
       <h3 className="page-header">Add New Assertions For Test</h3>

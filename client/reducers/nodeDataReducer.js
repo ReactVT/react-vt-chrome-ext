@@ -8,7 +8,7 @@ import ValueInformation from '../components/ValueInformation';
 function nodeDataReducer(state = [], action) {
   switch(action.type) {
     case 'GET_NODE_DATA':
-
+    console.log('PAYLOAD INSIDE NODE REDUCER',action.payload)
     let nodeState = action.payload.state;
     let nodeProp = action.payload.props;
 

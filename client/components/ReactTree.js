@@ -84,20 +84,25 @@ class ReactTree extends Component {
 
         <div>
 
-       <h1 style={{'textAlign': 'center'}}> React VT </h1>
+        <h1 style={{'textAlign': 'center'}}> React VT </h1>
         <ReactSVGPanZoom
-        width={500}
-        height={500}
-        style={{'borderStyle': 'solid', 'position': 'absolute'}}
-        > 
-            <svg
-            >
-                <g transform={"translate(100,0) "}>
-                  {this.props.stateIsNowProp.treeData[0][0]} 
-                  {this.props.stateIsNowProp.treeData[0][1]} 
-                </g>
-            </svg> 
-       </ReactSVGPanZoom>   
+          width={700}
+          height={700}
+          tool={'auto'}
+          style={{'position': 'absolute'}}
+          toolbarPosition={'none'}
+          miniaturePosition ={'none'}
+          background={'white'}
+          > 
+              <svg width={'100%'}
+              height={'100%'}>
+                  <g transform={"translate(20,350)"}>
+                    {this.props.stateIsNowProp.treeData[0][1]} 
+                    {this.props.stateIsNowProp.treeData[0][0]} 
+                    
+                  </g>
+              </svg> 
+        </ReactSVGPanZoom>    
        
         <div  style={{"float": "right"}}>
 
