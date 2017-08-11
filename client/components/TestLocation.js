@@ -21,6 +21,10 @@ class TestLocation extends Component {
     //   console.log('handled event dropdown', event.target.value)
     // }
 
+    handleBack() {
+      this.props.renderEditMode();
+    }
+  
   render () {
     let locationDetails;
     // console.log('loc detiall', document.getElementById('locationDropdown'))
@@ -41,7 +45,7 @@ class TestLocation extends Component {
           </select>
           { locationDetails }
         </div>
-
+        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>
         <button type="submit" className="btn btn-primary">Save</button>
       </form>
 

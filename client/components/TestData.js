@@ -10,7 +10,7 @@ class TestData extends Component {
   handleSubmitEventForAction(event) {
       event.preventDefault();
       this.props.saveTestProperty('source', this.sourceSelect);
-      this.props.saveTestProperty('property', document.getElementById('property-input'));
+      this.props.saveTestProperty('property', document.getElementById('property-input').value);
       this.props.renderTest3();
       // this.props.setActionLocation(this.props.compAddress);
       // this.props.saveAssertion(this.props.stateIsNowProp.action);
@@ -18,6 +18,10 @@ class TestData extends Component {
 
     handleEventDropdown(event) {
       this.sourceSelect = event.target.value;
+    }
+
+    handleBack() {
+      this.props.renderTest1();
     }
 
   render () {
@@ -37,7 +41,7 @@ class TestData extends Component {
           </select>
           <input type="text" id="property-input" />
         </div>
-
+        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>
         <button type="submit" className="btn btn-primary">Save</button>
       </form>
 

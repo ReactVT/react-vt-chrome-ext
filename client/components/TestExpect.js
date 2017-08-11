@@ -34,6 +34,10 @@ class TestExpect extends Component {
       this.typeSelect = event.target.value;
     }
 
+    handleBack() {
+      this.props.renderTest2();
+    }
+
   render () {
     return (
 
@@ -59,7 +63,7 @@ class TestExpect extends Component {
           </select>
           <input type="text" id="value-input" />
         </div>
-
+        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>        
         <button type="submit" className="btn btn-primary">Save Test</button>
       </form>
 

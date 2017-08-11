@@ -21,6 +21,10 @@ class AddAssertionsForAction extends Component {
       console.log('handled event dropdown', event.target.value)
     }
 
+    handleBack() {
+      this.props.renderEditMode();
+    }
+
   render () {
 
     return (
@@ -45,7 +49,8 @@ class AddAssertionsForAction extends Component {
             <option value="onEnter">Enter</option>
           </select>
         </div>
-
+        
+        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>
         <button type="submit" className="btn btn-primary">Save</button>
       </form>
     );

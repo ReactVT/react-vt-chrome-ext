@@ -14,6 +14,10 @@ class EditAssertionBlock extends Component {
   handleDelete(id) {
     this.props.deleteAssertion(id);
   }
+
+  handleCancel() {
+    this.props.renderViewMode();
+  }
   render() {
     let assertions;
     let assertsArray = this.props.stateIsNowProp.assertionBlock.asserts;
@@ -29,6 +33,7 @@ class EditAssertionBlock extends Component {
         <button className="btn btn-primary" onClick={()=>this.props.renderTestMode()}>New Test</button>
         <br />
         <button className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</button> 
+        <button className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</button>         
       </div>
     )
   }
