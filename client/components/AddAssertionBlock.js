@@ -14,21 +14,11 @@ class AddAssertionBlock extends Component {
   };
 
   render () {
-  let savedAction;
-  let savedTest;
-
-  if(Object.keys(this.props.stateIsNowProp.actionAssertion).length === 0) savedAction = '';
-  else savedAction = this.props.stateIsNowProp.actionAssertion
-
-
-  if(Object.keys(this.props.stateIsNowProp.testAssertion).length === 0) savedTest = '';
-  else savedTest = this.props.stateIsNowProp.testAssertion
 
     return (
       <form onSubmit={(event)=>this.handleSubmitEventForAddingBlock(event, savedAction, savedTest)}>
 
-        <h3 className="page-header">Add Assertion Block</h3>
-        <button type="submit" className="btn btn-primary">Add</button>
+        <button className="btn btn-primary" onClick={()=>this.props.renderActionMode()}>New Assertion Block</button>
       </form>
     );
   }

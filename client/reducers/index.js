@@ -2,19 +2,28 @@ import { combineReducers } from 'redux';
 
 import treeDataReducer from './treeDataReducer';
 import nodeDataReducer from './nodeDataReducer';
-import actionAssertionReducer from './actionAssertionReducer';
-import testAssertionReducer from './testAssertionReducer';
+import actionReducer from './actionReducer';
+import testReducer from './testReducer';
+import testModeReducer from './testModeReducer';
 import assertionBlockReducer from './assertionBlockReducer';
 import assertionListReducer from './assertionListReducer';
+import viewModeReducer from './viewModeReducer';
+import treeData from './treeData';
+import assertIDReducer from './assertIDReducer.js';
+
 
 const rootReducer = combineReducers(
     {
         treeData: treeDataReducer,
         nodeData: nodeDataReducer,
-        actionAssertion: actionAssertionReducer,
-        testAssertion: testAssertionReducer,
+        action: actionReducer,
+        assertID: assertIDReducer,
+        test: testReducer,
         assertionBlock: assertionBlockReducer,
-        assertionList: assertionListReducer
+        assertionList: assertionListReducer,
+        viewMode: viewModeReducer,
+        testMode: testModeReducer,
+        treeData,
     });
 
 export default rootReducer;

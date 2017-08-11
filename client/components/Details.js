@@ -8,8 +8,8 @@ class Details extends Component {
 
   render() {
     return (
-      <div>
-      <h3 className="page-header">Add New Assertions For Test</h3>
+      <div id="details-panel">
+      <h3 className="page-header">Details</h3>
               Name: {this.props.compName}
            <br/>
               State Key: {this.props.stateKey} 

@@ -8,34 +8,31 @@ import ValueInformation from './ValueInformation';
 
 
 class AssertionsList extends Component {
+  
+  handleNewAssertionBlock() {
+    this.props.renderNameAssertionMode();
+  }
 
-  handleSubmitEventForSendingBlock(event) {
-      event.preventDefault();
-      this.props.sendAssertionBlock(allBlocks)
+  handleDelete(name) {
+    this.props.deleteAssertionBlock(name);
+  }
 
-  };
-
-
-
+  handleEdit() {
+    console.log('edit');
+  }
 
   render() {
-
-      
-    let allBlocks = this.props.stateIsNowProp.assertionBlock
-console.log('  this.props in ASSERTIONS',   this.props)
-console.log('allBlocks', allBlocks)
-
-
-     if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) allBlocks=''
-     else allBlocks = this.props.stateIsNowProp.assertionList
-
+    let assertionlist;
+    let listArray = this.props.stateIsNowProp.assertionList;
+    if (listArray.length > 0) {
+      assertionlist = listArray.map((el, i) => {
+        return (<li key={i} onClick={() => this.handleEdit()}> { el.name } <button onClick={() => this.handleDelete(el.name)}> X </button></li>);
+      });
+    }  
       return (
         <div>
-
-       {allBlocks}
-
-        <h3 className="page-header">Send Assertion Block</h3>
-        <button type="submit" className="btn btn-primary" onSubmit={(event)=>this.handleSubmitEventForSendingBlock(event)}>Send</button>
+        { assertionlist }
+        <button className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</button>
         </div>
 
       )
@@ -44,7 +41,3 @@ console.log('allBlocks', allBlocks)
 };
 
 export default AssertionsList;
-
-
-
-
