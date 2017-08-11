@@ -6,7 +6,7 @@ import Links from '../components/Links';
 function treeDataReducer(state = [], action) {
   switch(action.type) {
     case 'LOAD_TREE_DATA':
-      let d3Tree = tree().size([500, 500])(hierarchy(action.payload))
+      let d3Tree = tree().nodeSize([40, 180])(hierarchy(action.payload))
       let nodes = d3Tree.descendants()
       let insertNewItem = [nodeRender(nodes), linkRender(d3Tree,nodes)]
       let updateArray = state.slice()
