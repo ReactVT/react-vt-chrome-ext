@@ -5,6 +5,13 @@ export function loadTreeData(payload) {
   }
 }
 
+export function loadNodeStore(store) {
+  return {
+    type: 'LOAD_NODESTORE_DATA', 
+    store
+  }
+}
+
 export function getNodeData(payload) {
   return {
     type: 'GET_NODE_DATA',
