@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import BlocksContainer from './../components/BlocksContainer';
-
 function assertionListReducer(state = [], action){
   let newState;
   switch(action.type) {
@@ -9,9 +7,18 @@ function assertionListReducer(state = [], action){
       newState = state.slice();
       newState.push(action.payload);
       return newState;
-    case 'DELETE_ASSERTION_LIST':
-      console.log('DELETE ASSERTION LIST', [...state.slice(0, action.payload), ...state.slice(action.payload+1)]  )
-      return [...state.slice(0, action.payload), ...state.slice(action.payload+1)]   
+    case 'DELETE_ASSERTION_BLOCK':
+      newState = state.slice();
+      console.log('before', state, newState);
+      for (let i = 0; i < newState.length; i += 1) {
+        if (newState[i].name === action.name) {
+          console.log('delete', action.name);
+          newState.splice(i, 1);
+          break;
+        }
+      }
+      console.log('after', newState);
+      return newState;
     default:
       return state;
   }

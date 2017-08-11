@@ -21,7 +21,7 @@ function testReducer(state = {
     case 'SET_TEST_LOCATION':
       newState = Object.assign({}, state);
       newState.loc = state.loc.slice();
-      newState.loc.push(action.location)
+      newState.loc.push(action.location);
       return newState;
     case 'CLEAR_TEST':
       let oldState = Object.assign({}, state);
@@ -38,7 +38,7 @@ function testReducer(state = {
       dataType: 'string',
       loc: [] 
       }
-      return newState; 
+      return newState;
     default:
       return state;
   }
