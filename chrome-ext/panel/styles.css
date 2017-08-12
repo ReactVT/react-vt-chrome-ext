@@ -1,10 +1,12 @@
 #details-panel {
   border: solid 1px black;
   height: 200px;
+  padding: 5px;
 }
 #assertions-panel {
   border: solid 1px black;
   height: 400px;
+  padding: 5px;
 }
 #panel {
   width: 300px;
