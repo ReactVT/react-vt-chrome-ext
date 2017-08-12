@@ -35,6 +35,11 @@ class ReactTree extends Component {
         if(data.type === 'virtualdom') {
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
+          if (self.props.stateIsNowProp.selectedNode) {
+            let newNode = self.props.stateIsNowProp.selectedNode
+            const obj = {'state': newNode.props.state, 'props': newNode.props.props, 'name': newNode.props.name, 'address': newNode.props.address}; 
+            self.props.getNodeData(obj);
+          }
         }
     });
 
@@ -47,7 +52,7 @@ class ReactTree extends Component {
   }
 
   render() {
-      console.log('renderman', this.props.stateIsNowProp.toggleAssertion);
+
       if (this.props.stateIsNowProp.toggleAssertion) {
         this.props.toggleAssertionBlock();
         console.log('inside toggle');
@@ -56,39 +61,43 @@ class ReactTree extends Component {
           message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
         });
       }
-      let compAddress;
-      let compName; 
-      if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
-        compAddress = '';
-        compName = '';
-      } else {
-        if(this.props.stateIsNowProp.nodeData[0][2] !== compAddress)
-        compAddress = this.props.stateIsNowProp.nodeData[0][2];
-        compName = this.props.stateIsNowProp.nodeData[0][3];
-      }
+
+      console.log('stateisnowprop', this.props.stateIsNowProp.nodeData)
+      let compAddress = this.props.stateIsNowProp.nodeData.address; 
+      let compName = this.props.stateIsNowProp.nodeData.name; 
+      let props = this.props.stateIsNowProp.nodeData.props; 
+      let state = this.props.stateIsNowProp.nodeData.state; 
+      // if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
+      //   compAddress = '';
+      //   compName = '';
+      // } else {
+      //   if(this.props.stateIsNowProp.nodeData[0][2] !== compAddress)
+      //   compAddress = this.props.stateIsNowProp.nodeData[0][2];
+      //   compName = this.props.stateIsNowProp.nodeData[0][3];
+      // }
       
-      let stateKey;
-      let stateValue;
-      let propKey;
-      let propValue;
+      // let stateKey;
+      // let stateValue;
+      // let propKey;
+      // let propValue;
 
-      if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
-        stateKey = '';
-        stateValue = '';
-        propKey = '';
-        propValue = ''
-      } else {
-        stateKey = this.props.stateIsNowProp.nodeData[0][0][0][0];
-        stateValue = this.props.stateIsNowProp.nodeData[0][0][1][0];
-        propKey = this.props.stateIsNowProp.nodeData[0][0][1][0];
-        propValue = this.props.stateIsNowProp.nodeData[0][1][1][0];
+      // if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
+      //   stateKey = '';
+      //   stateValue = '';
+      //   propKey = '';
+      //   propValue = ''
+      // } else {
+      //   stateKey = this.props.stateIsNowProp.nodeData[0][0][0][0];
+      //   stateValue = this.props.stateIsNowProp.nodeData[0][0][1][0];
+      //   propKey = this.props.stateIsNowProp.nodeData[0][0][1][0];
+      //   propValue = this.props.stateIsNowProp.nodeData[0][1][1][0];
 
-        // console.log('stateKey', this.props.stateIsNowProp.nodeData[0][0][0])
-        // console.log('stateValue' , this.props.stateIsNowProp.nodeData[0][1][0])
-        // console.log('propKey' , this.props.stateIsNowProp.nodeData[0][1][0])
-        // console.log( 'propValue' , this.props.stateIsNowProp.nodeData[1][1][0])
+      //   // console.log('stateKey', this.props.stateIsNowProp.nodeData[0][0][0])
+      //   // console.log('stateValue' , this.props.stateIsNowProp.nodeData[0][1][0])
+      //   // console.log('propKey' , this.props.stateIsNowProp.nodeData[0][1][0])
+      //   // console.log( 'propValue' , this.props.stateIsNowProp.nodeData[1][1][0])
 
-      }
+      // }
 
     if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
         return (<h1>Waiting for Data</h1>)
@@ -120,23 +129,20 @@ class ReactTree extends Component {
           </div>
         <div id="panel" style={{"float": "right"}}>
 
-          <Details 
+          <Details id="detailsPanel"
           compAddress={compAddress}
           compName={compName}
-          stateKey={stateKey}
-          stateValue={stateValue}
-          propKey={propKey}
-          propValue={propValue}
+          state={state}
+          props={props}
           style={{"float": "right"}}
           />
 
           <Assertions 
           compAddress={compAddress}
           compName={compName}
-          stateKey={stateKey}
-          stateValue={stateValue}
-          propKey={propKey}
-          propValue={propValue}
+          state={state}
+          props={props}
+          style={{"float": "right"}}
           saveActionAssertion={this.props.saveActionAssertion}
           saveTestAssertion={this.props.saveTestAssertion}
           style={{"float": "right"}}

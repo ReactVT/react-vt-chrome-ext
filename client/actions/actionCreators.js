@@ -19,6 +19,13 @@ export function getNodeData(payload) {
   }
 }
 
+export function selectedNode(ref) {
+  return {
+    type: 'SELECTED_NODE', 
+    ref
+  }
+}
+
 
 export function saveActionProperty(property, value) {
   return {
