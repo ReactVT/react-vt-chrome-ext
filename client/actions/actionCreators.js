@@ -91,6 +91,13 @@ export function saveAssertionBlock(payload) {
   }
 }
 
+export function toggleAssertionBlock() {
+  console.log('in toggle reducer');
+  return {
+    type: 'NEW_ASSERTION_BLOCK_TOGGLE'
+  }
+}
+
 
 export function deleteAssertionBlock(name) {
   return {

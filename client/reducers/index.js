@@ -9,7 +9,8 @@ import assertionBlockReducer from './assertionBlockReducer';
 import assertionListReducer from './assertionListReducer';
 import viewModeReducer from './viewModeReducer';
 import assertIDReducer from './assertIDReducer.js';
-import nodeStoreReducer from './nodeStoreReducer.js'
+import nodeStoreReducer from './nodeStoreReducer.js'; 
+import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js'
 
 
 const rootReducer = combineReducers(
@@ -24,6 +25,7 @@ const rootReducer = combineReducers(
         viewMode: viewModeReducer,
         testMode: testModeReducer,
         nodeStore: nodeStoreReducer,
+        toggleAssertion: toggleAssertionBlockReducer
     });
 
 export default rootReducer;

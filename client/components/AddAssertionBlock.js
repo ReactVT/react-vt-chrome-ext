@@ -11,6 +11,9 @@ class AddAssertionBlock extends Component {
       console.log('savedTEST',savedTest)
       this.props.saveAssertionBlock([...savedAction, ...savedTest])
       this.props.addAssertionToList([...savedAction, ...savedTest])
+      console.log('before toggle', this.props.stateIsNowProp.toggleAssertion);
+      this.props.toggleAssertionBlock();
+      console.log('after toggle', this.props.stateIsNowProp.toggleAssertion);
   };
 
   render () {

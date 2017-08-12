@@ -10,21 +10,27 @@ import AssertionsList from './AssertionsList.js';
 
 class ReactTree extends Component {
 
+  constructor(props) {
+    super(props); 
+    this.backgroundPageConnection = null; 
+  }
+
   componentWillMount() {
     const self = this;
+    console.log('helloooo');
     // Create a connection to the background page
-    var backgroundPageConnection = chrome.runtime.connect({
+    self.backgroundPageConnection = chrome.runtime.connect({
         name: "panel"
     });
 
     // send tabId to backgroundjs to establish connection
-    backgroundPageConnection.postMessage({
+    self.backgroundPageConnection.postMessage({
       name: 'panelToBackgroundInit',
       tabId: chrome.devtools.inspectedWindow.tabId
     });
 
     // Listens for messages from backgroundjs to get the parsed dom tree
-    backgroundPageConnection.onMessage.addListener(function(data) {
+    self.backgroundPageConnection.onMessage.addListener(function(data) {
         console.log('d3tree received message from content script', data);
         if(data.type === 'virtualdom') {
           self.props.loadTreeData(data.data.virtualDom);
@@ -33,7 +39,7 @@ class ReactTree extends Component {
     });
 
     // send assertions to webpage panel -> backgroundjs
-    backgroundPageConnection.postMessage({
+    self.backgroundPageConnection.postMessage({
       type: 'assertion',
       message: 'hello from d3tree js'
     });
@@ -41,10 +47,17 @@ class ReactTree extends Component {
   }
 
   render() {
-
+      console.log('renderman', this.props.stateIsNowProp.toggleAssertion);
+      if (this.props.stateIsNowProp.toggleAssertion) {
+        this.props.toggleAssertionBlock();
+        console.log('inside toggle');
+        this.backgroundPageConnection.postMessage({
+          type: 'assertion',
+          message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
+        });
+      }
       let compAddress;
       let compName; 
-      console.log('special nodeStore', this.props.stateIsNowProp.nodeStore);
       if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
         compAddress = '';
         compName = '';
