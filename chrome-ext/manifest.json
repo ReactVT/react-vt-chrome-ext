@@ -16,7 +16,16 @@
   },
   "devtools_page": "devtools.html",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "web_accessible_resources": [ "devtools.html", "panel/index.html"],
+  "web_accessible_resources": [ 
+    "devtools.html",
+    "panel/index.html",
+    "*.png",
+    "*.eot",
+    "*.woff",
+    "*.woff2",
+    "*.ttf",
+    "*.svg"
+  ],
   "background": {
     "scripts": ["build/background.js"],
     "persistent": false

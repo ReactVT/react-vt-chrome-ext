@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Button } from 'semantic-ui-react';
 
 class AddAssertionsForAction extends Component {
 
@@ -19,6 +20,10 @@ class AddAssertionsForAction extends Component {
     handleEventDropdown(event) {
       this.props.saveActionProperty('event', event.target.value);
       console.log('handled event dropdown', event.target.value)
+    }
+
+    handleBack() {
+      this.props.renderEditMode();
     }
 
   render () {
@@ -45,8 +50,9 @@ class AddAssertionsForAction extends Component {
             <option value="onEnter">Enter</option>
           </select>
         </div>
-
-        <button type="submit" className="btn btn-primary">Save</button>
+        
+        <Button inverted color="blue" size="tiny" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
       </form>
     );
   }

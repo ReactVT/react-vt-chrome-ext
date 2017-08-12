@@ -9,6 +9,7 @@ import App from './components/App';
 // import react router deps
 import { Provider } from 'react-redux';
 import store from './store';
+import 'semantic-ui-css/semantic.min.css';
 
 const router = (
   <Provider store={store}>
