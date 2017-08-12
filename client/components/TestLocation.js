@@ -5,14 +5,21 @@ import { Button, Dropdown, Input } from 'semantic-ui-react';
 class TestLocation extends Component {
   constructor(props) {
     super(props);
+    // this state keeps track of input field
+    this.state = {value: ''};
     // default to nothing
     this.currentSelector = '';
     this.currentSelectorName = '';
     this.currentModifier = '';
   }
+
+  handleInputChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
   handleSubmitEventForAction(event) {
       event.preventDefault();
-      let arrayIndex = document.getElementById('selectorIndexInput').value;
+      let arrayIndex = this.state.value;
       if(this.currentModifier === 'index') {
         arrayIndex = '[' + JSON.stringify(arrayIndex) + ']'
         this.props.saveTestProperty('modifier', arrayIndex);
@@ -68,7 +75,7 @@ class TestLocation extends Component {
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input placeholder='Click on a node' value = {this.props.compAddress} disabled />);
+      selectorNameRender = (<Input placeholder='Click on a node' value = {this.props.compAddress} onChange={this.handleInputChange} disabled />);
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
@@ -98,7 +105,7 @@ class TestLocation extends Component {
     }
 
     if (this.currentModifier === 'index') {
-      indexRender = (<Input className="indexInput" id="selectorIndexInput" type = "number"/>);
+      indexRender = (<Input className="indexInput" id="selectorIndexInput" type = "number" onChange={this.handleInputChange} />);
     }
       
     return (
