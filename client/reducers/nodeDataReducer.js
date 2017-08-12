@@ -5,29 +5,16 @@ import KeyInformation from '../components/KeyInformation';
 import ValueInformation from '../components/ValueInformation';
 
 
-function nodeDataReducer(state = [], action) {
+function nodeDataReducer(state = {'state': null, 'props': null, 'address': null, 'name': null}, action) {
   switch(action.type) {
     case 'GET_NODE_DATA':
-    console.log('PAYLOAD INSIDE NODE REDUCER',action.payload)
-    let nodeState = action.payload.state;
-    let nodeProp = action.payload.props;
-
-    if(nodeState === null || nodeState === undefined) nodeState = {'Not State Available': 'Nothing to see here'}
-    if(nodeProp === null || nodeProp === undefined) nodeProp = {'Not PropAvailable': 'Nothing to see here'}
-
-    let insertNewItem = [nodeStateData(nodeState), nodePropData(nodeProp), action.payload.address, action.payload.name]
-    let updateArray = state.slice()
-    updateArray.splice(0,1, insertNewItem)
-
-    return updateArray
-      
+      let newState = Object.assign({}, state); 
+      newState = action.payload;
+      return newState;
     default:
       return state;
   }
 }
-
-//     STATE             PROP
-// [[[key][value]] | [[key][value]]]
 
 function nodeStateData(nodeState) {
   let stateInformation = combineKeyAndValue(nodeState)

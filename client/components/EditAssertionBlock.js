@@ -6,9 +6,11 @@ class EditAssertionBlock extends Component {
   handleSaveAssertionBlock() {
     this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
     this.props.renderViewMode();
+    this.props.toggleAssertionBlock();
   }
 
   handleEdit() {
+    
   }
 
   handleDelete(id) {

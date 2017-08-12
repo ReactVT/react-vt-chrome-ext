@@ -5,10 +5,24 @@ export function loadTreeData(payload) {
   }
 }
 
+export function loadNodeStore(store) {
+  return {
+    type: 'LOAD_NODESTORE_DATA', 
+    store
+  }
+}
+
 export function getNodeData(payload) {
   return {
     type: 'GET_NODE_DATA',
     payload
+  }
+}
+
+export function selectedNode(ref) {
+  return {
+    type: 'SELECTED_NODE', 
+    ref
   }
 }
 
@@ -81,6 +95,13 @@ export function saveAssertionBlock(payload) {
   return {
     type: 'SAVE_ASSERTION_BLOCK',
     payload
+  }
+}
+
+export function toggleAssertionBlock() {
+  console.log('in toggle reducer');
+  return {
+    type: 'NEW_ASSERTION_BLOCK_TOGGLE'
   }
 }
 

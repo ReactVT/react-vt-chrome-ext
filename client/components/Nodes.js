@@ -22,9 +22,9 @@ class Nodes extends Component {
               'stroke': 'steelblue', 
               'strokeWidth': '3px'}}
             onClick={()=>{
-              console.log('inside!')
-             self.props.getNodeData(self.props) 
-
+              const obj = {'state': this.props.state, 'props': this.props.props, 'name': this.props.name, 'address': this.props.address}; 
+              self.props.getNodeData(obj);
+              self.props.selectedNode(this);  
             }}
             />
             <text  
