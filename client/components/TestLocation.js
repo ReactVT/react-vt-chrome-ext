@@ -5,23 +5,20 @@ import { Button, Dropdown, Input } from 'semantic-ui-react';
 class TestLocation extends Component {
   constructor(props) {
     super(props);
-    // this state keeps track of input field
-    this.state = {value: ''};
     // default to nothing
     this.currentSelector = '';
     this.currentSelectorName = '';
     this.currentModifier = '';
-  }
-
-  handleInputChange(event) {
-    this.setState({ value: event.target.value });
+    // gets location based on dropdown input
+    this.locObj = {};
   }
 
   handleSubmitEventForAction(event) {
       event.preventDefault();
-      let arrayIndex = this.state.value;
-      if(this.currentModifier === 'index') {
-        arrayIndex = '[' + JSON.stringify(arrayIndex) + ']'
+      if (this.currentModifier === 'index') {
+        let arrayIndex = document.getElementById('selectorIndexInput').value;
+        console.log('array index', arrayIndex)
+        arrayIndex = '[' + arrayIndex + ']'
         this.props.saveTestProperty('modifier', arrayIndex);
       }
       if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
@@ -38,7 +35,8 @@ class TestLocation extends Component {
     handleSelectorNameDropdown(event, value) {
       this.currentSelectorName = value;
       this.props.saveTestProperty('selectorName', value);
-      console.log('handled selectorName dropdown', value)
+      this.props.saveTestProperty('loc', this.locObj[value]);
+      console.log('handled selectorName dropdown', value, this.locObj[value])
       
     }
 
@@ -56,6 +54,7 @@ class TestLocation extends Component {
     }
   
   render () {
+    this.locObj = {};
     let selectorNameRender;
     let modifierRender;
     let indexRender;
@@ -81,37 +80,42 @@ class TestLocation extends Component {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
         Object.keys(components).forEach((compName, i)=> {
+          this.locObj[compName] = components[compName];
           selectorName.push({ key: i, text: compName, value: compName });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Components Found':'Select a Component';
       } else if (this.currentSelector === 'id') {
         let id = this.props.stateIsNowProp.nodeStore.id;
         Object.keys(id).forEach((idName, i)=> {
+          this.locObj[idName] = id[idName];          
           selectorName.push({ key: i, text: idName, value: idName });
         });
         selectorNamePlaceholder = (Object.keys(id).length === 0) ? 'No IDs found':'Select an ID';
       } else if (this.currentSelector === 'class') {
         let classes = this.props.stateIsNowProp.nodeStore.class;
         Object.keys(classes).forEach((className, i)=> {
+          this.locObj[className] = classes[className];          
           selectorName.push({ key: i, text: className, value: className });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Classes Found':'Select a Class';
       } else if (this.currentSelector === 'tag') {
         let tags = this.props.stateIsNowProp.nodeStore.tag;
         Object.keys(tags).forEach((tagName, i)=> {
+          this.locObj[tagName] = tags[tagName];          
           selectorName.push({ key: i, text: tagName, value: tagName });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Tags Found':'Select a tag';
+      } 
       // Modifier logic
-      } else if (this.currentSelector !== 'id') {
-        modifierRender = (<Dropdown selection options={modifier} placeholder="Modifier" id="modifierDropdown" defaultValue = '1' onChange={(e, {value})=>this.handleModifierDropdown(e, value)} />);
+      if (this.currentSelector !== 'id' && selectorName.length > 0) {
+        modifierRender = (<Dropdown placeholder="Select Modifier" selection options={modifier} id="modifierDropdown" onChange={(e, {value})=>this.handleModifierDropdown(e, value)} />);
       }
-      console.log('placeholder variable ', selectorNamePlaceholder)
       selectorNameRender=(<Dropdown placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
 
+    // Selector modifier
     if (this.currentModifier === 'index') {
-        indexRender = (<Input className="indexInput" id="selectorIndexInput" type = "number" onChange={this.handleInputChange} />);
+          indexRender = (<Input placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
     }
       
     return (
