@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Button } from 'semantic-ui-react';
 
 class TestData extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class TestData extends Component {
   handleSubmitEventForAction(event) {
       event.preventDefault();
       this.props.saveTestProperty('source', this.sourceSelect);
-      this.props.saveTestProperty('property', document.getElementById('property-input'));
+      this.props.saveTestProperty('property', document.getElementById('property-input').value);
       this.props.renderTest3();
       // this.props.setActionLocation(this.props.compAddress);
       // this.props.saveAssertion(this.props.stateIsNowProp.action);
@@ -18,6 +19,10 @@ class TestData extends Component {
 
     handleEventDropdown(event) {
       this.sourceSelect = event.target.value;
+    }
+
+    handleBack() {
+      this.props.renderTest1();
     }
 
   render () {
@@ -37,8 +42,8 @@ class TestData extends Component {
           </select>
           <input type="text" id="property-input" />
         </div>
-
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary type="submit" className="btn btn-primary">Save</Button>
       </form>
 
     );

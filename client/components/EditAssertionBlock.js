@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-
+import { Button } from 'semantic-ui-react';
 
 class EditAssertionBlock extends Component {
   handleSaveAssertionBlock() {
@@ -14,6 +14,10 @@ class EditAssertionBlock extends Component {
   handleDelete(id) {
     this.props.deleteAssertion(id);
   }
+
+  handleCancel() {
+    this.props.renderViewMode();
+  }
   render() {
     let assertions;
     let assertsArray = this.props.stateIsNowProp.assertionBlock.asserts;
@@ -25,10 +29,11 @@ class EditAssertionBlock extends Component {
     return (
       <div>
         { assertions }
-        <button className="btn btn-primary" onClick={()=>this.props.renderActionMode()}>New Action</button>
-        <button className="btn btn-primary" onClick={()=>this.props.renderTestMode()}>New Test</button>
+        <Button primary size="mini" className="btn btn-primary" onClick={()=>this.props.renderActionMode()}>New Action</Button>
+        <Button primary size="mini"  onClick={()=>this.props.renderTestMode()}>New Test</Button>
         <br />
-        <button className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</button> 
+        <Button primary positive size="small" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
+        <Button primary negative size="tiny" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button>         
       </div>
     )
   }

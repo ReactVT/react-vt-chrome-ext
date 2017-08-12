@@ -12,7 +12,7 @@ class KeyInformaton extends Component {
 // [[[key][value]] | [[key][value]]]
     return (
       <div>
-         {this.props.textVal}   
+         {this.props.textInfo}   
       </div>
     );
   }

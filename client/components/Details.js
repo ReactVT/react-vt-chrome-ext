@@ -7,7 +7,6 @@ import ValueInformation from '../components/ValueInformation';
 class Details extends Component {
 
   render() {
-
     return (
       <div id="details-panel">
       <h3 className="page-header">Details</h3>
