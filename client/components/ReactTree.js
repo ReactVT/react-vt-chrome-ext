@@ -42,13 +42,6 @@ class ReactTree extends Component {
           }
         }
     });
-
-    // send assertions to webpage panel -> backgroundjs
-    self.backgroundPageConnection.postMessage({
-      type: 'assertion',
-      message: 'hello from d3tree js'
-    });
-
   }
 
   render() {
