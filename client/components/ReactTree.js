@@ -115,16 +115,26 @@ class ReactTree extends Component {
                 toolbarPosition={'none'}
                 miniaturePosition ={'none'}
                 background={'white'}
-                > 
-                    <svg width={'100%'}
-                    height={'100%'}>
-                        <g transform={"translate(20,0)"}>
-                          {this.props.stateIsNowProp.treeData[0][1]} 
-                          {this.props.stateIsNowProp.treeData[0][0]} 
-                          
-                        </g>
-                    </svg> 
-              </ReactSVGPanZoom>    
+                detectAutoPan={false}
+                disableDoubleClickZoomWithToolAuto={true}
+                >       
+                  <svg width={'100%'}
+                  height={'100%'}
+                  >
+                    <defs>
+                      <filter id="filter1"    
+                      x="-0.10000000000000001"
+                      y="-0.10000000000000001">
+                        <feBlend in="SourceGraphic" in2="blurOut" mode="lighten" />
+                      </filter>
+                    </defs>
+                    <g transform={"translate(20,350)"}
+                    filter="url(#filter1)">
+                      {this.props.stateIsNowProp.treeData[0][1]} 
+                      {this.props.stateIsNowProp.treeData[0][0]}                  
+                    </g>
+                  </svg> 
+                </ReactSVGPanZoom>   
             </div>
           </div>
         <div id="panel" style={{"float": "right"}}>

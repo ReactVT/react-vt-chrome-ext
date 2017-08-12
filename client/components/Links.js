@@ -13,7 +13,13 @@ class Links extends Component {
     return (
       <path 
         d={link(this.props.datum)} 
-        style={{ "fill": "none", "stroke": "darkgrey", "strokeWidth": "0.5px"}}>
+        style={
+          { "fill": "none", 
+          "stroke": "grey", 
+          "strokeWidth": "1.5px",
+          "strokeLinecap":"round"
+          }
+        }>
       </path>
     );
   }
