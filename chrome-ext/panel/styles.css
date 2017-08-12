@@ -1,7 +1,7 @@
 #details-panel {
   border: solid 1px black;
-  height: 200px;
-  padding: 5px;
+  height: 300px;
+  overflow: scroll; 
 }
 #assertions-panel {
   border: solid 1px black;
@@ -22,4 +22,8 @@
   max-width: 800px;
   -webkit-flex: 1;
   flex: 1;
+}
+
+#detailsPanel {
+  background-color: orange; 
 }

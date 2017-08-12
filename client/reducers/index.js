@@ -8,8 +8,10 @@ import testModeReducer from './testModeReducer';
 import assertionBlockReducer from './assertionBlockReducer';
 import assertionListReducer from './assertionListReducer';
 import viewModeReducer from './viewModeReducer';
-import treeData from './treeData';
 import assertIDReducer from './assertIDReducer.js';
+import nodeStoreReducer from './nodeStoreReducer.js'; 
+import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js'
+import selectedNodeReducer from './selectedNodeReducer.js'
 
 
 const rootReducer = combineReducers(
@@ -23,7 +25,9 @@ const rootReducer = combineReducers(
         assertionList: assertionListReducer,
         viewMode: viewModeReducer,
         testMode: testModeReducer,
-        treeData,
+        nodeStore: nodeStoreReducer,
+        toggleAssertion: toggleAssertionBlockReducer, 
+        selectedNode: selectedNodeReducer
     });
 
 export default rootReducer;
