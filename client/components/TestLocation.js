@@ -86,7 +86,6 @@ class TestLocation extends Component {
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Components Found':'Select a Component';
       } else if (this.currentSelector === 'id') {
         let id = this.props.stateIsNowProp.nodeStore.id;
-        if (id) selectorName.push({ key: 1, text: id, value: id });
         Object.keys(id).forEach((idName, i)=> {
           selectorName.push({ key: i, text: idName, value: idName });
         });
