@@ -59,6 +59,7 @@ class TestLocation extends Component {
     let selectorNameRender;
     let modifierRender;
     let indexRender;
+    let selectorNamePlaceholder = 'Select a Name';
     const selectorName = [];
     const selector = [
       { key: 1, text: 'Node', value: 'node' },
@@ -82,30 +83,36 @@ class TestLocation extends Component {
         Object.keys(components).forEach((compName, i)=> {
           selectorName.push({ key: i, text: compName, value: compName });
         });
+        selectorNamePlaceholder = (selectorName.length === 0) ? 'No Components Found':'Select a Component';
       } else if (this.currentSelector === 'id') {
         let id = this.props.stateIsNowProp.nodeStore.id;
-        selectorName.push({ key: 1, text: id, value: id });
+        if (id) selectorName.push({ key: 1, text: id, value: id });
+        Object.keys(id).forEach((idName, i)=> {
+          selectorName.push({ key: i, text: idName, value: idName });
+        });
+        selectorNamePlaceholder = (Object.keys(id).length === 0) ? 'No IDs found':'Select an ID';
       } else if (this.currentSelector === 'class') {
         let classes = this.props.stateIsNowProp.nodeStore.class;
         Object.keys(classes).forEach((className, i)=> {
           selectorName.push({ key: i, text: className, value: className });
         });
+        selectorNamePlaceholder = (selectorName.length === 0) ? 'No Classes Found':'Select a Class';
       } else if (this.currentSelector === 'tag') {
         let tags = this.props.stateIsNowProp.nodeStore.tag;
         Object.keys(tags).forEach((tagName, i)=> {
           selectorName.push({ key: i, text: tagName, value: tagName });
         });
+        selectorNamePlaceholder = (selectorName.length === 0) ? 'No Tags Found':'Select a tag';
+      // Modifier logic
+      } else if (this.currentSelector !== 'id') {
+        modifierRender = (<Dropdown selection options={modifier} placeholder="Modifier" id="modifierDropdown" defaultValue = '1' onChange={(e, {value})=>this.handleModifierDropdown(e, value)} />);
       }
-      selectorNameRender=(<Dropdown selection options={selectorName} id="selectorNameDropdown" defaultValue = '1' onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
-    }
-
-    // Modifier logic
-    if (this.currentSelector !== 'node' && this.currentSelector !== 'id') {
-      modifierRender = (<Dropdown selection options={modifier} id="modifierDropdown" defaultValue = '1' onChange={(e, {value})=>this.handleModifierDropdown(e, value)} />);
+      console.log('placeholder variable ', selectorNamePlaceholder)
+      selectorNameRender=(<Dropdown placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
 
     if (this.currentModifier === 'index') {
-      indexRender = (<Input className="indexInput" id="selectorIndexInput" type = "number" onChange={this.handleInputChange} />);
+        indexRender = (<Input className="indexInput" id="selectorIndexInput" type = "number" onChange={this.handleInputChange} />);
     }
       
     return (
@@ -114,10 +121,10 @@ class TestLocation extends Component {
         this.handleSubmitEventForAction(event);
         }}>
 
-        <h3 className="subheader">Set Location</h3>
+        <h3 className="subheader">Select Target</h3>
 
         <div className="form-group">
-          <label>Location <span style={ {color: "#ffaaaa"} }>*</span></label>
+          <label>Selector <span style={ {color: "#ffaaaa"} }>*</span></label>
           <Dropdown selection options={selector} placeholder="Selector" id="selectorDropdown" onChange={(e, {value})=>this.handleSelectorDropdown(e, value)} />
           <br />
           { selectorNameRender }
