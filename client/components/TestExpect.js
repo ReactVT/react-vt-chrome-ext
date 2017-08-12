@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Select } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
 
 class TestExpect extends Component {
   constructor(props) {
@@ -63,8 +65,8 @@ class TestExpect extends Component {
           </select>
           <input type="text" id="value-input" />
         </div>
-        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>        
-        <button type="submit" className="btn btn-primary">Save Test</button>
+        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
+        <Button primary type="submit" className="btn btn-primary">Save Test</Button>
       </form>
 
     );

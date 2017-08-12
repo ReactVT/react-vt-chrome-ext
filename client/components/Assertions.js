@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import AssertionsList from './AssertionsList.js';
 import AddAssertionsForAction from './AddAssertionsForAction.js';
 import AddAssertionsForTest from './AddAssertionsForTest.js';
-import AddAssertionBlock from './AddAssertionBlock.js';
 import EditAssertionBlock from './EditAssertionBlock.js';
 import NameAssertionBlock from './NameAssertionBlock.js';
 

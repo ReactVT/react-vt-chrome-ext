@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Button } from 'semantic-ui-react';
 
 class AddAssertionsForAction extends Component {
 
@@ -50,8 +51,8 @@ class AddAssertionsForAction extends Component {
           </select>
         </div>
         
-        <button onClick={()=>this.handleBack()} className="btn btn-primary">Back</button>
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button inverted color="blue" size="tiny" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
       </form>
     );
   }

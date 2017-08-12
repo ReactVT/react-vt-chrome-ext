@@ -21,3 +21,6 @@
   -webkit-flex: 1;
   flex: 1;
 }
+.ui.primary.buttons !important {
+  background-color: red;
+}
