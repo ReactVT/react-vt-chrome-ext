@@ -5,7 +5,7 @@ import Blocks from './Blocks';
 import KeyInformation from './KeyInformation';
 
 import ValueInformation from './ValueInformation';
-import { Button } from 'semantic-ui-react';
+import { Button, Accordion, Icon } from 'semantic-ui-react';
 
 class AssertionsList extends Component {
   
@@ -22,17 +22,28 @@ class AssertionsList extends Component {
   }
 
   render() {
-    let assertionlist;
+    let assertionlist = [];
     let listArray = this.props.stateIsNowProp.assertionList;
     if (listArray.length > 0) {
-      assertionlist = listArray.map((el, i) => {
-        return (<li key={i} onClick={() => this.handleEdit()}> { el.name } <button onClick={() => this.handleDelete(el.name)}> X </button></li>);
+      listArray.forEach((el, i) => {
+          assertionlist.push(
+            <Accordion.Title style={{'border': 'solid 1px black'}}>
+              <Icon name='dropdown' />
+              { el.name } 
+              <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(el.name)} />
+            </Accordion.Title>);
+          assertionlist.push(
+            <Accordion.Content>
+              {JSON.stringify(el.asserts)}
+            </Accordion.Content>);
       });
     }  
       return (
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
-        { assertionlist }
+        <Accordion>
+          { assertionlist }
+        </Accordion>
         </div>
 
       )

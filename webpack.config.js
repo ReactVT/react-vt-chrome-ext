@@ -11,7 +11,7 @@ module.exports = {
       {
         test: /\.(eot|png|svg|[ot]tf|woff2?)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
-        query: {limit: 10000}
+        query: {limit: 100000}
       },
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }

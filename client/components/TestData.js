@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Dropdown } from 'semantic-ui-react';
 
 class TestData extends Component {
   constructor(props) {
