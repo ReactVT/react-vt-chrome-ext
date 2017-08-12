@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import { Button } from 'semantic-ui-react';
 
 class TestLocation extends Component {
   constructor(props) {
@@ -21,6 +22,10 @@ class TestLocation extends Component {
     //   console.log('handled event dropdown', event.target.value)
     // }
 
+    handleBack() {
+      this.props.renderEditMode();
+    }
+  
   render () {
     let locationDetails;
     // console.log('loc detiall', document.getElementById('locationDropdown'))
@@ -41,8 +46,8 @@ class TestLocation extends Component {
           </select>
           { locationDetails }
         </div>
-
-        <button type="submit" className="btn btn-primary">Save</button>
+        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary type="submit" className="btn btn-primary">Save</Button>
       </form>
 
     );

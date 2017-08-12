@@ -5,7 +5,7 @@ import Blocks from './Blocks';
 import KeyInformation from './KeyInformation';
 
 import ValueInformation from './ValueInformation';
-
+import { Button } from 'semantic-ui-react';
 
 class AssertionsList extends Component {
   
@@ -31,8 +31,8 @@ class AssertionsList extends Component {
     }  
       return (
         <div>
+        <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
         { assertionlist }
-        <button className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</button>
         </div>
 
       )
