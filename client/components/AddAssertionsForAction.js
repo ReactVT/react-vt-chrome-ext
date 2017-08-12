@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button } from 'semantic-ui-react';
+import { Button, Input, Dropdown } from 'semantic-ui-react';
 
 class AddAssertionsForAction extends Component {
 
@@ -17,9 +17,9 @@ class AddAssertionsForAction extends Component {
       this.props.renderEditMode();
     };
 
-    handleEventDropdown(event) {
-      this.props.saveActionProperty('event', event.target.value);
-      console.log('handled event dropdown', event.target.value)
+    handleEventDropdown(event, value) {
+      this.props.saveActionProperty('event', value);
+      console.log('handled event dropdown', value)
     }
 
     handleBack() {
@@ -27,7 +27,12 @@ class AddAssertionsForAction extends Component {
     }
 
   render () {
-
+    const eventOptions = [
+      { key: 1, text: 'Click', value: 'click' },
+      { key: 2, text: 'Double Click', value: 'dblclick' },
+      { key: 3, text: 'Right Click', value: 'contextmenu' },
+      { key: 4, text: 'Enter', value: 'onEnter' }      
+    ];
     return (
 
       <form onSubmit={(event)=>{
@@ -38,17 +43,12 @@ class AddAssertionsForAction extends Component {
 
         <div className="form-group">
           <label>Component <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <input type="text" className="form-control" required ref="componentName" value={this.props.compName} disabled/>
+          <Input placeholder="Click on Node"className="form-control" required ref="componentName" value={this.props.compName} disabled/>
         </div>
 
         <div className="form-group">
           <label>Type of Event <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <select onChange={(e)=>this.handleEventDropdown(e)}>
-            <option value="click">Click</option>
-            <option value="dblclick">Double Click</option>
-            <option value="contextmenu">Right Click</option>
-            <option value="onEnter">Enter</option>
-          </select>
+          <Dropdown selection options={eventOptions} placeholder='Choose an event' onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
         </div>
         
         <Button inverted color="blue" size="tiny" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
