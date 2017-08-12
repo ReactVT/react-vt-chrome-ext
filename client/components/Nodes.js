@@ -2,41 +2,17 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 class Nodes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      circleStyle: {'fill': '#fff',
-      'stroke': 'steelblue', 
-      'strokeWidth': '4px',
-      },
-      toggle: false
-    };
-  }
-
-  changeColor() {
-    if(!this.state.toggle) {
-      this.setState({
-                    circleStyle: {'fill': 'ff5e55',
-                    'stroke': '#steelblue', 
-                    'strokeWidth': '4px',
-                    },
-                    toggle: true
-                    })
-    } else { 
-      this.setState({
-                    circleStyle: {'fill': 'fff',
-                    'stroke': '#steelblue', 
-                    'strokeWidth': '4px',
-                        },
-                    toggle: false
-                    })
-    }                   
-  }  
 
   render() {
-    let self = this
+    let self = this;
     let x;
     let y;
+
+    let currentColor;
+
+    if(this === this.props.stateIsNowProp.selectedNode) currentColor = this.props.stateIsNowProp.selectedColor
+    else currentColor = this.props.stateIsNowProp.globalColor
+    
     if(this.props.children.length === 0 ) {
       x=18
       y=5
@@ -49,9 +25,8 @@ class Nodes extends Component {
         <g transform={"translate(" + this.props.ytranslate + "," + this.props.xtranslate + ")"}>
           <circle 
             r={10}  
-            style={this.state.circleStyle}
+            style={currentColor}
             onClick={()=>{
-              self.changeColor()
               const obj = {'state': this.props.state, 'props': this.props.props, 'name': this.props.name, 'address': this.props.address}; 
               self.props.getNodeData(obj);
               self.props.selectedNode(this);  

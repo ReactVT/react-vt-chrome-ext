@@ -12,7 +12,8 @@ import assertIDReducer from './assertIDReducer.js';
 import nodeStoreReducer from './nodeStoreReducer.js'; 
 import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js'
 import selectedNodeReducer from './selectedNodeReducer.js'
-
+import globalColorReducer from './globalColorReducer.js'
+import selectedColorReducer from './selectedColorReducer.js'
 
 const rootReducer = combineReducers(
     {
@@ -27,7 +28,9 @@ const rootReducer = combineReducers(
         testMode: testModeReducer,
         nodeStore: nodeStoreReducer,
         toggleAssertion: toggleAssertionBlockReducer, 
-        selectedNode: selectedNodeReducer
+        selectedNode: selectedNodeReducer,
+        globalColor: globalColorReducer,
+        selectedColor: selectedColorReducer
     });
 
 export default rootReducer;
