@@ -19,7 +19,7 @@ class TestLocation extends Component {
         let arrayIndex = document.getElementById('selectorIndexInput').value;
         console.log('array index', arrayIndex)
         arrayIndex = '[' + arrayIndex + ']'
-        this.props.saveTestProperty('modifier', arrayIndex);
+        this.props.saveTestProperty('selectorModifier', arrayIndex);
       }
       if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
       console.log('after test submit - STATE', this.props.stateIsNowProp);
@@ -40,11 +40,9 @@ class TestLocation extends Component {
       
     }
 
-    handleModifierDropdown(event, value) {
+    handleSelectorModifierDropdown(event, value) {
       this.currentModifier = value;
-      if(this.currentModifier === '.length') {
-        this.props.saveTestProperty('modifier', value)
-      }
+      this.props.saveTestProperty('selectorModifier', value)
       console.log('handled modifier dropdown', value)
       
     }
@@ -56,7 +54,7 @@ class TestLocation extends Component {
   render () {
     this.locObj = {};
     let selectorNameRender;
-    let modifierRender;
+    let selectorModifierRender;
     let indexRender;
     let selectorNamePlaceholder = 'Select a Name';
     const selectorName = [];
@@ -67,7 +65,7 @@ class TestLocation extends Component {
       { key: 4, text: 'Class', value: 'class' },
       { key: 5, text: 'Tag', value: 'tag' }
     ];
-    const modifier = [
+    const selectorModifier = [
       { key: 1, text: 'Length', value: '.length' },
       { key: 2, text: 'Index', value: 'index' }
     ]
@@ -106,15 +104,15 @@ class TestLocation extends Component {
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Tags Found':'Select a tag';
       } 
-      // Modifier logic
+      // SelectorModifier logic
       if (this.currentSelector !== 'id' && selectorName.length > 0) {
-        modifierRender = (<Dropdown placeholder="Select Modifier" selection options={modifier} id="modifierDropdown" onChange={(e, {value})=>this.handleModifierDropdown(e, value)} />);
+        selectorModifierRender = (<Dropdown placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
       }
       selectorNameRender=(<Dropdown placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
-
+    console.log('CALLED HERE')
     // Selector modifier
-    if (this.currentModifier === 'index') {
+    if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
           indexRender = (<Input placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
     }
       
@@ -132,7 +130,7 @@ class TestLocation extends Component {
           <br />
           { selectorNameRender }
           <br />
-          { modifierRender } { indexRender }
+          { selectorModifierRender } { indexRender }
         </div>
         <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
