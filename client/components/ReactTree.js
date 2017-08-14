@@ -7,6 +7,7 @@ import Links from './Links.js';
 import Details from '../components/Details';
 import Assertions from '../components/Assertions';
 import AssertionsList from './AssertionsList.js';
+import Results from '../components/Results.js';
 
 class ReactTree extends Component {
 
@@ -32,7 +33,7 @@ class ReactTree extends Component {
     // Listens for messages from backgroundjs to get the parsed dom tree
     self.backgroundPageConnection.onMessage.addListener(function(data) {
         console.log('d3tree received message from content script', data);
-        if(data.type === 'virtualdom') {
+        if (data.type === 'virtualdom') {
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
           if (self.props.stateIsNowProp.selectedNode) {
@@ -40,6 +41,9 @@ class ReactTree extends Component {
             const obj = {'state': newNode.props.state, 'props': newNode.props.props, 'name': newNode.props.name, 'address': newNode.props.address}; 
             self.props.getNodeData(obj);
           }
+        }
+        if (data.type === 'test-result') {
+          console.log('d3 received results from content script', data.data);
         }
     });
   }
@@ -152,7 +156,9 @@ class ReactTree extends Component {
           {...this.props} 
           />  
 
-          {/* <AssertionsList {...this.props}/>   */}
+          < Results id="resultsPanel"
+          {...this.props}
+          />
         </div>
 
         </div>

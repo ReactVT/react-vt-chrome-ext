@@ -1,11 +1,17 @@
 #details-panel {
   border: solid 1px black;
   height: 300px;
+  padding: 5px;
   overflow: scroll; 
 }
 #assertions-panel {
   border: solid 1px black;
-  height: 400px;
+  height: 300px;
+  padding: 5px;
+}
+#results-panel {
+  border: solid 1px black;
+  height: 300px;
   padding: 5px;
 }
 #panel {
@@ -27,3 +33,4 @@
 #detailsPanel {
   background-color: orange; 
 }
+
