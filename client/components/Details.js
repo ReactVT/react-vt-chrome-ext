@@ -26,7 +26,7 @@ class Details extends Component {
 
 
     return (
-      <div id="details-panel">
+      <div id="details-panel" style={{"padding": "5px"}}>
       <h4 className="page-header">Details</h4>
       <h5 id="detailsName">{this.props.compName}</h5>
       <h5>Props</h5>
