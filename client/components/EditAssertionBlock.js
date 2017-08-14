@@ -21,6 +21,7 @@ class EditAssertionBlock extends Component {
     this.props.renderViewMode();
   }
   render() {
+    console.log('after test save', this.props.stateIsNowProp.test)
     let assertions = [];
     let assertsArray = this.props.stateIsNowProp.assertionBlock.asserts;
     if(assertsArray.length > 0) {
