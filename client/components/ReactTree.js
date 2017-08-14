@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {ReactSVGPanZoom} from 'react-svg-pan-zoom';
-
+import { SortablePane, Pane } from 'react-sortable-pane';
 import Nodes from './Nodes.js';
 import Links from './Links.js';
 import Details from '../components/Details';
@@ -63,105 +63,71 @@ class ReactTree extends Component {
       let compAddress = this.props.stateIsNowProp.nodeData.address; 
       let compName = this.props.stateIsNowProp.nodeData.name; 
       let props = this.props.stateIsNowProp.nodeData.props; 
-      let state = this.props.stateIsNowProp.nodeData.state; 
-      // if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
-      //   compAddress = '';
-      //   compName = '';
-      // } else {
-      //   if(this.props.stateIsNowProp.nodeData[0][2] !== compAddress)
-      //   compAddress = this.props.stateIsNowProp.nodeData[0][2];
-      //   compName = this.props.stateIsNowProp.nodeData[0][3];
-      // }
+      let state = this.props.stateIsNowProp.nodeData.state;
       
-      // let stateKey;
-      // let stateValue;
-      // let propKey;
-      // let propValue;
-
-      // if(Object.keys(this.props.stateIsNowProp.nodeData).length === 0) {
-      //   stateKey = '';
-      //   stateValue = '';
-      //   propKey = '';
-      //   propValue = ''
-      // } else {
-      //   stateKey = this.props.stateIsNowProp.nodeData[0][0][0][0];
-      //   stateValue = this.props.stateIsNowProp.nodeData[0][0][1][0];
-      //   propKey = this.props.stateIsNowProp.nodeData[0][0][1][0];
-      //   propValue = this.props.stateIsNowProp.nodeData[0][1][1][0];
-
-      //   // console.log('stateKey', this.props.stateIsNowProp.nodeData[0][0][0])
-      //   // console.log('stateValue' , this.props.stateIsNowProp.nodeData[0][1][0])
-      //   // console.log('propKey' , this.props.stateIsNowProp.nodeData[0][1][0])
-      //   // console.log( 'propValue' , this.props.stateIsNowProp.nodeData[1][1][0])
-
-      // }
-
     if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
         return (<h1>Waiting for Data</h1>)
     } else {
         return (
+   <div>
+      <SortablePane
+        direction="horizontal" 
+        isSortable={false}
+        disableEffect={false} 
+      >
+          <Pane id={1} key={1} width={300} height="100%">
+            <Details id="detailsPanel"
+            compAddress={compAddress}
+            compName={compName}
+            state={state}
+            props={props}
+            style={{"float": "right"}}
+            />
+            <Assertions 
+            compAddress={compAddress}
+            compName={compName}
+            state={state}
+            props={props}
+            style={{"float": "right"}}
+            saveActionAssertion={this.props.saveActionAssertion}
+            saveTestAssertion={this.props.saveTestAssertion}
+            style={{"float": "right"}}
+            {...this.props} 
+            />  
+          </Pane> 
 
-        <div>
-          <div id="tree-container">
-            <div id="tree">
-              <ReactSVGPanZoom
-                width={700}
-                height={700}
-                tool={'auto'}
-                style={{'position': 'absolute'}}
-                toolbarPosition={'none'}
-                miniaturePosition ={'none'}
-                background={'white'}
-                detectAutoPan={false}
-                disableDoubleClickZoomWithToolAuto={true}
-                >       
-                  <svg width={'100%'}
-                  height={'100%'}
-                  >
-                    <defs>
-                      <filter id="filter1"    
-                      x="-0.10000000000000001"
-                      y="-0.10000000000000001">
-                        <feBlend in="SourceGraphic" in2="blurOut" mode="lighten" />
-                      </filter>
-                    </defs>
-                    <g transform={"translate(20,350)"}
-                    filter="url(#filter1)">
-                      {this.props.stateIsNowProp.treeData[0][1]} 
-                      {this.props.stateIsNowProp.treeData[0][0]}                  
-                    </g>
-                  </svg> 
-                </ReactSVGPanZoom>   
-            </div>
-          </div>
-        <div id="panel" style={{"float": "right"}}>
-
-          <Details id="detailsPanel"
-          compAddress={compAddress}
-          compName={compName}
-          state={state}
-          props={props}
-          style={{"float": "right"}}
-          />
-
-          <Assertions 
-          compAddress={compAddress}
-          compName={compName}
-          state={state}
-          props={props}
-          style={{"float": "right"}}
-          saveActionAssertion={this.props.saveActionAssertion}
-          saveTestAssertion={this.props.saveTestAssertion}
-          style={{"float": "right"}}
-          {...this.props} 
-          />  
-
-          < Results id="resultsPanel"
-          {...this.props}
-          />
-        </div>
-
-        </div>
+          <Pane id={0} key={0} width={1000} height="100%" >
+            <ReactSVGPanZoom
+            width={1000}
+            height={700}
+            tool={'auto'}
+            style={{'position': 'absolute'}}
+            toolbarPosition={'none'}
+            miniaturePosition ={'none'}
+            background={'white'}
+            detectAutoPan={false}
+            disableDoubleClickZoomWithToolAuto={true}
+            >       
+              <svg width={'100%'}
+              height={'100%'}
+              >
+                <defs>
+                  <filter id="filter1"    
+                  x="-0.10000000000000001"
+                  y="-0.10000000000000001">
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="lighten" />
+                  </filter>
+                </defs>
+                <g transform={"translate(20,350)"}
+                filter="url(#filter1)">
+                  {this.props.stateIsNowProp.treeData[0][1]} 
+                  {this.props.stateIsNowProp.treeData[0][0]}                  
+                </g>
+              </svg> 
+            </ReactSVGPanZoom>  
+        </Pane>
+      </SortablePane>
+    </div>
         )
       }
     }
