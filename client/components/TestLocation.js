@@ -73,7 +73,7 @@ class TestLocation extends Component {
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input placeholder='Click on a node' value = {this.props.compAddress} onChange={this.handleInputChange} disabled />);
+      selectorNameRender = (<Input placeholder='Click on a node' value = {this.props.compAddress} disabled />);
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
