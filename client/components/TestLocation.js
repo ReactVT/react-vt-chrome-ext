@@ -40,6 +40,8 @@ class TestLocation extends Component {
     }
 
     handleSelectorModifierDropdown(event, value) {
+      // semanticUI doesn't like empty string for value
+      if (value === 'none') value = '';
       this.currentModifier = value;
       this.props.saveTestProperty('selectorModifier', value);
     }
@@ -63,7 +65,7 @@ class TestLocation extends Component {
       { key: 5, text: 'Tag', value: 'tag' }
     ];
     const selectorModifier = [
-      { key: 1, text: 'None', value: '' },
+      { key: 1, text: 'None', value: 'none' },
       { key: 2, text: 'Length', value: '.length' },
       { key: 3, text: 'Index', value: 'index' }
     ]

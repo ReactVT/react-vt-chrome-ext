@@ -56,6 +56,8 @@ class TestData extends Component {
   }
 
   handleModifierDropdown(event, value) {
+    // semanticUI doesn't like empty string for value
+    if (value === 'none') value = '';
     this.props.saveTestProperty('modifier', value);
     console.log('in modifier dropdown ', value, this.props.stateIsNowProp.test)
     
@@ -87,7 +89,7 @@ class TestData extends Component {
     const currentProperty = this.props.stateIsNowProp.test.property;
     const propertyOptions = [];
     const modifierOptions = [
-      { key: 1, text: 'None', value: '' },
+      { key: 1, text: 'None', value: 'none' },
       { key: 2, text: 'Length', value: '.length' },
       { key: 3, text: 'Index', value: 'index' }
     ];
