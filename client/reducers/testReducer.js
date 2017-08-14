@@ -1,6 +1,6 @@
 function testReducer(state = { 
   assertID: 0,
-  type: 'equal',
+  type: '',
   selector: '',
   selectorName: '',
   selectorModifier: '',
@@ -8,7 +8,7 @@ function testReducer(state = {
   property: '',
   modifier: '',
   value: '',
-  dataType: 'string',
+  dataType: '',
   loc: [] 
 }, action) {
 
@@ -27,7 +27,7 @@ function testReducer(state = {
       let oldState = Object.assign({}, state);
       newState = {
       assertID: oldState.assertID,
-      type: 'equal',
+      type: '',
       selector: '',
       selectorName: '',
       selectorModifier: '',
@@ -35,7 +35,7 @@ function testReducer(state = {
       property: '',
       modifier: '',
       value: '',
-      dataType: 'string',
+      dataType: '',
       loc: [] 
       }
       return newState;

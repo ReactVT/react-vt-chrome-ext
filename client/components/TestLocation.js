@@ -17,34 +17,31 @@ class TestLocation extends Component {
       event.preventDefault();
       if (this.currentModifier === 'index') {
         let arrayIndex = document.getElementById('selectorIndexInput').value;
-        console.log('array index', arrayIndex)
         arrayIndex = '[' + arrayIndex + ']'
         this.props.saveTestProperty('selectorModifier', arrayIndex);
       }
       if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
-      console.log('after test submit - STATE', this.props.stateIsNowProp);
-      this.props.renderTest2();
+      
+      // if selector modifier is set, skip to renderTest3
+      if (this.props.stateIsNowProp.test.selectorModifier !== '') this.props.renderTest3();
+      else this.props.renderTest2();
     };
 
     handleSelectorDropdown(event, value) {
       this.currentSelector = value;
       this.props.saveTestProperty('selector', value);
-      console.log('handled selector dropdown', value)
     }
 
     handleSelectorNameDropdown(event, value) {
       this.currentSelectorName = value;
       this.props.saveTestProperty('selectorName', value);
       this.props.saveTestProperty('loc', this.locObj[value]);
-      console.log('handled selectorName dropdown', value, this.locObj[value])
       
     }
 
     handleSelectorModifierDropdown(event, value) {
       this.currentModifier = value;
-      this.props.saveTestProperty('selectorModifier', value)
-      console.log('handled modifier dropdown', value)
-      
+      this.props.saveTestProperty('selectorModifier', value);
     }
 
     handleBack() {
@@ -66,14 +63,15 @@ class TestLocation extends Component {
       { key: 5, text: 'Tag', value: 'tag' }
     ];
     const selectorModifier = [
-      { key: 1, text: 'Length', value: '.length' },
-      { key: 2, text: 'Index', value: 'index' }
+      { key: 1, text: 'None', value: '' },
+      { key: 2, text: 'Length', value: '.length' },
+      { key: 3, text: 'Index', value: 'index' }
     ]
 
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input placeholder='Click on a node' value = {this.props.compAddress} disabled />);
+      selectorNameRender = (<Input placeholder='Click on a node' value={this.props.compAddress} disabled />);
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
@@ -110,12 +108,11 @@ class TestLocation extends Component {
       }
       selectorNameRender=(<Dropdown placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
-    console.log('CALLED HERE')
-    // Selector modifier
+    // If selector modifier is index
     if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
           indexRender = (<Input placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
     }
-      
+  
     return (
 
       <form onSubmit={(event)=>{
