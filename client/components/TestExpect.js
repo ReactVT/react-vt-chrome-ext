@@ -1,69 +1,88 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Select } from 'semantic-ui-react'
-import { Button } from 'semantic-ui-react';
+import { Button, Dropdown, Input } from 'semantic-ui-react';
 
 class TestExpect extends Component {
   constructor(props) {
     super(props);
-    // default to node
-    this.expectSelect = 'equal';
-    this.typeSelect = 'string';
   }
-  handleSubmitEventForAction(event) {
-      event.preventDefault();
-      let val = document.getElementById('value-input').value;
-      // this.props.saveTestProperty('assertID', this.props.stateIsNowProp.assertID);
-      this.props.saveTestProperty('type', this.expectSelect);
-      this.props.saveTestProperty('dataType', this.typeSelect);
+
+  handleSubmit(event) {
+      event.preventDefault();      
       let tempTest = this.props.stateIsNowProp.test; 
-      tempTest.value = val;      
       tempTest.assertID = this.props.stateIsNowProp.assertID;
       this.props.incrementAssertId();
-      this.props.saveAssertion(tempTest);
+      this.props.saveAssertion(this.props.stateIsNowProp.test);
       this.props.clearTest();
       this.props.renderTest1();
       this.props.renderEditMode();
-      // this.props.setActionLocation(this.props.compAddress);
-      // this.props.saveAssertion(this.props.stateIsNowProp.action);
-    };
+  }
+  
+  handleTypeDropdown(event, value) {
+    this.props.saveTestProperty('dataType', value);
+  }
 
-    handleExpectDropdown(event) {
-      this.expectSelect = event.target.value;
-    }
+  handleComparatorDropdown(event, value) {
+    this.props.saveTestProperty('type', value);
+  }
 
-    handleTypeDropdown(event) {
-      this.typeSelect = event.target.value;
-    }
 
-    handleBack() {
-      this.props.renderTest2();
-    }
+  handleValue(event, value) {
+    this.props.saveTestProperty('value', value);
+  }
+
+  handleBack() {
+    // clear out test state if going back
+    this.props.saveTestProperty('type', '');
+    this.props.saveTestProperty('dataType', '');
+    this.props.saveTestProperty('value', '');
+    this.props.renderTest2();
+  }
 
   render () {
+    let comparatorRender;
+    let typeRender;
+    let valueRender;
+    const currentDataType = this.props.stateIsNowProp.test.dataType;
+    const types = [
+      { key: 1, text: 'String', value: 'string' },
+      { key: 2, text: 'Number', value: 'number' },
+      { key: 3, text: 'Boolean', value: 'boolean' },
+      { key: 4, text: 'Undefined', value: 'undefined' },
+      { key: 5, text: 'Null', value: 'null' },      
+    ];
+    const comparators = [
+      { key: 1, text: ' = ', value: 'equal' },
+      { key: 2, text: ' > ', value: 'greaterthan' },
+      { key: 3, text: ' < ', value: 'lessthan' },
+    ];
+    const boolean = [
+      { key: 1, text: 'True', value: 'true' },
+      { key: 2, text: 'False', value: 'false' },
+    ];
+    
+    // Type logic
+    if (currentDataType === 'string') {
+      valueRender = (<Input type="text" id="value-input" placeholder='Enter String' onChange={(e, {value}) => this.handleValue(e, value)} />);
+    } else if (currentDataType === "number") {
+      valueRender = (<Input type="number" id="value-input" placeholder='Enter Number' onChange={(e, {value}) => this.handleValue(e, value)} />);
+    } else if (currentDataType === "boolean") {
+      valueRender = (<Dropdown placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
+    }
+
     return (
 
       <form onSubmit={(event)=>{
-        this.handleSubmitEventForAction(event);
+        this.handleSubmit(event);
         }}>
 
         <h3 className="subheader">Set Expectation</h3>
 
         <div className="form-group">
-          <label>Source <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <select id="expectDropdown" onChange={(e)=>this.handleExpectDropdown(e)}>
-            <option value="equal">equals</option>
-            <option value="greaterthan">greaterthan</option>
-            <option value="lessthan">lessthan</option>
-          </select>
-          <select id="typeDropdown" onChange={(e)=>this.handleTypeDropdown(e)}>
-            <option value="string">String</option>
-            <option value="number">Number</option>
-            <option value="boolean">Boolean</option>            
-            <option value="undefined">Undefined</option>
-            <option value="null">Null</option>
-          </select>
-          <input type="text" id="value-input" />
+          <Dropdown selection options={types} placeholder="Select Value Type" id="typeDropdown" onChange={(e, {value}) => this.handleTypeDropdown(e, value)} />
+          <Dropdown selection options={comparators} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
+          { valueRender }
         </div>
         <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
         <Button primary type="submit" className="btn btn-primary">Save Test</Button>
