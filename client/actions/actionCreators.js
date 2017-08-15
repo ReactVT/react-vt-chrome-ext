@@ -140,6 +140,13 @@ export function deleteAssertionList(payload) {
   }
 }
 
+export function loadAssertionList(payload) {
+  return {
+    type: 'LOAD_ASSERTION_LIST', 
+    payload
+  }
+}
+
 
 export function renderEditMode() {
   return {
