@@ -76,7 +76,7 @@ class ReactTree extends Component {
         disableEffect={false} 
       >
           <Pane id={1} key={1} width={300} height="100%">
-            <Details id="detailsPanel"
+            <Details
             compAddress={compAddress}
             compName={compName}
             state={state}
@@ -94,12 +94,15 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
+            < Results id="resultsPanel"
+            {...this.props}
+            />
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
             <ReactSVGPanZoom
             width={1000}
-            height={700}
+            height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
