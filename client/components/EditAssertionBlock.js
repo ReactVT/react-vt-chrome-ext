@@ -15,6 +15,7 @@ class EditAssertionBlock extends Component {
 
   handleDelete(id) {
     this.props.deleteAssertion(id);
+    localStorage.setItem("asserts", JSON.stringify(this.props.stateIsNowProp.assertionList));
   }
 
   handleCancel() {

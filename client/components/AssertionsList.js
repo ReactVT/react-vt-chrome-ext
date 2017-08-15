@@ -21,6 +21,11 @@ class AssertionsList extends Component {
     console.log('edit');
   }
 
+  componentWillMount() {
+    var loadedAsserts = localStorage.getItem("asserts");
+    if (loadedAsserts) this.props.loadAssertionList(JSON.parse(loadedAsserts));
+  }
+
   render() {
     let assertionlist = [];
     let listArray = this.props.stateIsNowProp.assertionList;
@@ -33,7 +38,7 @@ class AssertionsList extends Component {
               <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(el.name)} />
             </Accordion.Title>);
           assertionlist.push(
-            <Accordion.Content>
+            <Accordion.Content >
               {JSON.stringify(el.asserts)}
             </Accordion.Content>);
       });

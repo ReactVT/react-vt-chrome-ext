@@ -6,7 +6,10 @@ function assertionListReducer(state = [], action){
     case 'ADD_ASSERTION_TO_LIST':
       newState = state.slice();
       newState.push(action.payload);
+      localStorage.setItem("asserts", JSON.stringify(newState));
       return newState;
+    case 'LOAD_ASSERTION_LIST': 
+      return action.payload; 
     case 'DELETE_ASSERTION_BLOCK':
       newState = state.slice();
       for (let i = 0; i < newState.length; i += 1) {
@@ -15,6 +18,7 @@ function assertionListReducer(state = [], action){
           break;
         }
       }
+      localStorage.setItem("asserts", JSON.stringify(newState));
       return newState;
     default:
       return state;
