@@ -9,7 +9,9 @@ function testReducer(state = {
   modifier: '',
   value: '',
   dataType: '',
-  loc: [] 
+  compName: '',
+  loc: [],
+  passed: '',
 }, action) {
 
   let newState;
@@ -36,7 +38,9 @@ function testReducer(state = {
       modifier: '',
       value: '',
       dataType: '',
-      loc: [] 
+      compName: '',
+      loc: [],
+      passed: '',
       }
       return newState;
     default:

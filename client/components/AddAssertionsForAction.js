@@ -4,12 +4,14 @@ import { Button, Input, Dropdown } from 'semantic-ui-react';
 
 class AddAssertionsForAction extends Component {
 
-  handleSubmitEventForAction(event) {
+  handleSubmit(event) {
       event.preventDefault();
       // this.props.saveActionProperty('assertID', this.props.stateIsNowProp.assertID);
-      this.props.setActionLocation(this.props.compAddress);
+      // this.props.setActionLocation(this.props.compAddress);
+      // this.props.saveActionProperty('compName', this.props.compName);
       let newAction = this.props.stateIsNowProp.action;
       newAction.loc = this.props.compAddress;
+      newAction.compName = this.props.compName;
       newAction.assertID = this.props.stateIsNowProp.assertID;
       this.props.incrementAssertId();
       this.props.saveAssertion(newAction);
@@ -36,7 +38,7 @@ class AddAssertionsForAction extends Component {
     return (
 
       <form onSubmit={(event)=>{
-        this.handleSubmitEventForAction(event);
+        this.handleSubmit(event);
         }}>
 
         <h3 className="subheader">Action</h3>
