@@ -10,7 +10,7 @@ function testResultsReducer(state = {
   switch(action.type) {
     case 'LOAD_RESULTS':
       console.log('in reducertest', action.payload)
-      return action.payload; 
+      return action.payload;
     default:
       return state;
   }
