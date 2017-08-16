@@ -43,6 +43,7 @@ class ReactTree extends Component {
           }
         }
         if (data.type === 'test-result') {
+          self.props.loadResults(data.data);
           console.log('d3 received results from content script', data.data);
         }
     });
@@ -94,7 +95,9 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
-            < Results id="resultsPanel"
+            < Results
+            state={state}
+            props={props}
             {...this.props}
             />
           </Pane> 
