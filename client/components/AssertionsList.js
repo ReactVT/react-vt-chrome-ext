@@ -44,11 +44,6 @@ class AssertionsList extends Component {
     });
   }
 
-  componentWillMount() {
-    var loadedAsserts = localStorage.getItem("asserts");
-    if (loadedAsserts) this.props.loadAssertionList(JSON.parse(loadedAsserts));
-  }
-
   render() {
     let assertionlist = [];
     let listArray = this.props.stateIsNowProp.assertionList;
