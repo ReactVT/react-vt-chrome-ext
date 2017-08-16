@@ -91,14 +91,14 @@ function addTest(assert) {
 
 // Once we determine what we are evaulating, eval test builds out the logic for what it's being tested against
 function evalTest(assert) {
-  let eval; 
-  if (assert.type === 'equal') eval = 'to.equal'; 
-  if (assert.type === 'notEqual') eval = 'to.not.equal'; 
-  if (assert.type === 'greaterthan') eval = 'to.be.above';
-  if (assert.type === 'lessthan') eval = 'to.be.below';
+  let evalVar; 
+  if (assert.type === 'equal') evalVar = 'to.equal'; 
+  if (assert.type === 'notEqual') evalVar = 'to.not.equal'; 
+  if (assert.type === 'greaterthan') evalVar = 'to.be.above';
+  if (assert.type === 'lessthan') evalVar = 'to.be.below';
   const expectation = convertType(assert); 
-  if (assert.dataType !== 'string') return `${eval}(${expectation});${newLine}`;
-  return `${eval}('${expectation}');${newLine}`;
+  if (assert.dataType !== 'string') return `${evalVar}(${expectation});${newLine}`;
+  return `${evalVar}('${expectation}');${newLine}`;
 }
 
 // Converts our expected value into the proper data type, everything starts as a string
