@@ -23,7 +23,7 @@ class AssertionsList extends Component {
   }
 
   saveEnzyme() {
-    let text = generateTest(this.props.stateIsNowProp.assertionList, 'App');
+    let text = generateTest(this.props.stateIsNowProp.assertionList, 'App', this.props.stateIsNowProp.nodeStore);
     const data = new Blob([text], {type: 'text/plain'});
     // If we are replacing a previously generated file we need to
     // manually revoke the object URL to avoid memory leaks.
