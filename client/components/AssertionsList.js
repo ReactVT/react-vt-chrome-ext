@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import Blocks from './Blocks';
 
 import KeyInformation from './KeyInformation';
+import generateTest from './../enzyme/enzymeTranslate'
 
 import ValueInformation from './ValueInformation';
 import { Button, Accordion, Icon } from 'semantic-ui-react';
@@ -19,6 +20,10 @@ class AssertionsList extends Component {
 
   handleEdit() {
     console.log('edit');
+  }
+
+  saveEnzyme() {
+    console.log(generateTest(this.props.stateIsNowProp.assertionList, 'App'));
   }
 
   componentWillMount() {
@@ -46,6 +51,7 @@ class AssertionsList extends Component {
       return (
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
+        <Button primary size='small' className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
         <Accordion>
           { assertionlist }
         </Accordion>
