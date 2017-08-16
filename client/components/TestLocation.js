@@ -22,8 +22,8 @@ class TestLocation extends Component {
       }
       if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
       
-      // if selector modifier is set, skip to renderTest3
-      if (this.props.stateIsNowProp.test.selectorModifier !== '') this.props.renderTest3();
+      // if selector modifier is set to length, skip to renderTest3
+      if (this.props.stateIsNowProp.test.selectorModifier === '.length') this.props.renderTest3();
       else this.props.renderTest2();
     };
 
@@ -41,7 +41,6 @@ class TestLocation extends Component {
 
     handleSelectorModifierDropdown(event, value) {
       // semanticUI doesn't like empty string for value
-      if (value === 'none') value = '';
       this.currentModifier = value;
       this.props.saveTestProperty('selectorModifier', value);
     }
@@ -65,9 +64,8 @@ class TestLocation extends Component {
       { key: 5, text: 'Tag', value: 'tag' }
     ];
     const selectorModifier = [
-      { key: 1, text: 'None', value: 'none' },
-      { key: 2, text: 'Length', value: '.length' },
-      { key: 3, text: 'Index', value: 'index' }
+      { key: 1, text: 'Length', value: '.length' },
+      { key: 2, text: 'Index', value: 'index' }
     ]
 
     // Selector and Selector name logic
