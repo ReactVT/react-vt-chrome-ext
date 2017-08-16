@@ -1,41 +1,4 @@
 
-//////////////////////// 
-// DUMMY DATA - REMOVE
-///////////////////////
-// var assertionList = [
-// {name: 'test1', asserts: [{'selector': 'component', 'selectorName': 'Row', 'selectorModifier': '.length', 'source': '', 'property': '', 'modifier': '', 'type': 'equal', 'value': '2', 'dataType': 'number', 'loc': ''}]},
-// {name: 'test2', asserts: [{'selector': 'component', 'selectorName': 'Row', 'selectorModifier': '[1]', 'source': 'props', 'property': 'number', 'modifier': '', 'type': 'equal', 'value': '6', 'dataType': 'number', 'loc': ''}]}, 
-// {name: 'test3', asserts: [{'selector': 'component', 'selectorName': 'Row', 'selectorModifier': '[1]', 'source': 'props', 'property': 'funarr', 'modifier': '[2]', 'type': 'equal', 'value': '3', 'dataType': 'number', 'loc': ''}]}, 
-// {name: 'test4', asserts: [{'selector': 'component', 'selectorName': 'Row', 'selectorModifier': '[1]', 'source': 'props', 'property': 'funarr', 'modifier': '.length', 'type': 'equal', 'value': '5', 'dataType': 'number', 'loc': ''}]}, 
-// {name: 'test5', asserts: [{'selector': 'component', 'selectorName': 'App', 'selectorModifier': '', 'source': 'state', 'property': 'test', 'modifier': '', 'type': 'equal', 'value': 'testy', 'dataType': 'string', 'loc': ''}]}, 
-// {name: 'test6', asserts: [{'selector': 'class', 'selectorName': 'imaclass', 'selectorModifier': '.length', 'source': '', 'property': '', 'modifier': '', 'type': 'equal', 'value': '2', 'dataType': 'number', 'loc': ''}]},
-// {name: 'test7', asserts: [{'selector': 'node', 'selectorName': '', 'selectorModifier': '', 'source': 'text', 'property': '', 'modifier': '', 'type': 'equal', 'value': 'one', 'dataType': 'string', 'loc': ["list", 0]}, 
-// {'type': 'action', 'event': 'click', 'loc': ["list", 0, 0]},
-// {'selector': 'node', 'selectorName': '', 'selectorModifier': '', 'source': 'text', 'property': '', 'modifier': '', 'type': 'equal', 'value': 'two', 'dataType': 'string', 'loc': ["list", 0]}]}];
-
-// var assertionList2 = [
-// {name: 'Test one', asserts: [{'selector': 'id', 'selectorName': 'shopList', 'selectorModifier': '', 'source': 'text', 'property': '', 'modifier': '', 'type': 'equal', 'value': 'Shopping List', 'dataType': 'string', 'loc': ''}]}, 
-
-// {name: 'Test two', asserts: [{'selector': 'tag', 'selectorName': 'h1', 'selectorModifier': '[0]', 'source': 'text', 'property': '', 'modifier': '', 'type': 'equal', 'value': 'Shopping List', 'dataType': 'string', 'loc': ''}]}]; 
-
-// var assertionList3 = [
-// {name: 'Test three', asserts: [{'selector': 'node', 'selectorName': 'node', 'selectorModifier': '', 'source': 'props', 'property': 'test', 'modifier': '', 'type': 'equal', 'value': 'Shopping List', 'dataType': 'string', 'loc': ['root',0,4,0]}]}]; 
-
-// var one = ['root', 0, 4, 0].toString(); 
-// var two = ['list', 0].toString(); 
-// var nodeStore = {address: {}}; 
-// nodeStore.address[one] = {}; 
-// nodeStore.address[one].name = 'h3'; 
-// nodeStore.address[one].index = 1;
-// nodeStore.address[two] = {}; 
-// nodeStore.address[two].name = 'h3'; 
-// nodeStore.address[two].index = 1;
-//////////////////////// 
-// DUMMY DATA - REMOVE
-///////////////////////
-
-
-
 // Helper variables for spacing
 const newLine = "\n";
 const doubleLine = "\n \n";
@@ -128,10 +91,14 @@ function addTest(assert) {
 
 // Once we determine what we are evaulating, eval test builds out the logic for what it's being tested against
 function evalTest(assert) {
-  if (assert.type !== 'equal') return 'we have this?'; 
+  let eval; 
+  if (assert.type === 'equal') eval = 'to.equal'; 
+  if (assert.type === 'notEqual') eval = 'to.not.equal'; 
+  if (assert.type === 'greaterthan') eval = 'to.be.above';
+  if (assert.type === 'lessthan') eval = 'to.be.below';
   const expectation = convertType(assert); 
-  if (assert.dataType !== 'string') return `to.equal(${expectation});${newLine}`;
-  return `to.equal('${expectation}');${newLine}`;
+  if (assert.dataType !== 'string') return `${eval}(${expectation});${newLine}`;
+  return `${eval}('${expectation}');${newLine}`;
 }
 
 // Converts our expected value into the proper data type, everything starts as a string
@@ -193,7 +160,3 @@ function translateLoc(loc) {
 
 module.exports = generateTest;
 
-//// Tests - remove later!!!
-// generateTest(assertionList, 'App'); 
-// generateTest(assertionList2, 'App'); 
-// generateTest(assertionList3, 'App');
