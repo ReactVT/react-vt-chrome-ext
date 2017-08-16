@@ -6,7 +6,7 @@ import KeyInformation from './KeyInformation';
 import generateTest from './../enzyme/enzymeTranslate'
 
 import ValueInformation from './ValueInformation';
-import { Button, Accordion, Icon } from 'semantic-ui-react';
+import { Button, Accordion, Icon, List } from 'semantic-ui-react';
 
 class AssertionsList extends Component {
   
@@ -22,6 +22,9 @@ class AssertionsList extends Component {
     console.log('edit');
   }
 
+  handleAssertDetail() {
+    console.log('handled assert detail')
+  }
   saveEnzyme() {
     let text = generateTest(this.props.stateIsNowProp.assertionList, 'App');
     const data = new Blob([text], {type: 'text/plain'});
@@ -51,7 +54,9 @@ class AssertionsList extends Component {
     let listArray = this.props.stateIsNowProp.assertionList;
     if (listArray.length > 0) {
       listArray.forEach((block, i) => {
+        const assertText = [];
         let styling;
+        // Block pass/fail status
         if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.8)', 'transition': 'all .25s ease-in'});
         else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.8)', 'transition': 'all .25s ease-in'});
         assertionlist.push(
@@ -60,17 +65,33 @@ class AssertionsList extends Component {
               { block.name } 
               <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(block.name)} />
             </Accordion.Title>);
-          assertionlist.push(
-            <Accordion.Content >
-              {JSON.stringify(block.asserts)}
-            </Accordion.Content>);
+        // loop through all asserts in block
+        block.asserts.forEach((assertion, i)=> {
+          // Action/Test
+          if (assertion.type === 'action') {
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()} >ID{assertion.assertID} Action: {assertion.event} on {JSON.stringify(assertion.loc)}</List.Item>);
+          } else {
+            if (assertion.selector !== 'node') {
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>ID{assertion.assertID} Test: {assertion.selector} {assertion.selectorName} expecting to test {assertion.type} {assertion.value}</List.Item>);
+            } else {
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>ID{assertion.assertID} Test: {assertion.selector} {assertion.source} expecting to {assertion.type} {assertion.value}</List.Item>);
+            }
+          }
+        });
+        assertionlist.push(
+          <Accordion.Content fluid>
+            <List>
+              {assertText}
+            </List>
+          </Accordion.Content>
+        );
       });
     }  
       return (
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
-        <Accordion>
+        <Accordion styled>
           { assertionlist }
         </Accordion>
         </div>

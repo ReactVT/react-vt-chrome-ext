@@ -1,3 +1,6 @@
+html, body{
+  height:100%;
+}
 #details-panel {
   border: solid 1px black;
   height: 25vh;
@@ -38,6 +41,10 @@
   flex: 1;
 }
 
-.accordion-block {
+/* .accordion-block {
   border: solid 1px black;
-}
+} */
+
+ .accordion-asserts {
+  overflow-x: hidden;
+} 
