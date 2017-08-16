@@ -1,12 +1,16 @@
 
+
+
 // Helper variables for spacing
 const newLine = "\n";
 const doubleLine = "\n \n";
 const oneSpace = '  '; 
 const twoSpace = '    ';
+let nodeStore; 
 
 // Initial function call, eventually contains the final result of our test creatinon
-function generateTest(list, app) {
+function generateTest(list, app, nodestr) {
+  nodeStore = nodestr; 
   // If there are no asserts, return. 
   // This should never happen if our frontend works correctly.  
   if (list.length === 0) return; 
@@ -52,7 +56,7 @@ function addBlock(block) {
     else result += addTest(assert); 
   }); 
   return result;  
-} 
+}
 
 // Custom logic for tests on node addresses, returns full expect line
 function nodeTest(assert) { 
