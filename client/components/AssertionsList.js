@@ -67,14 +67,31 @@ class AssertionsList extends Component {
             </Accordion.Title>);
         // loop through all asserts in block
         block.asserts.forEach((assertion, i)=> {
+          let passFailIcon;
+          let comparator;
+          let classOrId;
+          // Pass/Fail status of assertion
+          if (assertion.passed === true) passFailIcon = ( <List.Icon className="pass-icon" name="checkmark" color='green' /> );
+          else if (assertion.passed === false) passFailIcon = (<List.Icon className="fail-icon" name="x" color='red' />);
+          // Comparator
+          if (assertion.type === 'equal') {
+            comparator = ('to equal');
+          } else if (assertion.type === 'greaterthan') {
+            comparator = ('to be greater than');
+          } else if (assertion.type === 'lessthan') {
+            comparator = ('to be less than');
+          } else if (assertion.type === 'notequal') {
+            comparator = ('to not equal');
+          }
+
           // Action/Test
           if (assertion.type === 'action') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()} >ID{assertion.assertID} Action: {assertion.event} on {JSON.stringify(assertion.loc)}</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</List.Item>);
           } else {
             if (assertion.selector !== 'node') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>ID{assertion.assertID} Test: {assertion.selector} {assertion.selectorName} expecting to test {assertion.type} {assertion.value}</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
             } else {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>ID{assertion.assertID} Test: {assertion.selector} {assertion.source} expecting to {assertion.type} {assertion.value}</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
             }
           }
         });

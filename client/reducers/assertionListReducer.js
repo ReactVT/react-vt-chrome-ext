@@ -15,25 +15,23 @@ function assertionListReducer(state = [], action){
       // iterate through each block
       for (let i = 0; i < newState.length; i += 1) {
         if (newState[i].name === action.name) {
-          // Save result id - result pair to block
-          newState[i].results[action.id] = action.result;
           // iterate through block's asserts and cross-reference with results
-          // if all asserts have a matching result of true, assign passed to true
+          // if all asserts have a matching result of true, assign block passed to true
           let allPass = true;
           for (let j = 0; j < newState[i].asserts.length; j += 1) {
             const assertion = newState[i].asserts[j];
-            console.log('passed in result', action.result);
-            console.log('current assertion', assertion, assertion.assertID);
-            if (newState[i].results[assertion.assertID] === false) {
-              console.log('in fail conditional', newState[i].results[assertion.assertID])
+            // save result to assertion with matching action.id
+            if (assertion.assertID === action.id) assertion.passed = action.result;
+            // check if assert's result property is false or blank
+            if (assertion.passed === false) {
               allPass = false;
               newState[i].passed = false;
               break;
-            } else if (!newState[i].results[assertion.assertID] || newState[i].results[assertion.assertID] === '') {
+            } else if (assertion.passed === '') {
               allPass = false;
-              console.log('in empty conditional', newState[i].results[assertion.assertID]);
             }
           }
+          // otherwise block has passed
           if (allPass === true) newState[i].passed = true;
           break;
         }

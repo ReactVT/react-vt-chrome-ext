@@ -4,6 +4,7 @@ import { Button, Accordion, Icon } from 'semantic-ui-react';
 
 class EditAssertionBlock extends Component {
   handleSaveAssertionBlock() {
+    console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
     this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
     this.props.renderViewMode();
     this.props.toggleAssertionBlock();

@@ -29,6 +29,9 @@ class TestLocation extends Component {
 
     handleSelectorDropdown(event, value) {
       this.currentSelector = value;
+      if (value === 'node') {
+        this.props.saveTestProperty('compName', this.props.compName);
+      }
       this.props.saveTestProperty('selector', value);
     }
 
