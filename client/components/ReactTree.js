@@ -74,6 +74,7 @@ search() {
         text ={d.props.name}/>)}
     
   })
+
   this.props.createSearchButtons(searchCollection)
 }
 
@@ -150,8 +151,8 @@ search() {
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-            width={1000}
-            height={'100vh'}
+            width={1500}
+            height={700}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
