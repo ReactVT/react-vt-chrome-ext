@@ -1,18 +1,26 @@
 #details-panel {
   border: solid 1px black;
-  height: 300px;
+  height: 25vh;
   padding: 5px;
-  overflow: scroll; 
+  overflow-y: auto; 
 }
+
 #assertions-panel {
   border: solid 1px black;
-  height: 300px;
+  height: 55vh;
   padding: 5px;
+  overflow-y: auto;   
 }
+
 #results-panel {
   border: solid 1px black;
-  height: 300px;
+  background-color: black;
+  font-family: monaco;
+  font-size: 12px;
+  color: gray;
+  height: 20vh;
   padding: 5px;
+  overflow-y: auto;  
 }
 #panel {
   width: 300px;
@@ -29,8 +37,3 @@
   -webkit-flex: 1;
   flex: 1;
 }
-
-#detailsPanel {
-  background-color: orange; 
-}
-

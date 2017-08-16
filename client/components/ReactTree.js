@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import {ReactSVGPanZoom} from 'react-svg-pan-zoom';
+import {ReactSVGPanZoom, setPointOnViewerCenter} from 'react-svg-pan-zoom';
 import { SortablePane, Pane } from 'react-sortable-pane';
+import { Dropdown } from 'semantic-ui-react'
 import Nodes from './Nodes.js';
 import Links from './Links.js';
 import Details from '../components/Details';
@@ -43,20 +44,52 @@ class ReactTree extends Component {
           }
         }
         if (data.type === 'test-result') {
+          self.props.loadResults(data.data);
           console.log('d3 received results from content script', data.data);
         }
     });
   }
 
-  render() {
+search() {
+  let inputVal = this.refs.input.value
+  
+  let svgBox = this.Viewer
+  let self = this
 
-      if (this.props.stateIsNowProp.toggleAssertion) {
-        this.props.toggleAssertionBlock();
-        console.log('inside toggle');
-        this.backgroundPageConnection.postMessage({
-          type: 'assertion',
-          message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
-        });
+  let searchCollection = []
+  
+  this.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
+
+    if(d.props.name === inputVal) {
+      let xCoord = d.props.ytranslate + 100
+      let yCoord = d.props.xtranslate + 360
+      let node = d
+      let obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address}; 
+
+      searchCollection.push(
+        <Dropdown.Item key={i} onClick={() => 
+          {svgBox.setPointOnViewerCenter(xCoord, yCoord, 4);
+          self.props.getNodeData(obj);}
+          } 
+        text ={d.props.name}/>)}
+    
+  })
+  this.props.createSearchButtons(searchCollection)
+}
+
+  render() {
+    let arraySearchButtons;
+
+    if (Object.keys(this.props.stateIsNowProp.searchButton).length === 0) arraySearchButtons = ''
+    else arraySearchButtons = this.props.stateIsNowProp.searchButton
+
+    if (this.props.stateIsNowProp.toggleAssertion) {
+      this.props.toggleAssertionBlock();
+      console.log('inside toggle');
+      this.backgroundPageConnection.postMessage({
+        type: 'assertion',
+        message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
+      });
       }
 
       console.log('stateisnowprop', this.props.stateIsNowProp.nodeData)
@@ -76,7 +109,7 @@ class ReactTree extends Component {
         disableEffect={false} 
       >
           <Pane id={1} key={1} width={300} height="100%">
-            <Details id="detailsPanel"
+            <Details
             compAddress={compAddress}
             compName={compName}
             state={state}
@@ -94,12 +127,31 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
+            < Results
+            state={state}
+            props={props}
+            {...this.props}
+            />
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
+            <input type="text" ref="input" />
+            <input
+            type="button"
+            value="Search"
+            onClick={()=>this.search()}
+            /> 
+
+            <Dropdown text='Available Components'>
+              <Dropdown.Menu>
+              {arraySearchButtons}
+              </Dropdown.Menu>
+            </Dropdown>
+
             <ReactSVGPanZoom
+            ref={Viewer => this.Viewer = Viewer}
             width={1000}
-            height={700}
+            height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}

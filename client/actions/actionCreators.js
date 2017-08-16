@@ -12,6 +12,13 @@ export function loadNodeStore(store) {
   }
 }
 
+export function loadResults(payload) {
+  return {
+    type: 'LOAD_RESULTS', 
+    payload
+  }
+}
+
 export function getNodeData(payload) {
   return {
     type: 'GET_NODE_DATA',
@@ -200,9 +207,9 @@ export function incrementAssertId() {
   }
 }
 
-// REMOVE THIS FOR PROD - DUMMY DATA
-export function getTreeData() {
+export function createSearchButtons(payload) {
   return {
-    type: 'GET_TREE_DATA'
+    type: 'SEARCH_BUTTON',
+    payload
   }
 }
