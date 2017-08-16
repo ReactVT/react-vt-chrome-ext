@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import Blocks from './Blocks';
 
 import KeyInformation from './KeyInformation';
+import generateTest from './../enzyme/enzymeTranslate'
 
 import ValueInformation from './ValueInformation';
 import { Button, Accordion, Icon } from 'semantic-ui-react';
@@ -19,6 +20,25 @@ class AssertionsList extends Component {
 
   handleEdit() {
     console.log('edit');
+  }
+
+  saveEnzyme() {
+    let text = generateTest(this.props.stateIsNowProp.assertionList, 'App');
+    const data = new Blob([text], {type: 'text/plain'});
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    const textFile = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.setAttribute('download', 'enzymeTest.js');
+    link.href = textFile; 
+    document.body.appendChild(link);
+
+    // wait for the link to be added to the document
+    window.requestAnimationFrame(function () {
+      const event = new MouseEvent('click');
+      link.dispatchEvent(event);
+      document.body.removeChild(link);
+    });
   }
 
   componentWillMount() {
@@ -46,6 +66,7 @@ class AssertionsList extends Component {
       return (
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
+        <Button primary size='small' className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
         <Accordion>
           { assertionlist }
         </Accordion>
