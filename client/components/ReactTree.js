@@ -43,6 +43,7 @@ class ReactTree extends Component {
           }
         }
         if (data.type === 'test-result') {
+          self.props.loadResults(data.data);
           console.log('d3 received results from content script', data.data);
         }
     });
@@ -76,7 +77,7 @@ class ReactTree extends Component {
         disableEffect={false} 
       >
           <Pane id={1} key={1} width={300} height="100%">
-            <Details id="detailsPanel"
+            <Details
             compAddress={compAddress}
             compName={compName}
             state={state}
@@ -94,12 +95,17 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
+            < Results
+            state={state}
+            props={props}
+            {...this.props}
+            />
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
             <ReactSVGPanZoom
             width={1000}
-            height={700}
+            height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
