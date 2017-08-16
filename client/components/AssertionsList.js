@@ -23,7 +23,22 @@ class AssertionsList extends Component {
   }
 
   saveEnzyme() {
-    console.log(generateTest(this.props.stateIsNowProp.assertionList, 'App'));
+    let text = generateTest(this.props.stateIsNowProp.assertionList, 'App');
+    const data = new Blob([text], {type: 'text/plain'});
+    // If we are replacing a previously generated file we need to
+    // manually revoke the object URL to avoid memory leaks.
+    const textFile = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.setAttribute('download', 'enzymeTest.js');
+    link.href = textFile; 
+    document.body.appendChild(link);
+
+    // wait for the link to be added to the document
+    window.requestAnimationFrame(function () {
+      const event = new MouseEvent('click');
+      link.dispatchEvent(event);
+      document.body.removeChild(link);
+    });
   }
 
   componentWillMount() {
