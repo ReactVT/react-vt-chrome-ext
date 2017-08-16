@@ -97,7 +97,7 @@ function addTest(assert) {
 function evalTest(assert) {
   let evalVar; 
   if (assert.type === 'equal') evalVar = 'to.equal'; 
-  if (assert.type === 'notEqual') evalVar = 'to.not.equal'; 
+  if (assert.type === 'notequal') evalVar = 'to.not.equal'; 
   if (assert.type === 'greaterthan') evalVar = 'to.be.above';
   if (assert.type === 'lessthan') evalVar = 'to.be.below';
   const expectation = convertType(assert); 
