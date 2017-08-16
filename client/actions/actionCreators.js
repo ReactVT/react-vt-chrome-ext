@@ -19,6 +19,15 @@ export function loadResults(payload) {
   }
 }
 
+export function saveResultToBlock(name, id, result) {
+  return {
+    type: 'SAVE_RESULT_TO_BLOCK', 
+    name,
+    id,
+    result
+  }
+}
+
 export function getNodeData(payload) {
   return {
     type: 'GET_NODE_DATA',

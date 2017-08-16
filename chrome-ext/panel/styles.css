@@ -37,3 +37,7 @@
   -webkit-flex: 1;
   flex: 1;
 }
+
+.accordion-block {
+  border: solid 1px black;
+}

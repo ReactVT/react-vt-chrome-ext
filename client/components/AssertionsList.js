@@ -50,16 +50,19 @@ class AssertionsList extends Component {
     let assertionlist = [];
     let listArray = this.props.stateIsNowProp.assertionList;
     if (listArray.length > 0) {
-      listArray.forEach((el, i) => {
-          assertionlist.push(
-            <Accordion.Title style={{'border': 'solid 1px black'}}>
+      listArray.forEach((block, i) => {
+        let styling;
+        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.8)', 'transition': 'all .25s ease-in'});
+        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.8)', 'transition': 'all .25s ease-in'});
+        assertionlist.push(
+            <Accordion.Title style={styling} className='accordion-block'>
               <Icon name='dropdown' />
-              { el.name } 
-              <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(el.name)} />
+              { block.name } 
+              <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(block.name)} />
             </Accordion.Title>);
           assertionlist.push(
             <Accordion.Content >
-              {JSON.stringify(el.asserts)}
+              {JSON.stringify(block.asserts)}
             </Accordion.Content>);
       });
     }  

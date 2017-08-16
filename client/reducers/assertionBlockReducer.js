@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-function assertionBlockReducer(state = { name: '', asserts: [] }, action) {
+function assertionBlockReducer(state = { name: '', passed:'', asserts: [], results: {} }, action) {
   let newState;
   // console.log('in assertion block reducer');
   switch(action.type) {
@@ -13,7 +13,7 @@ function assertionBlockReducer(state = { name: '', asserts: [] }, action) {
       newState = Object.assign({}, state);
       newState.asserts = state.asserts.slice();
       newState.asserts.push(action.payload);
-      return newState;  
+      return newState;
     case 'DELETE_ASSERTION':
       newState = Object.assign({}, state);
       newState.asserts = state.asserts.slice();
