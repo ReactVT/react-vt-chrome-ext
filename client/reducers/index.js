@@ -9,6 +9,7 @@ import assertionBlockReducer from './assertionBlockReducer';
 import assertionListReducer from './assertionListReducer';
 import viewModeReducer from './viewModeReducer';
 import assertIDReducer from './assertIDReducer.js';
+import searchButtonReducer from './searchButtonReducer.js'
 import nodeStoreReducer from './nodeStoreReducer.js';
 import testResultsReducer from './testResultsReducer.js'; 
 import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js';
@@ -32,6 +33,7 @@ const rootReducer = combineReducers(
         selectedNode: selectedNodeReducer,
         globalColor: globalColorReducer,
         selectedColor: selectedColorReducer,
+        searchButton: searchButtonReducer,
         testResults: testResultsReducer
     });
 

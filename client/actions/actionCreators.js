@@ -206,3 +206,10 @@ export function incrementAssertId() {
     type: 'INCREMENT_ASSERT_ID'
   }
 }
+
+export function createSearchButtons(payload) {
+  return {
+    type: 'SEARCH_BUTTON',
+    payload
+  }
+}
