@@ -200,6 +200,13 @@ export function incrementAssertId() {
   }
 }
 
+export function createSearchButtons(payload) {
+  return {
+    type: 'SEARCH_BUTTON',
+    payload
+  }
+}
+
 // REMOVE THIS FOR PROD - DUMMY DATA
 export function getTreeData() {
   return {

@@ -14,6 +14,7 @@ import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js'
 import selectedNodeReducer from './selectedNodeReducer.js'
 import globalColorReducer from './globalColorReducer.js'
 import selectedColorReducer from './selectedColorReducer.js'
+import searchButtonReducer from './searchButtonReducer.js'
 
 const rootReducer = combineReducers(
     {
@@ -30,7 +31,8 @@ const rootReducer = combineReducers(
         toggleAssertion: toggleAssertionBlockReducer, 
         selectedNode: selectedNodeReducer,
         globalColor: globalColorReducer,
-        selectedColor: selectedColorReducer
+        selectedColor: selectedColorReducer,
+        searchButton: searchButtonReducer
     });
 
 export default rootReducer;
