@@ -1,6 +1,11 @@
 html, body{
   height:100%;
 }
+
+.form-control {
+  opacity: 1!important;
+}
+
 #details-panel {
   border: solid 1px black;
   height: 25vh;
@@ -45,7 +50,7 @@ html, body{
   border: solid 1px black;
 } */
 .accordion-container {
-  margin: -10px;
+  margin: 0 -10px;
 }
 
  .accordion-asserts {
