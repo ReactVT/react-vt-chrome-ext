@@ -47,11 +47,10 @@ html, body{
 
  .accordion-asserts {
   cursor: pointer;
+  padding: 0.4em 0.2em;
   transition: all .1s ease;   
   color: rgba(0,0,0,.6);
   font-weight: 450;
-  padding-left: 0.2em;
-  padding-right: 0.2em;
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
   border-radius: 0 0 0 .28571429rem;

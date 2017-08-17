@@ -11,21 +11,24 @@ class NameAssertionBlock extends Component {
   saveHandler(event) {
     let input = document.getElementById('assertionBlockName').value;
     console.log('save clicked', input)
-    
+    let invalid = false;
     // VALIDATE ASSERTION NAME FOR DUPES
     const assertionList = this.props.stateIsNowProp.assertionList;
     for (let i = 0; i < assertionList.length; i += 1) {
       if (input === assertionList[i].name || input.length === 0){ 
-        this.error=(<Message negative>
-          <Message.Header>We're sorry we can't apply that discount</Message.Header>
-          <p>Name already exists. Please try another name.</p>
-        </Message>);
-        return;
+//         this.error=(<Message negative>
+//           <Message.Header>We're sorry we can't apply that discount</Message.Header>
+//           <p>Name already exists. Please try another name.</p>
+// </Message>);
+        alert('dupe name');
+        invalid = true;
       }
     }
-
-    this.props.newAssertionBlock(input);
-    this.props.renderEditMode();
+    
+    if (!invalid) {
+      this.props.newAssertionBlock(input);
+      this.props.renderEditMode();
+    }
   }
   render() {
     return (
@@ -34,7 +37,7 @@ class NameAssertionBlock extends Component {
         }}>
         <h4>Assertion Block Name </h4>
         <Input label={{ icon: 'asterisk' }} labelPosition='right corner' type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
-        <Button primary size="tiny" onClick={(e)=>this.saveHandler(e)}>Save Block</Button>
+        <Button primary size="tiny">Save Block</Button>
       </form>
     )
   }

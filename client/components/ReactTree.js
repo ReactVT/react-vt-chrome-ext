@@ -153,17 +153,17 @@ search() {
             value="Search"
             onClick={()=>this.search()}
             /> 
-
+          {/* 
             <Dropdown text='Available Components'>
               <Dropdown.Menu>
               {arraySearchButtons}
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
             width={1500}
-            height={700}
+            height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
