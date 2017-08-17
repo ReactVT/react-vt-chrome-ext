@@ -1,5 +1,6 @@
 html, body{
   height:100%;
+  overflow: hidden;
 }
 
 .form-control {
@@ -14,6 +15,19 @@ html, body{
   border-bottom: 2px solid gray;
 }
 
+
+#newTestButton {
+  margin-left: 10px;
+}
+
+.button-container{
+  text-align: center;
+}
+
+#nameBlockButton {
+  margin-top: 10px;
+}
+
 rect { 
  fill: #f4f9f9;
  }
@@ -23,6 +37,11 @@ rect {
   background-color: #d5e0e5;    
   padding: 10px;
   overflow-y: auto;   
+}
+
+.btn-primary {
+  margin-right: 10px!important;
+  margin-bottom: 10px!important;
 }
 
 #results-panel {
@@ -62,7 +81,7 @@ rect {
   cursor: pointer;
   padding: 0.4em 0.2em;
   transition: all .1s ease;   
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.9);
   font-weight: 450;
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
@@ -72,12 +91,12 @@ rect {
 } 
 
 .accordion-asserts:hover {
-  color: rgba(255,255,255,.87);
+  color: rgba(255,255,255,1);
   transition: all 0.2s ease-in; 
 }
 
 .accordion-asserts:active {
-  color: rgba(0,0,0,.87);
+  color: rgba(255,255,255,.9);
 }
 
 .accordion-content {
@@ -89,13 +108,12 @@ rect {
 }
 
 .accordion-block{
-   /* background: #102730!important;
-  color: rgba(255,255,255,.6)!important;
+  color: rgba(0,0,0,.6)!important;
   transition: all .1s ease!important;    */
 }
 
 .accordion-block:hover{
-  color: rgba(255,255,255,.87)!important;
+  color: rgba(0,0,0,.8)!important;
   transition: all .2s ease!important;  
 }
 
