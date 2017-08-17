@@ -10,7 +10,7 @@ class Nodes extends Component {
 
     let currentColor;
 
-    if(this === this.props.stateIsNowProp.selectedItem.node) currentColor = this.props.stateIsNowProp.selectedColor
+    if(this.props.debugId === this.props.stateIsNowProp.selectedItem.debugId) currentColor = this.props.stateIsNowProp.selectedColor
     else currentColor = this.props.stateIsNowProp.globalColor
     
     if(this.props.children.length === 0 ) {
@@ -29,7 +29,8 @@ class Nodes extends Component {
             onClick={()=>{
               const obj = {'state': this.props.state, 'props': this.props.props, 'name': this.props.name, 'address': this.props.address}; 
               self.props.getNodeData(obj);
-              self.props.selectedNode(this);  
+              console.log('this.props.debugId inside NODE', this.props.debugId)
+              self.props.selectedNode(this, this.props.debugId);  
             }}
             />
           <text  

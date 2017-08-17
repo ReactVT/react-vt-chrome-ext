@@ -15,10 +15,13 @@ class ReactTree extends Component {
   constructor(props) {
     super(props); 
     this.backgroundPageConnection = null; 
+    this.onResize = this.onResize.bind(this)
+    this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
 
   componentWillMount() {
     const self = this;
+    let checkContainer;
     console.log('helloooo');
     // Create a connection to the background page
     self.backgroundPageConnection = chrome.runtime.connect({
@@ -47,10 +50,18 @@ class ReactTree extends Component {
         if (data.type === 'virtualdom') {
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
-          if (self.props.stateIsNowProp.selectedNode) {
-            let newNode = self.props.stateIsNowProp.selectedNode
-            const obj = {'state': newNode.props.state, 'props': newNode.props.props, 'name': newNode.props.name, 'address': newNode.props.address}; 
-            self.props.getNodeData(obj);
+          if (self.props.stateIsNowProp.selectedItem.debugId !== null) {
+            checkContainer = []
+            self.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
+              checkContainer.push(d.props.debugId)
+                if(d.props.debugId === self.props.stateIsNowProp.selectedItem.debugId) {
+                  const obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address, 'debugId': d.props.debugId}; 
+                  self.props.getNodeData(obj);
+                } 
+                if(i === self.props.stateIsNowProp.treeData[0][0].length-1 && !checkContainer.includes(self.props.stateIsNowProp.selectedItem.debugId)) {
+                  self.props.removeSelectedNode();  
+                }
+            })
           }
         }
         if (data.type === 'test-result') {
@@ -61,6 +72,16 @@ class ReactTree extends Component {
           console.log('d3 received results from content script', data.data);
         }
     });
+    
+    // window.addEventListener('resize', this.onResize, false)
+    this.onResize()
+  }
+
+  onResize() {
+    console.log('this.state BEFORE', this.state)
+    this.setState({ screenWidth: screen.width,
+        screenHeight: screen.height})
+        console.log('this.state AFTER', this.state)
   }
 
 search() {
@@ -162,8 +183,8 @@ search() {
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-            width={1500}
-            height={700}
+            width={document.documentElement.clientWidth}
+            height={document.documentElement.clientHeight}
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
@@ -172,8 +193,9 @@ search() {
             detectAutoPan={false}
             disableDoubleClickZoomWithToolAuto={true}
             >       
-              <svg width={'100%'}
-              height={'100%'}
+              <svg 
+              width={document.documentElement.clientWidth}
+              height={document.documentElement.clientHeight}
               >
                 <defs>
                   <filter id="filter1"    
