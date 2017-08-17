@@ -88,9 +88,9 @@ rect {
 }
 
 .accordion-block{
-  background-color: #102730!important;
+   /* background: #102730!important;
   color: rgba(255,255,255,.6)!important;
-  transition: all .1s ease!important;  
+  transition: all .1s ease!important;    */
 }
 
 .accordion-block:hover{
