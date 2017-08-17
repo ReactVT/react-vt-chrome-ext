@@ -49,6 +49,18 @@ function assertionListReducer(state = [], action){
       }
       localStorage.setItem("asserts", JSON.stringify(newState));
       return newState;
+    case 'CLEAR_RESULTS':
+      newState = state.slice();
+      // iterate through each block
+      for (let i = 0; i < newState.length; i += 1) {
+        // Clear assertion block status
+        newState[i].passed = '';
+        // iterate throguh block's asserts
+        for (let j = 0; j < newState[i].asserts.length; j += 1) {
+          newState[i].asserts[j].passed = '';
+        }
+      }
+      return newState;
     default:
       return state;
   }

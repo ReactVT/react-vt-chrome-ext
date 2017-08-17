@@ -187,6 +187,11 @@ export function loadAssertionList(payload) {
   }
 }
 
+export function clearResults() {
+  return {
+    type: 'CLEAR_RESULTS', 
+  }
+}
 
 export function renderEditMode() {
   return {
