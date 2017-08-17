@@ -42,10 +42,17 @@ export function getNodeData(payload) {
   }
 }
 
-export function selectedNode(payload) {
+export function selectedNode(payload, debugId) {
   return {
     type: 'SELECTED_NODE', 
-    payload
+    payload,
+    debugId
+  }
+}
+
+export function removeSelectedNode() {
+  return {
+    type: 'REMOVE_SELECTED_NODE', 
   }
 }
 

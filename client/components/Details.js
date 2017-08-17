@@ -8,7 +8,13 @@ class Details extends Component {
 
   render() {
     let display;
+
+    let self = this
     let currentItem = this.props.stateIsNowProp.selectedItem;
+
+    let props;
+    let state;
+
     if (currentItem.type === 'none') {
       display = (<div id="details-panel" style={{"padding": "5px"}}>
         <h4>Select a node or assertion</h4>
@@ -17,8 +23,8 @@ class Details extends Component {
     }
 
     if (currentItem.type === 'node') {
-      let props = [];
-      let state = [];
+      props = [];
+      state = [];
       if (this.props.stateIsNowProp.nodeData.props) {
         console.log('in props!!!!!');
         props = Object.keys(this.props.stateIsNowProp.nodeData.props).map((val, index) => {
@@ -72,10 +78,6 @@ class Details extends Component {
         </div>
         ); 
     }
-
-
-
-
 
     return display;
   }
