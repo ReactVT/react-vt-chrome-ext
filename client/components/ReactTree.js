@@ -28,6 +28,7 @@ class ReactTree extends Component {
     const loadedAsserts = localStorage.getItem("asserts");
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
+      console.log('in assert to be sent back', loadedAsserts);
       self.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: JSON.parse(loadedAsserts), 
@@ -45,6 +46,8 @@ class ReactTree extends Component {
     self.backgroundPageConnection.onMessage.addListener(function(data) {
         console.log('d3tree received message from content script', data);
         if (data.type === 'virtualdom') {
+          // check for first traversal to accomodate app refreshes
+          if (data.first === true) self.props.clearResults();
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
           if (self.props.stateIsNowProp.selectedNode) {
