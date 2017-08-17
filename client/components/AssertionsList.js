@@ -65,7 +65,7 @@ class AssertionsList extends Component {
         // Block pass/fail status
         if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.5)', 'transition': 'all .25s ease-in'});
         else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.3)', 'transition': 'all .25s ease-in'});
-        else styling = ({'background': '#102730',
+        else styling = ({'background': '#2f4f5b',
   'color': 'rgba(255,255,255,.6)',
   'transition': 'all .1s ease'});
 
