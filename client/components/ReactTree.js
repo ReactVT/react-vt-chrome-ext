@@ -19,19 +19,7 @@ class ReactTree extends Component {
     this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
 
-<<<<<<< HEAD
-  componentWillMount() {
-    const self = this;
-    let checkContainer;
-    console.log('helloooo');
-    // Create a connection to the background page
-    self.backgroundPageConnection = chrome.runtime.connect({
-        name: "panel"
-    });
-    this.props.setBackgroundConnection(self.backgroundPageConnection);
-=======
   sendAsserts() {
->>>>>>> 44aca9a24f777ef1e6538248a867bfecd53fb328
     const loadedAsserts = localStorage.getItem("asserts");
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
@@ -46,6 +34,7 @@ class ReactTree extends Component {
 
   componentWillMount() {
     const self = this;
+    let checkContainer;
     // Create a connection to the background page
     self.backgroundPageConnection = chrome.runtime.connect({
         name: "panel"
@@ -202,13 +191,8 @@ search() {
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-<<<<<<< HEAD
-            width={document.documentElement.clientWidth}
-            height={document.documentElement.clientHeight}
-=======
             width={1500}
             height={'100vh'}
->>>>>>> 44aca9a24f777ef1e6538248a867bfecd53fb328
             tool={'auto'}
             style={{'position': 'absolute'}}
             toolbarPosition={'none'}
@@ -218,8 +202,8 @@ search() {
             disableDoubleClickZoomWithToolAuto={true}
             >       
               <svg 
-              width={document.documentElement.clientWidth}
-              height={document.documentElement.clientHeight}
+              width={"100%"}
+              height={"100%"}
               >
                 <defs>
                   <filter id="filter1"    
