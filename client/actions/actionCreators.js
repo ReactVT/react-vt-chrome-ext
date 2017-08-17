@@ -42,12 +42,29 @@ export function getNodeData(payload) {
   }
 }
 
-export function selectedNode(ref) {
+export function selectedNode(payload) {
   return {
     type: 'SELECTED_NODE', 
-    ref
+    payload
   }
 }
+
+export function selectedAction(payload) {
+  return {
+    type: 'SELECTED_ACTION', 
+    payload
+  }
+}
+
+export function selectedTest(payload) {
+  return {
+    type: 'SELECTED_TEST', 
+    payload
+  }
+}
+
+
+
 
 
 export function saveActionProperty(property, value) {
