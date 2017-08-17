@@ -9,6 +9,7 @@ class AddAssertionsForAction extends Component {
       // this.props.saveActionProperty('assertID', this.props.stateIsNowProp.assertID);
       // this.props.setActionLocation(this.props.compAddress);
       // this.props.saveActionProperty('compName', this.props.compName);
+      console.log('IN HANDLE SUBMIT', this.props.stateIsNowProp.action)
       let newAction = this.props.stateIsNowProp.action;
       newAction.loc = this.props.compAddress;
       newAction.compName = this.props.compName;
@@ -36,7 +37,6 @@ class AddAssertionsForAction extends Component {
       { key: 4, text: 'Enter', value: 'onEnter' }      
     ];
     return (
-
       <form onSubmit={(event)=>{
         this.handleSubmit(event);
         }}>
@@ -50,7 +50,8 @@ class AddAssertionsForAction extends Component {
 
         <div className="form-group">
           <label>Type of Event <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <Dropdown selection options={eventOptions} placeholder='Choose an event' onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
+          <Dropdown search searchInput={{ type: 'text' }} 
+          selection options={eventOptions} defaultValue={eventOptions[0].value} onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
         </div>
         
         <Button inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>

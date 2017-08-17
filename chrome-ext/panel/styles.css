@@ -11,7 +11,7 @@ html, body{
 #assertions-panel {
   border: solid 1px black;
   height: 55vh;
-  padding: 0px;
+  padding: 10px;
   overflow-y: auto;   
 }
 
@@ -44,6 +44,9 @@ html, body{
 /* .accordion-block {
   border: solid 1px black;
 } */
+.accordion-container {
+  margin: -10px;
+}
 
  .accordion-asserts {
   cursor: pointer;
