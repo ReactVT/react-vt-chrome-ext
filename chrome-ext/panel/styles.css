@@ -10,7 +10,7 @@ html, body{
   height: 25vh;
   padding: 5px;
   overflow-y: auto; 
-  background-color: #74929E;
+  background-color: #d5e0e5;
   border-bottom: 2px solid gray;
 }
 
@@ -20,7 +20,7 @@ rect {
 
 #assertions-panel {
   height: 55vh;
-  background-color: #74929E;    
+  background-color: #d5e0e5;    
   padding: 10px;
   overflow-y: auto;   
 }
@@ -67,7 +67,8 @@ rect {
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
   overflow-x: hidden;
-  background-color: #31464F!important;
+  background-color: #5e8291!important;
+
 } 
 
 .accordion-asserts:hover {
