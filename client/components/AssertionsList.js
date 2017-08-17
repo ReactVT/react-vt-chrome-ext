@@ -91,14 +91,26 @@ class AssertionsList extends Component {
             comparator = ('to not equal');
           }
 
+          // ID or class
+          if (assertion.selector === 'id') classOrId = ('#');
+          else if (assertion.selector === 'class') classOrId = ('.');
+
           // Action/Test
           if (assertion.type === 'action') {
             assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</List.Item>);
           } else {
-            if (assertion.selector !== 'node') {
+            // component
+            if (assertion.selector === 'component') {
             assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
+            } else if (assertion.selector === 'id' || assertion.selector === 'class') {
+              // class or id
+              assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {classOrId}{assertion.selectorName} {comparator} {assertion.value}</List.Item>);
+            } else if (assertion.selector === 'node') {
+              // node
+              assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
             } else {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
+              // tags
+              assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
             }
           }
         });
