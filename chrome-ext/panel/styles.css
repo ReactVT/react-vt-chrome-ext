@@ -15,9 +15,9 @@ rect {
 
 #assertions-panel {
   height: 55vh;
-  padding: 0px;
-  overflow-y: auto;
   background-color: #74929E;    
+  padding: 10px;
+  overflow-y: auto;   
 }
 
 #results-panel {
@@ -49,6 +49,9 @@ rect {
 /* .accordion-block {
   border: solid 1px black;
 } */
+.accordion-container {
+  margin: -10px;
+}
 
  .accordion-asserts {
   cursor: pointer;
