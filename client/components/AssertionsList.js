@@ -124,9 +124,11 @@ class AssertionsList extends Component {
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
         <Button primary size='small' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
-        <Accordion styled>
-          { assertionlist }
-        </Accordion>
+        <div className="accordion-container">
+          <Accordion styled>
+            { assertionlist }
+          </Accordion>
+        </div>
         </div>
 
       )
