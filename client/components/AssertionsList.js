@@ -64,8 +64,8 @@ class AssertionsList extends Component {
         const assertText = [];
         let styling;
         // Block pass/fail status
-        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.8)', 'transition': 'all .25s ease-in'});
-        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.8)', 'transition': 'all .25s ease-in'});
+        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.5)', 'transition': 'all .25s ease-in'});
+        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.3)', 'transition': 'all .25s ease-in'});
         assertionlist.push(
             <Accordion.Title style={styling} className='accordion-block'>
               <Icon name='dropdown' />
