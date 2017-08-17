@@ -17,25 +17,27 @@ class ReactTree extends Component {
     this.backgroundPageConnection = null; 
   }
 
-  componentWillMount() {
-    const self = this;
-    console.log('helloooo');
-    // Create a connection to the background page
-    self.backgroundPageConnection = chrome.runtime.connect({
-        name: "panel"
-    });
-    this.props.setBackgroundConnection(self.backgroundPageConnection);
+  sendAsserts() {
     const loadedAsserts = localStorage.getItem("asserts");
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
       console.log('in assert to be sent back', loadedAsserts);
-      self.backgroundPageConnection.postMessage({
+      this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: JSON.parse(loadedAsserts), 
         flag: 'onload'
       });
     }
+  }
 
+  componentWillMount() {
+    const self = this;
+    // Create a connection to the background page
+    self.backgroundPageConnection = chrome.runtime.connect({
+        name: "panel"
+    });
+    this.props.setBackgroundConnection(self.backgroundPageConnection);
+    this.sendAsserts();
     // send tabId to backgroundjs to establish connection
     self.backgroundPageConnection.postMessage({
       name: 'panelToBackgroundInit',
@@ -47,7 +49,10 @@ class ReactTree extends Component {
         console.log('d3tree received message from content script', data);
         if (data.type === 'virtualdom') {
           // check for first traversal to accomodate app refreshes
-          if (data.first === true) self.props.clearResults();
+          if (data.first === true) {
+            self.sendAsserts();
+            self.props.clearResults();
+          };
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
           if (self.props.stateIsNowProp.selectedNode) {
