@@ -55,11 +55,12 @@ class EditAssertionBlock extends Component {
     }
     return (
       <div>
-        <Button primary  size="mini" type="button" className="btn btn-primary" onClick={()=>this.props.renderActionMode()}>New Action</Button>
-        <Button primary size="mini" type="button" onClick={()=>this.props.renderTestMode()}>New Test</Button>
-        <br />
-        <Button primary positive size="small" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
-        <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
+        <div className='button-container'>
+          <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
+          <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
+          <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
+          <Button primary size="small" type="button" className="ui primary basic button" id="newTestButton"onClick={()=>this.props.renderTestMode()}>New Test</Button>
+        </div>
         <Accordion>  
           { assertions }
         </Accordion>

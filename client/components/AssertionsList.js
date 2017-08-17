@@ -65,8 +65,8 @@ class AssertionsList extends Component {
         // Block pass/fail status
         if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.5)', 'transition': 'all .25s ease-in'});
         else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.3)', 'transition': 'all .25s ease-in'});
-        else styling = ({'background': '#2f4f5b',
-  'color': 'rgba(255,255,255,.6)',
+        else styling = ({'background': '#619fb7',
+  'color': 'rgba(0,0,0,.9)',
   'transition': 'all .1s ease'});
 
         assertionlist.push(
@@ -126,13 +126,15 @@ class AssertionsList extends Component {
     }  
       return (
         <div>
-        <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
-        <Button primary size='small' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
-        <div className="accordion-container">
-          <Accordion styled>
-            { assertionlist }
-          </Accordion>
-        </div>
+          <div className='button-container'>
+            <Button primary size='mini' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
+            <Button primary size='mini' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme</Button>
+          </div>
+          <div className="accordion-container">
+            <Accordion styled>
+              { assertionlist }
+            </Accordion>
+          </div>
         </div>
 
       )

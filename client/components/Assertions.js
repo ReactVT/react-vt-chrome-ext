@@ -20,7 +20,6 @@ class Assertions extends Component {
     // this.props.renderActionMode();
     return (
       <div id="assertions-panel">
-        <h3 className="page-header">Assertions</h3>
         { view }
             {/* <AddAssertionsForAction {...this.props}/> 
             <AddAssertionsForTest {...this.props}/>

@@ -37,7 +37,7 @@ class NameAssertionBlock extends Component {
         }}>
         <h4>Assertion Block Name </h4>
         <Input label={{ icon: 'asterisk' }} labelPosition='right corner' type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
-        <Button primary size="tiny">Save Block</Button>
+        <Button id="nameBlockButton" primary size="tiny">Save Block</Button>
         {this.error}
       </form>
     )
