@@ -28,9 +28,15 @@ class AssertionsList extends Component {
     console.log('edit');
   }
 
-  handleAssertDetail() {
-    console.log('handled assert detail')
+  handleAssertDetailAction(assert) {
+    this.props.selectedAction(assert);
+
   }
+
+  handleAssertDetailTest(assert) {
+    this.props.selectedTest(assert);
+  }
+
   saveEnzyme() {
     let text = generateTest(this.props.stateIsNowProp.assertionList, 'App', this.props.stateIsNowProp.nodeStore);
     const data = new Blob([text], {type: 'text/plain'});
@@ -87,12 +93,12 @@ class AssertionsList extends Component {
 
           // Action/Test
           if (assertion.type === 'action') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</List.Item>);
           } else {
             if (assertion.selector !== 'node') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
             } else {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetail()}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
+            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
             }
           }
         });

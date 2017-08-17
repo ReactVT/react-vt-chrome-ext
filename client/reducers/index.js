@@ -13,7 +13,7 @@ import searchButtonReducer from './searchButtonReducer.js'
 import nodeStoreReducer from './nodeStoreReducer.js';
 import testResultsReducer from './testResultsReducer.js'; 
 import toggleAssertionBlockReducer from './toggleAssertionBlockReducer.js';
-import selectedNodeReducer from './selectedNodeReducer.js';
+import selectedItemReducer from './selectedItemReducer.js';
 import globalColorReducer from './globalColorReducer.js';
 import selectedColorReducer from './selectedColorReducer.js';
 import backgroundConnectionReducer from './backgroundConnectionReducer.js'
@@ -31,7 +31,7 @@ const rootReducer = combineReducers(
         testMode: testModeReducer,
         nodeStore: nodeStoreReducer,
         toggleAssertion: toggleAssertionBlockReducer, 
-        selectedNode: selectedNodeReducer,
+        selectedItem: selectedItemReducer,
         globalColor: globalColorReducer,
         selectedColor: selectedColorReducer,
         searchButton: searchButtonReducer,
