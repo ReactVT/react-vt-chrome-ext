@@ -97,7 +97,7 @@ class AssertionsList extends Component {
           }
         });
         assertionlist.push(
-          <Accordion.Content fluid>
+          <Accordion.Content>
             <List>
               {assertText}
             </List>

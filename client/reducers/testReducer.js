@@ -18,6 +18,7 @@ function testReducer(state = {
   switch(action.type) {
     case 'SAVE_TEST_PROPERTY':
       newState = Object.assign({}, state);
+      console.log('IN SAVE TEST PROPERTY', action)
       newState[action.property] = action.value;
       return newState;
     case 'SET_TEST_LOCATION':
