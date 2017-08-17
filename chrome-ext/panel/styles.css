@@ -1,17 +1,27 @@
 html, body{
   height:100%;
 }
+
+.form-control {
+  opacity: 1!important;
+}
+
 #details-panel {
-  border: solid 1px black;
   height: 25vh;
   padding: 5px;
   overflow-y: auto; 
+  background-color: #d5e0e5;
+  border-bottom: 2px solid gray;
 }
 
+rect { 
+ fill: #f4f9f9;
+ }
+
 #assertions-panel {
-  border: solid 1px black;
   height: 55vh;
-  padding: 0px;
+  background-color: #d5e0e5;    
+  padding: 10px;
   overflow-y: auto;   
 }
 
@@ -44,19 +54,52 @@ html, body{
 /* .accordion-block {
   border: solid 1px black;
 } */
+.accordion-container {
+  margin: 0 -10px;
+}
 
  .accordion-asserts {
-  border: solid 1px black;
+  cursor: pointer;
+  padding: 0.4em 0.2em;
+  transition: all .1s ease;   
+  color: rgba(255,255,255,.6);
+  font-weight: 450;
+  border-left: 1px solid rgba(34,36,38,.15);
+  border-bottom: 1px solid rgba(34,36,38,.15);  
   overflow-x: hidden;
+  background-color: #5e8291!important;
+
 } 
 
-.ui.styled.accordion .accordion .content, .ui.styled.accordion .content {
-    padding: 0;
+.accordion-asserts:hover {
+  color: rgba(255,255,255,.87);
+  transition: all 0.2s ease-in; 
 }
 
-.pass-icon {
-  height:50px;
+.accordion-asserts:active {
+  color: rgba(0,0,0,.87);
 }
-.fail-icon {
-  height:50px;
+
+.accordion-content {
+  padding-right: 0!important;
+  padding-left: 0.0em!important;
+  padding-bottom: 0!important;
+  padding-top: 0!important;
+  background-color: #74929E!important;
 }
+
+.accordion-block{
+   /* background: #102730!important;
+  color: rgba(255,255,255,.6)!important;
+  transition: all .1s ease!important;    */
+}
+
+.accordion-block:hover{
+  color: rgba(255,255,255,.87)!important;
+  transition: all .2s ease!important;  
+}
+
+/* .result-icon {
+  font-size: 2em!important;
+  height: 0!important;
+} */

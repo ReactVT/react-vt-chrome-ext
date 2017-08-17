@@ -54,8 +54,9 @@ class TestExpect extends Component {
     ];
     const comparators = [
       { key: 1, text: ' = ', value: 'equal' },
-      { key: 2, text: ' > ', value: 'greaterthan' },
-      { key: 3, text: ' < ', value: 'lessthan' },
+      { key: 2, text: ' != ', value: 'notequal' },
+      { key: 3, text: ' > ', value: 'greaterthan' },
+      { key: 4, text: ' < ', value: 'lessthan' },
     ];
     const boolean = [
       { key: 1, text: 'True', value: 'true' },
@@ -84,7 +85,7 @@ class TestExpect extends Component {
           <Dropdown selection options={comparators} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
           { valueRender }
         </div>
-        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
+        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
         <Button primary type="submit" className="btn btn-primary">Save Test</Button>
       </form>
 

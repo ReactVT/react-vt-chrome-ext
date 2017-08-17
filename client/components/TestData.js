@@ -17,9 +17,25 @@ class TestData extends Component {
       { key: 2, text: 'State', value: 'state' }
     ];
     const selector = this.props.stateIsNowProp.test.selector;
-    const currentProps = this.props.props;
-    const currentState = this.props.state;
-    
+    let currentProps;
+    let currentState;
+
+    // determine props/state for node/component
+    if (selector === 'node') {
+      currentProps = this.props.props;
+      currentState = this.props.state;
+    } else if (selector === 'component') {
+      // get component props and state in the form of arrays
+      // still needs to be specified with index modifier
+      let compName = this.props.stateIsNowProp.test.selectorName;
+      let index = parseInt(this.props.stateIsNowProp.test.selectorModifier.slice(1, -1));
+      let address = this.props.stateIsNowProp.nodeStore.node[compName].address[index];
+      this.handleCompAddress(address);
+
+      currentProps = this.props.stateIsNowProp.nodeStore.node[compName].props[index];
+      currentState = this.props.stateIsNowProp.nodeStore.node[compName].state[index];
+      console.log('IN COMPONENT CONDITIONAL', compName, index, 'currentProps and state', currentProps, currentState, address)
+    }
     // for node/component
     if (selector === 'node' || selector === 'component') {
       // if there are no props and state exists
@@ -44,6 +60,10 @@ class TestData extends Component {
     }
   }
 
+  handleCompAddress(loc) {
+    // set location
+    this.props.saveTestProperty('loc', loc);
+  }
 
   handleSourceDropdown(event, value) {
     this.props.saveTestProperty('source', value);
@@ -140,7 +160,7 @@ class TestData extends Component {
           <br />
           { modifierRender } { indexRender }
         </div>
-        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
       </form>
 
