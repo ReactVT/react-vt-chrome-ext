@@ -2,15 +2,20 @@ html, body{
   height:100%;
 }
 #details-panel {
-  border: solid 1px black;
   height: 25vh;
   padding: 5px;
   overflow-y: auto; 
+  background-color: #74929E;
+  border-bottom: 2px solid gray;
 }
 
+rect { 
+ fill: #f4f9f9;
+ }
+
 #assertions-panel {
-  border: solid 1px black;
   height: 55vh;
+  background-color: #74929E;    
   padding: 10px;
   overflow-y: auto;   
 }
@@ -52,16 +57,16 @@ html, body{
   cursor: pointer;
   padding: 0.4em 0.2em;
   transition: all .1s ease;   
-  color: rgba(0,0,0,.6);
+  color: rgba(255,255,255,.6);
   font-weight: 450;
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
-  border-radius: 0 0 0 .28571429rem;
   overflow-x: hidden;
+  background-color: #31464F!important;
 } 
 
 .accordion-asserts:hover {
-  color: rgba(0,0,0,.87);
+  color: rgba(255,255,255,.87);
   transition: all 0.2s ease-in; 
 }
 
@@ -71,9 +76,21 @@ html, body{
 
 .accordion-content {
   padding-right: 0!important;
-  padding-left: 0.5em!important;
-  padding-bottom: 0.5em!important;
-  padding-top: 0.2em!important;
+  padding-left: 0.0em!important;
+  padding-bottom: 0!important;
+  padding-top: 0!important;
+  background-color: #74929E!important;
+}
+
+.accordion-block{
+  background-color: #102730!important;
+  color: rgba(255,255,255,.6)!important;
+  transition: all .1s ease!important;  
+}
+
+.accordion-block:hover{
+  color: rgba(255,255,255,.87)!important;
+  transition: all .2s ease!important;  
 }
 
 /* .result-icon {
