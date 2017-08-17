@@ -105,7 +105,8 @@ search() {
         message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
       });
       }
-
+      
+      //Old way of getting details showing up, let's have this logic in the details component, not here
       console.log('stateisnowprop', this.props.stateIsNowProp.nodeData)
       let compAddress = this.props.stateIsNowProp.nodeData.address; 
       let compName = this.props.stateIsNowProp.nodeData.name; 
@@ -124,11 +125,8 @@ search() {
       >
           <Pane id={1} key={1} width={300} height="100%">
             <Details
-            compAddress={compAddress}
-            compName={compName}
-            state={state}
-            props={props}
             style={{"float": "right"}}
+            {...this.props}
             />
             <Assertions 
             compAddress={compAddress}
