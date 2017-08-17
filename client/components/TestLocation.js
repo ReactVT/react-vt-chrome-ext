@@ -127,7 +127,7 @@ class TestLocation extends Component {
           <br />
           { selectorModifierRender } { indexRender }
         </div>
-        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
       </form>
 

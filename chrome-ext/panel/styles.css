@@ -46,17 +46,35 @@ html, body{
 } */
 
  .accordion-asserts {
-  border: solid 1px black;
+  cursor: pointer;
+  transition: all .1s ease;   
+  color: rgba(0,0,0,.6);
+  font-weight: 450;
+  padding-left: 0.2em;
+  padding-right: 0.2em;
+  border-left: 1px solid rgba(34,36,38,.15);
+  border-bottom: 1px solid rgba(34,36,38,.15);  
+  border-radius: 0 0 0 .28571429rem;
   overflow-x: hidden;
 } 
 
-.ui.styled.accordion .accordion .content, .ui.styled.accordion .content {
-    padding: 0;
+.accordion-asserts:hover {
+  color: rgba(0,0,0,.87);
+  transition: all 0.2s ease-in; 
 }
 
-.pass-icon {
-  height:50px;
+.accordion-asserts:active {
+  color: rgba(0,0,0,.87);
 }
-.fail-icon {
-  height:50px;
+
+.accordion-content {
+  padding-right: 0!important;
+  padding-left: 0.5em!important;
+  padding-bottom: 0.5em!important;
+  padding-top: 0.2em!important;
 }
+
+/* .result-icon {
+  font-size: 2em!important;
+  height: 0!important;
+} */
