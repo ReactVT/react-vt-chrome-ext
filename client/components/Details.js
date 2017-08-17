@@ -7,13 +7,16 @@ import ValueInformation from '../components/ValueInformation';
 class Details extends Component {
 
   render() {
-    let display; 
-    if (this.props.stateIsNowProp.selectedItem.type === 'none') {
+    let display;
+    let currentItem = this.props.stateIsNowProp.selectedItem;
+    if (currentItem.type === 'none') {
       display = (<div id="details-panel" style={{"padding": "5px"}}>
         <h4>Select a node or assertion</h4>
         </div>
         ); 
-    } else if (this.props.stateIsNowProp.selectedItem.type === 'node') {
+    }
+
+    if (currentItem.type === 'node') {
       let props = [];
       let state = [];
       if (this.props.stateIsNowProp.nodeData.props) {
@@ -37,14 +40,35 @@ class Details extends Component {
         {state}
         </div>
       );
-    } else if (this.props.stateIsNowProp.selectedItem.type === 'test') {
-      display = (<div id="details-panel" style={{"padding": "5px"}}>
-        <h4>You clicked a test</h4>
+    }
+
+    
+    if (currentItem.type === 'test') {
+      display = (
+        <div id="details-panel" style={{"padding": "5px"}}>
+          <p>AssertID: {currentItem.assert.assertID}</p>
+          <p>Status: {currentItem.assert.passed}</p>
+          <p>Name: {currentItem.assert.compName}</p>
+          <p>Selector: {currentItem.assert.selector}</p>
+          <p>Selector Name: {currentItem.assert.selectorName}</p>
+          <p>Selector Modifier: {currentItem.assert.selectorModifier}</p>
+          <p>Source: {currentItem.assert.source}</p>
+          <p>Property: {currentItem.assert.property}</p>
+          <p>Modifier: {currentItem.assert.modifier}</p>
+          <p>Data Type: {currentItem.assert.dataType}</p>
+          <p>Evaluation: {currentItem.assert.type}</p>
+          <p>Expected: {currentItem.assert.value}</p>
         </div>
         ); 
-    } else if (this.props.stateIsNowProp.selectedItem.type === 'action') {
-      display = (<div id="details-panel" style={{"padding": "5px"}}>
-        <h4>You clicked an action</h4>
+    }
+
+    if (currentItem.type === 'action') {
+      display = (
+        <div id="details-panel" style={{"padding": "5px"}}>
+          <p>AssertID: {currentItem.assert.assertID}</p>
+          <p>Status: {currentItem.assert.passed}</p>
+          <p>Name: {currentItem.assert.compName}</p>
+          <p>Event: {currentItem.assert.event}</p>
         </div>
         ); 
     }
