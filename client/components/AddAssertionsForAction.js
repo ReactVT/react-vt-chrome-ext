@@ -53,7 +53,7 @@ class AddAssertionsForAction extends Component {
           <Dropdown selection options={eventOptions} placeholder='Choose an event' onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
         </div>
         
-        <Button inverted color="blue" size="tiny" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
       </form>
     );

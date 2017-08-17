@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-function assertionBlockReducer(state = { name: '', passed:'', asserts: [] }, action) {
+function assertionBlockReducer(state = { name: '', passed: '', asserts: [] }, action) {
   let newState;
   // console.log('in assertion block reducer');
   switch(action.type) {
     case 'NEW_ASSERTION_BLOCK':
       newState = Object.assign({}, state);
       newState.name = action.name;
+      newState.passed = '';
       newState.asserts = [];
       return newState;
     case 'SAVE_ASSERTION':

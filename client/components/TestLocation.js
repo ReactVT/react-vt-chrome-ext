@@ -21,10 +21,9 @@ class TestLocation extends Component {
         this.props.saveTestProperty('selectorModifier', arrayIndex);
       }
       if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
-      
       // if selector modifier is set to length, skip to renderTest3
-      if (this.props.stateIsNowProp.test.selectorModifier === '.length') this.props.renderTest3();
-      else this.props.renderTest2();
+      if (this.props.stateIsNowProp.test.selectorModifier === 'index') this.props.renderTest2();
+      else this.props.renderTest3();
     };
 
     handleSelectorDropdown(event, value) {
@@ -38,7 +37,7 @@ class TestLocation extends Component {
     handleSelectorNameDropdown(event, value) {
       this.currentSelectorName = value;
       this.props.saveTestProperty('selectorName', value);
-      this.props.saveTestProperty('loc', this.locObj[value]);
+      if (this.props.stateIsNowProp.test.selector !== 'component') this.props.saveTestProperty('loc', this.locObj[value]);
       
     }
 
@@ -79,28 +78,24 @@ class TestLocation extends Component {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
         Object.keys(components).forEach((compName, i)=> {
-          this.locObj[compName] = components[compName];
           selectorName.push({ key: i, text: compName, value: compName });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Components Found':'Select a Component';
       } else if (this.currentSelector === 'id') {
         let id = this.props.stateIsNowProp.nodeStore.id;
-        Object.keys(id).forEach((idName, i)=> {
-          this.locObj[idName] = id[idName];          
+        Object.keys(id).forEach((idName, i)=> {        
           selectorName.push({ key: i, text: idName, value: idName });
         });
         selectorNamePlaceholder = (Object.keys(id).length === 0) ? 'No IDs found':'Select an ID';
       } else if (this.currentSelector === 'class') {
         let classes = this.props.stateIsNowProp.nodeStore.class;
-        Object.keys(classes).forEach((className, i)=> {
-          this.locObj[className] = classes[className];          
+        Object.keys(classes).forEach((className, i)=> {          
           selectorName.push({ key: i, text: className, value: className });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Classes Found':'Select a Class';
       } else if (this.currentSelector === 'tag') {
         let tags = this.props.stateIsNowProp.nodeStore.tag;
         Object.keys(tags).forEach((tagName, i)=> {
-          this.locObj[tagName] = tags[tagName];          
           selectorName.push({ key: i, text: tagName, value: tagName });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Tags Found':'Select a tag';
@@ -132,7 +127,7 @@ class TestLocation extends Component {
           <br />
           { selectorModifierRender } { indexRender }
         </div>
-        <Button primary onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
       </form>
 

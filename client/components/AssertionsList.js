@@ -16,7 +16,6 @@ class AssertionsList extends Component {
 
   handleDelete(name) {
     this.props.deleteAssertionBlock(name);
-    console.log('in delete on alist');
     this.props.stateIsNowProp.backgroundConnection.postMessage({
         type: 'assertion',
         message: name, 
@@ -64,8 +63,8 @@ class AssertionsList extends Component {
         const assertText = [];
         let styling;
         // Block pass/fail status
-        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.8)', 'transition': 'all .25s ease-in'});
-        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.8)', 'transition': 'all .25s ease-in'});
+        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.5)', 'transition': 'all .25s ease-in'});
+        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.3)', 'transition': 'all .25s ease-in'});
         assertionlist.push(
             <Accordion.Title style={styling} className='accordion-block'>
               <Icon name='dropdown' />
@@ -78,8 +77,8 @@ class AssertionsList extends Component {
           let comparator;
           let classOrId;
           // Pass/Fail status of assertion
-          if (assertion.passed === true) passFailIcon = ( <List.Icon className="pass-icon" name="checkmark" color='green' /> );
-          else if (assertion.passed === false) passFailIcon = (<List.Icon className="fail-icon" name="x" color='red' />);
+          if (assertion.passed === true) passFailIcon = ( <List.Icon className="result-icon" name="checkmark" color='green' /> );
+          else if (assertion.passed === false) passFailIcon = (<List.Icon className="result-icon" name="x" color='red' />);
           // Comparator
           if (assertion.type === 'equal') {
             comparator = ('to equal');
@@ -91,22 +90,32 @@ class AssertionsList extends Component {
             comparator = ('to not equal');
           }
 
+          // ID or class
+          if (assertion.selector === 'id') classOrId = ('#');
+          else if (assertion.selector === 'class') classOrId = ('.');
+
           // Action/Test
           if (assertion.type === 'action') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</List.Item>);
+            assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</div>);
           } else {
-            if (assertion.selector !== 'node') {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</List.Item>);
+            // component
+            if (assertion.selector === 'component') {
+            assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selector} {assertion.selectorName} {comparator} {assertion.value}</div>);
+            } else if (assertion.selector === 'id' || assertion.selector === 'class') {
+              // class or id
+              assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {classOrId}{assertion.selectorName} {comparator} {assertion.value}</div>);
+            } else if (assertion.selector === 'node') {
+              // node
+              assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</div>);
             } else {
-            assertText.push(<List.Item className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.compName} {assertion.source} {comparator} '{assertion.value}'</List.Item>);
+              // tags
+              assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailTest(assertion)}>{ passFailIcon }ID{assertion.assertID} Expect {assertion.selectorName} {comparator} {assertion.value}</div>);
             }
           }
         });
         assertionlist.push(
-          <Accordion.Content fluid>
-            <List>
-              {assertText}
-            </List>
+          <Accordion.Content className="accordion-content">
+            {assertText}
           </Accordion.Content>
         );
       });
@@ -114,7 +123,7 @@ class AssertionsList extends Component {
       return (
         <div>
         <Button primary size='small' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
-        <Button primary size='small' className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
+        <Button primary size='small' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme File</Button>
         <Accordion styled>
           { assertionlist }
         </Accordion>
