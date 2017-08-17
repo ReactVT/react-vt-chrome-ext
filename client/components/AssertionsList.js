@@ -16,6 +16,12 @@ class AssertionsList extends Component {
 
   handleDelete(name) {
     this.props.deleteAssertionBlock(name);
+    console.log('in delete on alist');
+    this.props.stateIsNowProp.backgroundConnection.postMessage({
+        type: 'assertion',
+        message: name, 
+        flag: 'delete'
+      });
   }
 
   handleEdit() {

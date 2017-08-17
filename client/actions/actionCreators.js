@@ -1,3 +1,10 @@
+export function setBackgroundConnection(payload) {
+  return {
+    type: 'SET_BACKGROUND_CONNECTION', 
+    payload
+  }
+}
+
 export function loadTreeData(payload) {
   return {
     type: 'LOAD_TREE_DATA',

@@ -24,6 +24,7 @@ class ReactTree extends Component {
     self.backgroundPageConnection = chrome.runtime.connect({
         name: "panel"
     });
+    this.props.setBackgroundConnection(self.backgroundPageConnection);
     const loadedAsserts = localStorage.getItem("asserts");
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
