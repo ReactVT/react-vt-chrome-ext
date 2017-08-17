@@ -15,8 +15,8 @@ class ReactTree extends Component {
   constructor(props) {
     super(props); 
     this.backgroundPageConnection = null; 
-    this.onResize = this.onResize.bind(this)
-    this.state = { screenWidth: screen.width, screenHeight: screen.height }
+    // this.onResize = this.onResize.bind(this)
+    // this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
 
   sendAsserts() {
@@ -82,49 +82,49 @@ class ReactTree extends Component {
     });
     
     // window.addEventListener('resize', this.onResize, false)
-    this.onResize()
+    // this.onResize()
   }
 
-  onResize() {
-    console.log('this.state BEFORE', this.state)
-    this.setState({ screenWidth: screen.width,
-        screenHeight: screen.height})
-        console.log('this.state AFTER', this.state)
-  }
+//   onResize() {
+//     console.log('this.state BEFORE', this.state)
+//     this.setState({ screenWidth: screen.width,
+//         screenHeight: screen.height})
+//         console.log('this.state AFTER', this.state)
+//   }
 
-search() {
-  let inputVal = this.refs.input.value
+// search() {
+//   let inputVal = this.refs.input.value
   
-  let svgBox = this.Viewer
-  let self = this
+//   let svgBox = this.Viewer
+//   let self = this
 
-  let searchCollection = []
+//   let searchCollection = []
   
-  this.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
+//   this.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
 
-    if(d.props.name === inputVal) {
-      let xCoord = d.props.ytranslate + 100
-      let yCoord = d.props.xtranslate + 360
-      let node = d
-      let obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address}; 
+//     if(d.props.name === inputVal) {
+//       let xCoord = d.props.ytranslate + 100
+//       let yCoord = d.props.xtranslate + 360
+//       let node = d
+//       let obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address}; 
 
-      searchCollection.push(
-        <Dropdown.Item key={i} onClick={() => 
-          {svgBox.setPointOnViewerCenter(xCoord, yCoord, 4);
-          self.props.getNodeData(obj);}
-          } 
-        text ={d.props.name}/>)}
+//       searchCollection.push(
+//         <Dropdown.Item key={i} onClick={() => 
+//           {svgBox.setPointOnViewerCenter(xCoord, yCoord, 4);
+//           self.props.getNodeData(obj);}
+//           } 
+//         text ={d.props.name}/>)}
     
-  })
+//   })
 
-  this.props.createSearchButtons(searchCollection)
-}
+//   this.props.createSearchButtons(searchCollection)
+// }
 
   render() {
-    let arraySearchButtons;
+    // let arraySearchButtons;
 
-    if (Object.keys(this.props.stateIsNowProp.searchButton).length === 0) arraySearchButtons = ''
-    else arraySearchButtons = this.props.stateIsNowProp.searchButton
+    // if (Object.keys(this.props.stateIsNowProp.searchButton).length === 0) arraySearchButtons = ''
+    // else arraySearchButtons = this.props.stateIsNowProp.searchButton
 
     if (this.props.stateIsNowProp.toggleAssertion) {
       this.props.toggleAssertionBlock();
@@ -176,12 +176,12 @@ search() {
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
-            <input type="text" ref="input" />
+             {/* <input type="text" ref="input" />
             <input
             type="button"
             value="Search"
-            onClick={()=>this.search()}
-            /> 
+            onClick={()=>this.search()} 
+            />  */}
           {/* 
             <Dropdown text='Available Components'>
               <Dropdown.Menu>
