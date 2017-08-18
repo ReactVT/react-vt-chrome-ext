@@ -10,7 +10,7 @@ class TestData extends Component {
     this.modifierRender = '';
     this.error = '';
     this.currentProps;
-    this.currentState
+    this.currentState;
   }
 
   componentWillMount() {

@@ -21,7 +21,10 @@ function assertionListReducer(state = [], action){
           for (let j = 0; j < newState[i].asserts.length; j += 1) {
             const assertion = newState[i].asserts[j];
             // save result to assertion with matching action.id
-            if (assertion.assertID === action.id) assertion.passed = action.result;
+            if (assertion.assertID === action.id) {
+              assertion.passed = action.result;
+              assertion.actual = action.actual;
+            }
             // check if assert's result property is false or blank
             if (assertion.passed === false) {
               console.log('IN SAVE RESULT TO BLOCK FALSE', assertion)

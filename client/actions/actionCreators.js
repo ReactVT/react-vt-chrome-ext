@@ -44,12 +44,13 @@ export function notFirstLoad() {
   }
 }
 
-export function saveResultToBlock(name, id, result) {
+export function saveResultToBlock(name, id, result, actual) {
   return {
     type: 'SAVE_RESULT_TO_BLOCK', 
     name,
     id,
-    result
+    result,
+    actual,
   }
 }
 

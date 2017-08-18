@@ -81,7 +81,7 @@ class ReactTree extends Component {
           let resultObj = data.data;
           self.props.loadResults(resultObj);
           // Affect assertionList reducer to update results within the block
-          self.props.saveResultToBlock(resultObj.assertionBlock, resultObj.assertID, resultObj.result);
+          self.props.saveResultToBlock(resultObj.assertionBlock, resultObj.assertID, resultObj.result, resultObj.actual);
           console.log('d3 received results from content script', data.data);
         }
     });
