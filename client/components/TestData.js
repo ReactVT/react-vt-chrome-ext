@@ -43,22 +43,22 @@ class TestData extends Component {
       // if there are no props and state exists
       if (Object.keys(this.currentProps).length === 0 && this.currentState) {
         this.handleSourceDropdown(null, 'state');
-        this.sourceRender = (<Input placeholder='State' value= '' disabled />);
+        this.sourceRender = (<Input transparent className="form-control" placeholder='State' value= '' disabled />);
         // no state and props exist
       } else if (!this.currentState && this.currentProps) {
         this.handleSourceDropdown(null, 'props');
-        this.sourceRender = (<Input placeholder='Props' value='' disabled />);
+        this.sourceRender = (<Input transparent className="form-control" placeholder='Props' value='' disabled />);
         // choose between state and props
       } else if (this.currentProps && this.currentState) {
         console.log('in both props and state', this.props);
         this.sourceRender = (<Dropdown search searchInput={{ type: 'text' }} selection options={sourceNode} placeholder="Select Source" id="sourceDropdown" onChange={(e, {value})=>this.handleSourceDropdown(e, value)} />);
       } else {
-        this.sourceRender = (<Input placeholder='No Props or State Here' disabled />);
+        this.sourceRender = (<Input transparent className="form-control" placeholder='No Props or State Here' disabled />);
       }
     // for everything else - tag, class, id
     } else {
       this.handleSourceDropdown(null, 'text');
-      this.sourceRender = <Input placeholder='Text' value='' disabled />
+      this.sourceRender = <Input transparent className="form-control" placeholder='Text' value='' disabled />
     }
   }
 
