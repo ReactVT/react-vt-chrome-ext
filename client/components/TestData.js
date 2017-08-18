@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Dropdown, Input } from 'semantic-ui-react';
+import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
 
 class TestData extends Component {
   constructor(props) {
     super(props);
     // keep source render here since logic is in componentWillMount
     this.sourceRender = '';
+    this.modifierRender = '';
+    this.error = '';
   }
 
   componentWillMount() {
@@ -67,11 +69,13 @@ class TestData extends Component {
 
   handleSourceDropdown(event, value) {
     this.props.saveTestProperty('source', value);
+    this.error = '';
     console.log('inhandle source dropdown', this.props.stateIsNowProp.test)
   }
 
   handlePropertyDropdown(event, value) {
     this.props.saveTestProperty('property', value);
+    this.error = '';
     console.log('in property dropdown ', value, this.props.stateIsNowProp.test)
   }
 
@@ -79,6 +83,7 @@ class TestData extends Component {
     // semanticUI doesn't like empty string for value
     if (value === 'none') value = '';
     this.props.saveTestProperty('modifier', value);
+    this.error = '';
     console.log('in modifier dropdown ', value, this.props.stateIsNowProp.test)
     
   }
@@ -88,22 +93,47 @@ class TestData extends Component {
 
   handleSubmit(event) {
       event.preventDefault();
-      // this.props.saveTestProperty('property', document.getElementById('property-input').value);
-      if (this.props.stateIsNowProp.test.modifier === 'index') {
-        let arrayIndex = document.getElementById('indexInput').value;
-        arrayIndex = '[' + arrayIndex + ']';
-        this.props.saveTestProperty('modifier', arrayIndex);
+      // MENU VALIDATION --->
+      let currentTest = this.props.stateIsNowProp.test;
+      let arrayIndexEl = document.getElementById('indexInput');
+      if (currentTest.source === '') {
+        this.error=(<Message negative>
+          <Message.Header>State or Props Required</Message.Header>
+          <p>Please select from the dropdown.</p>
+</Message>);
+        this.forceUpdate();
+      } else if (currentTest.property === '') {
+        this.error=(<Message negative>
+          <Message.Header>Property Required</Message.Header>
+          <p>Please select from the dropdown.</p>
+</Message>);
+        this.forceUpdate();
+      } else if (this.modifierRender !== '' && currentTest.modifier === '') {
+        this.error=(<Message negative>
+          <Message.Header>Modifier Required</Message.Header>
+          <p>Please select from the dropdown.</p>
+</Message>);
+        this.forceUpdate();
+      } else if (currentTest.modifier === 'index' && !arrayIndexEl.value) {
+          this.error=(<Message negative>
+        <Message.Header>Index Required</Message.Header>
+        <p>Please enter a number in the input field.</p>
+</Message>);
+        this.forceUpdate();
+      } else {
+        if (this.props.stateIsNowProp.test.modifier === 'index') {
+          console.log('INSIDE OF IF SATEMENT', arrayIndexEl.value)
+          let indexSave = '[' + arrayIndexEl.value + ']';
+          this.props.saveTestProperty('modifier', indexSave);
+        }
+        console.log('in submit test current test', this.props.stateIsNowProp.test);
+        this.props.renderTest3();
       }
-      console.log('in submit test current test', this.props.stateIsNowProp.test);
-      this.props.renderTest3();
-      // this.props.setActionLocation(this.props.compAddress);
-      // this.props.saveAssertion(this.props.stateIsNowProp.action);
   }
 
   render () {
     console.log('in render', this.props.stateIsNowProp.test)
     let propertyRender;
-    let modifierRender;
     let indexRender;
     const source = this.props.stateIsNowProp.test.source; 
     const currentProperty = this.props.stateIsNowProp.test.property;
@@ -139,7 +169,7 @@ class TestData extends Component {
       }
       console.log('in modifier', value);
       if (value.constructor === Array) {
-        modifierRender = (<Dropdown placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
+        this.modifierRender = (<Dropdown placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
       }
     }
     // if modifier is index
@@ -158,10 +188,11 @@ class TestData extends Component {
         <div className="form-group">
           { this.sourceRender } { propertyRender } 
           <br />
-          { modifierRender } { indexRender }
+          { this.modifierRender } { indexRender }
         </div>
         <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
+        {this.error}
       </form>
 
     );
