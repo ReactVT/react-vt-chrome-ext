@@ -26,6 +26,24 @@ export function loadResults(payload) {
   }
 }
 
+export function clearResults() {
+  return {
+    type: 'CLEAR_RESULTS', 
+  }
+}
+
+export function firstLoad() {
+  return {
+    type: 'FIRST_LOAD'
+  }
+}
+
+export function notFirstLoad() {
+  return {
+    type: 'NOT_FIRST_LOAD'
+  }
+}
+
 export function saveResultToBlock(name, id, result) {
   return {
     type: 'SAVE_RESULT_TO_BLOCK', 
@@ -181,9 +199,9 @@ export function loadAssertionList(payload) {
   }
 }
 
-export function clearResults() {
+export function clearResultsFromList() {
   return {
-    type: 'CLEAR_RESULTS', 
+    type: 'CLEAR_RESULTS_FROM_LIST', 
   }
 }
 
