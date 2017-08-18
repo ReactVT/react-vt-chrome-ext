@@ -15,6 +15,24 @@ html, body{
   border-bottom: 2px solid gray;
 }
 
+.editAssert {
+  background-color: #5e8291;
+  margin: 0;
+  padding: 5px;
+  border-bottom: 2px solid #174151;
+  color: rgba(0,0,0,.6);
+  transition: all 0.2s ease-in; 
+}
+
+.editAssert:hover {
+  color: rgba(0,0,0,.8);
+  transition: all 0.2s ease-in; 
+}
+
+.editAssert:last-of-type {
+  border-bottom: none; 
+}
+
 
 #newTestButton {
   margin-left: 10px;
@@ -22,6 +40,7 @@ html, body{
 
 .button-container{
   text-align: center;
+  margin-bottom: 10px;
 }
 
 #nameBlockButton {

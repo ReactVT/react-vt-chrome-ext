@@ -19,6 +19,10 @@ class EditAssertionBlock extends Component {
     localStorage.setItem("asserts", JSON.stringify(this.props.stateIsNowProp.assertionList));
   }
 
+  clickAssert(assert) {
+    console.log('clicked assert', assert);
+  }
+
   handleCancel() {
     this.props.renderViewMode();
   }
@@ -30,26 +34,10 @@ class EditAssertionBlock extends Component {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
         assertions.push(
-          <Accordion.Title style={{'border': 'solid 1px black'}}>
-              <Icon name='dropdown' />
-              {el.assertID} { el.type } 
-              <Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} />
-          </Accordion.Title>);
-        assertions.push(
-          <Accordion.Content>
-              { el.event }
-          </Accordion.Content>);
+          <div className='editAssert' onClick={()=> this.clickAssert(el)}>{el.assertID} { el.event }</div>);
         } else {
           assertions.push(
-            <Accordion.Title style={{'border': 'solid 1px black'}}>
-                <Icon name='dropdown' />
-                {el.assertID} { el.type } 
-                <Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} />
-          </Accordion.Title>);
-          assertions.push(
-            <Accordion.Content>
-                { el.type } { el.value }
-            </Accordion.Content>);
+            <div className='editAssert' onClick={()=> this.clickAssert(el)}>{el.assertID} { el.type } { el.value }</div>);
         }
       });
     }
