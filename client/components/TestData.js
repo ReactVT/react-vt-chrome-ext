@@ -102,7 +102,7 @@ class TestData extends Component {
           <p>Please select from the dropdown.</p>
 </Message>);
         this.forceUpdate();
-      } else if (currentTest.property === '') {
+      } else if (currentTest.property === '' && currentTest.source !== 'text') {
         this.error=(<Message negative>
           <Message.Header>Property Required</Message.Header>
           <p>Please select from the dropdown.</p>
