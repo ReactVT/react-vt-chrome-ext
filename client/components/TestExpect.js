@@ -1,22 +1,32 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Select } from 'semantic-ui-react'
-import { Button, Dropdown, Input } from 'semantic-ui-react';
+import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
 
 class TestExpect extends Component {
   constructor(props) {
     super(props);
+    this.error = '';
   }
 
   handleSubmit(event) {
-      event.preventDefault();      
-      let tempTest = this.props.stateIsNowProp.test; 
-      tempTest.assertID = this.props.stateIsNowProp.assertID;
-      this.props.incrementAssertId();
-      this.props.saveAssertion(this.props.stateIsNowProp.test);
-      this.props.clearTest();
-      this.props.renderTest1();
-      this.props.renderEditMode();
+      event.preventDefault();
+      let currentTest = this.props.stateIsNowProp.test;
+      if (currentTest.value === '') {
+        this.error=(<Message negative>
+          <Message.Header>Value Required</Message.Header>
+          <p>Please input an expected value.</p>
+</Message>);
+        this.forceUpdate();
+      } else {
+        let tempTest = this.props.stateIsNowProp.test; 
+        tempTest.assertID = this.props.stateIsNowProp.assertID;
+        this.props.incrementAssertId();
+        this.props.saveAssertion(this.props.stateIsNowProp.test);
+        this.props.clearTest();
+        this.props.renderTest1();
+        this.props.renderEditMode();
+      }
   }
   
   handleTypeDropdown(event, value) {
@@ -87,6 +97,7 @@ class TestExpect extends Component {
         </div>
         <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
         <Button primary type="submit" className="btn btn-primary">Save Test</Button>
+        {this.error}
       </form>
 
     );
