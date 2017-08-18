@@ -28,6 +28,8 @@ class EditAssertionBlock extends Component {
   }
 
   handleCancel() {
+    // Empty out assertion block
+    this.props.deleteAssertionBlock(this.props.stateIsNowProp.assertionBlock.name);
     this.props.renderViewMode();
   }
   render() {
@@ -51,7 +53,7 @@ class EditAssertionBlock extends Component {
       });
     }
     return (
-      <div id="testt">
+      <div>
         <div className='button-container'>
           <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
           <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 

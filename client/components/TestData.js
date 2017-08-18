@@ -88,6 +88,11 @@ class TestData extends Component {
     
   }
   handleBack() {
+    // clear out test state before going back
+    this.props.saveTestProperty('loc', []);
+    this.props.saveTestProperty('source', '');
+    this.props.saveTestProperty('property', '');
+    this.props.saveTestProperty('modifier', '');
     this.props.renderTest1();
   }
 
@@ -122,11 +127,9 @@ class TestData extends Component {
         this.forceUpdate();
       } else {
         if (this.props.stateIsNowProp.test.modifier === 'index') {
-          console.log('INSIDE OF IF SATEMENT', arrayIndexEl.value)
           let indexSave = '[' + arrayIndexEl.value + ']';
           this.props.saveTestProperty('modifier', indexSave);
         }
-        console.log('in submit test current test', this.props.stateIsNowProp.test);
         this.props.renderTest3();
       }
   }

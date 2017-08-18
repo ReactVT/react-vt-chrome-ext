@@ -159,19 +159,6 @@ export function deleteAssertionBlock(name) {
     name
   }
 }
-export function sendAssertionBlock(payload) {
-  return {
-    type: 'SEND_ASSERTION_BLOCK',
-    payload
-  }
-}
-
-export function emptyAssertionBlock() {
-  return {
-    type: 'EMPTY_ASSERTION_BLOCK',
-  }
-}
-
 
 export function addAssertionToList(payload) {
   return {

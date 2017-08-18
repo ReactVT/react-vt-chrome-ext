@@ -38,6 +38,8 @@ class AddAssertionsForAction extends Component {
     }
 
     handleBack() {
+      // Clear out action before going back
+      this.props.clearAction();
       this.props.renderEditMode();
     }
 

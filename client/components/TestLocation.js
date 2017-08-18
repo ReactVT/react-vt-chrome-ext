@@ -102,7 +102,11 @@ class TestLocation extends Component {
       this.error = '';
     }
 
-    handleBack() {
+    handleBack() {    
+      // clear out test state before going back
+      this.props.saveTestProperty('selector', '');
+      this.props.saveTestProperty('selectorName', '');
+      this.props.saveTestProperty('selectorModifier', '');
       this.props.renderEditMode();
     }
   

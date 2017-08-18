@@ -25,14 +25,6 @@ function assertionBlockReducer(state = { name: '', passed: '', asserts: [] }, ac
         }
       }
       return newState;
-    case 'SEND_ASSERTION_BLOCK':
-      updateArray = state.slice()
-      updateArray.splice(0,1, action.payload)
-      console.log('SEND_ASSERTION_BLOCK', updateArray)
-      return updateArray
-    case 'EMPTY_ASSERTION_BLOCK':
-      updateArray = []
-      return updateArray
     default:
       return state;
   }
