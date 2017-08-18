@@ -19,14 +19,20 @@ html, body{
   background-color: #5e8291;
   margin: 0;
   padding: 5px;
+  padding-left: 15px;
   border-bottom: 2px solid #174151;
-  color: rgba(0,0,0,.6);
+  color: rgba(255,255,255,.8);
   transition: all 0.2s ease-in; 
 }
 
 .editAssert:hover {
-  color: rgba(0,0,0,.8);
-  transition: all 0.2s ease-in; 
+  color: rgba(255,255,255,1);
+    transition: all 0.2s ease-in; 
+
+}
+
+#topNameEditBlock {
+  margin: 0;
 }
 
 .editAssert:last-of-type {
@@ -54,8 +60,8 @@ rect {
 #assertions-panel {
   height: 55vh;
   background-color: #d5e0e5;    
-  padding: 10px;
-  overflow-y: auto;   
+  overflow-y: auto;
+  padding-top: 10px;   
 }
 
 .btn-primary {
@@ -99,6 +105,7 @@ rect {
  .accordion-asserts {
   cursor: pointer;
   padding: 0.4em 0.2em;
+  padding-left: 15px;
   transition: all .1s ease;   
   color: rgba(255,255,255,.9);
   font-weight: 450;
@@ -120,7 +127,7 @@ rect {
 
 .accordion-content {
   padding-right: 0!important;
-  padding-left: 0.0em!important;
+  padding-left: 0em!important;
   padding-bottom: 0!important;
   padding-top: 0!important;
   background-color: #74929E!important;
@@ -131,9 +138,19 @@ rect {
   transition: all .1s ease!important;    */
 }
 
+#test {
+  padding: 0px;
+}
+
+
 .accordion-block:hover{
   color: rgba(0,0,0,.8)!important;
   transition: all .2s ease!important;  
+}
+
+#topNameEditBlock {
+  background-color: #619fb7;
+  padding: 10px 20px;
 }
 
 /* .result-icon {

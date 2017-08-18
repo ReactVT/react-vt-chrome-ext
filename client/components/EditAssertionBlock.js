@@ -19,8 +19,12 @@ class EditAssertionBlock extends Component {
     localStorage.setItem("asserts", JSON.stringify(this.props.stateIsNowProp.assertionList));
   }
 
-  clickAssert(assert) {
-    console.log('clicked assert', assert);
+  clickAction(assert) {
+    this.props.selectedAction(assert);
+  }
+
+  clickTest(assert) {
+    this.props.selectedTest(assert);
   }
 
   handleCancel() {
@@ -34,24 +38,28 @@ class EditAssertionBlock extends Component {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
         assertions.push(
-          <div className='editAssert' onClick={()=> this.clickAssert(el)}>{el.assertID} { el.event }</div>);
+          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}</div>);
         } else {
+          let evaluator; 
+          if (el.type === 'equal') evaluator = 'Equal'; 
+          if (el.type === 'greaterthan') evaluator = 'be Greater than'; 
+          if (el.type === 'lessthan') evaluator = 'be Less than'; 
+          if (el.type === 'notequal') evaluator = 'not Equal'; 
           assertions.push(
-            <div className='editAssert' onClick={()=> this.clickAssert(el)}>{el.assertID} { el.type } { el.value }</div>);
+            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}</div>);
         }
       });
     }
     return (
-      <div>
+      <div id="testt">
         <div className='button-container'>
           <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
           <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
           <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
           <Button primary size="small" type="button" className="ui primary basic button" id="newTestButton"onClick={()=>this.props.renderTestMode()}>New Test</Button>
         </div>
-        <Accordion>  
+        <div id='topNameEditBlock'>Assertion Block: Block Name </div>
           { assertions }
-        </Accordion>
       </div>
     )
   }
