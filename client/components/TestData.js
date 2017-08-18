@@ -9,6 +9,8 @@ class TestData extends Component {
     this.sourceRender = '';
     this.modifierRender = '';
     this.error = '';
+    this.currentProps;
+    this.currentState
   }
 
   componentWillMount() {
@@ -19,13 +21,11 @@ class TestData extends Component {
       { key: 2, text: 'State', value: 'state' }
     ];
     const selector = this.props.stateIsNowProp.test.selector;
-    let currentProps;
-    let currentState;
 
     // determine props/state for node/component
     if (selector === 'node') {
-      currentProps = this.props.props;
-      currentState = this.props.state;
+      this.currentProps = this.props.props;
+      this.currentState = this.props.state;
     } else if (selector === 'component') {
       // get component props and state in the form of arrays
       // still needs to be specified with index modifier
@@ -34,24 +34,24 @@ class TestData extends Component {
       let address = this.props.stateIsNowProp.nodeStore.node[compName].address[index];
       this.handleCompAddress(address);
 
-      currentProps = this.props.stateIsNowProp.nodeStore.node[compName].props[index];
-      currentState = this.props.stateIsNowProp.nodeStore.node[compName].state[index];
-      console.log('IN COMPONENT CONDITIONAL', compName, index, 'currentProps and state', currentProps, currentState, address)
+      this.currentProps = this.props.stateIsNowProp.nodeStore.node[compName].props[index];
+      this.currentState = this.props.stateIsNowProp.nodeStore.node[compName].state[index];
+      console.log('IN COMPONENT CONDITIONAL', compName, index, 'this.currentProps and state', this.currentProps, this.currentState, address)
     }
     // for node/component
     if (selector === 'node' || selector === 'component') {
       // if there are no props and state exists
-      if (Object.keys(currentProps).length === 0 && currentState) {
+      if (Object.keys(this.currentProps).length === 0 && this.currentState) {
         this.handleSourceDropdown(null, 'state');
         this.sourceRender = (<Input placeholder='State' value= '' disabled />);
         // no state and props exist
-      } else if (!currentState && currentProps) {
+      } else if (!this.currentState && this.currentProps) {
         this.handleSourceDropdown(null, 'props');
         this.sourceRender = (<Input placeholder='Props' value='' disabled />);
         // choose between state and props
-      } else if (currentProps && currentState) {
+      } else if (this.currentProps && this.currentState) {
         console.log('in both props and state', this.props);
-        this.sourceRender = (<Dropdown selection options={sourceNode} placeholder="Select Source" id="sourceDropdown" onChange={(e, {value})=>this.handleSourceDropdown(e, value)} />);
+        this.sourceRender = (<Dropdown search searchInput={{ type: 'text' }} selection options={sourceNode} placeholder="Select Source" id="sourceDropdown" onChange={(e, {value})=>this.handleSourceDropdown(e, value)} />);
       } else {
         this.sourceRender = (<Input placeholder='No Props or State Here' disabled />);
       }
@@ -146,33 +146,34 @@ class TestData extends Component {
       { key: 2, text: 'Length', value: '.length' },
       { key: 3, text: 'Index', value: 'index' }
     ];
+    
     // // Property dropdown (given that state or props is selected)
     if (source === 'state' || source === 'props') {
       if (source === 'state') {
-        Object.keys(this.props.state).forEach((property, i)=> {
+        Object.keys(this.currentState).forEach((property, i)=> {
           propertyOptions.push({ key: i, text: property, value: property });
         });
       } else {
-        Object.keys(this.props.props).forEach((property, i)=> {
+        Object.keys(this.currentProps).forEach((property, i)=> {
           propertyOptions.push({ key: i, text: property, value: property });
         });
       }
-    propertyRender = (<Dropdown selection options={propertyOptions} placeholder="Select Property" id="propertyDropdown" onChange={(e, {value})=>this.handlePropertyDropdown(e, value)} />);
+    propertyRender = (<Dropdown search searchInput={{ type: 'text' }} selection options={propertyOptions} placeholder="Select Property" id="propertyDropdown" onChange={(e, {value})=>this.handlePropertyDropdown(e, value)} />);
     }
 
     // Modifier
     if (currentProperty !== '') {
       let value;
       if (source === 'state') {
-        value = this.props.state[currentProperty];
+        value = this.currentState[currentProperty];
       } else {
-        console.log('props parse ', this.props.props, currentProperty);
-        console.log('string to parse', this.props.props[currentProperty])
-        value = this.props.props[currentProperty];
+        console.log('props parse ', this.currentProps, currentProperty);
+        console.log('string to parse', this.currentProps[currentProperty])
+        value = this.currentProps[currentProperty];
       }
       console.log('in modifier', value);
       if (value.constructor === Array) {
-        this.modifierRender = (<Dropdown placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
+        this.modifierRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
       }
     }
     // if modifier is index
