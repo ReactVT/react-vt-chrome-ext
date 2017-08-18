@@ -52,7 +52,8 @@ class TestExpect extends Component {
     this.props.saveTestProperty('type', '');
     this.props.saveTestProperty('dataType', '');
     this.props.saveTestProperty('value', '');
-    this.props.renderTest2();
+    if (this.props.stateIsNowProp.test.selectorModifier === '.length') this.props.renderTest1();
+    else this.props.renderTest2();
   }
 
   render () {
