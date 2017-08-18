@@ -75,9 +75,7 @@ class TestLocation extends Component {
           this.props.saveTestProperty('selectorModifier', indexSave);
         }
         if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
-        // if selector modifier is set to length, skip to renderTest3
-        if (this.props.stateIsNowProp.test.selectorModifier === 'index') this.props.renderTest3();
-        else this.props.renderTest2();
+        this.props.renderTest2();
       }
     };
 
