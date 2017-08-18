@@ -11,10 +11,13 @@ class Results extends Component {
     this.failCount = 0;
     this.lastResult = this.props.stateIsNowProp.testResults.assertID;
   }
+  componentDidUpdate() {
+    let resultScroll = document.getElementById('results-panel');
+    resultScroll.scrollTop = resultScroll.scrollHeight;
 
+  }
   render () {
     console.log('come on ', this.props.stateIsNowProp.testResults.result)
-    let resultScroll = document.getElementById('results-panel');
     let resultRender = 'Waiting for test results..';
     let resultsCountRender = [];
     let currentResult = this.props.stateIsNowProp.testResults;
@@ -47,7 +50,6 @@ class Results extends Component {
          FAILED: ID{currentResult.assertID} Test from {currentResult.assertionBlock} expected '{currentResult.actual}' to be '{currentResult.expected}'
         </List.Item>);
       }
-      resultScroll.scrollTop = resultScroll.scrollHeight;
     }
     
     return (

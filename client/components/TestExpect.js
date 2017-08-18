@@ -8,7 +8,11 @@ class TestExpect extends Component {
     super(props);
     this.error = '';
   }
-
+  componentWillMount() {
+    // set defaults to string and equal
+    this.props.saveTestProperty('dataType', 'string');
+    this.props.saveTestProperty('type', 'equal');
+  }
   handleSubmit(event) {
       event.preventDefault();
       let currentTest = this.props.stateIsNowProp.test;
@@ -27,6 +31,7 @@ class TestExpect extends Component {
         this.props.renderTest1();
         this.props.renderEditMode();
       }
+      console.log('CURENT TEST IN TEST EXPECT', currentTest)
   }
   
   handleTypeDropdown(event, value) {
@@ -91,8 +96,8 @@ class TestExpect extends Component {
         <h3 className="subheader">Set Expectation</h3>
 
         <div className="form-group">
-          <Dropdown selection options={types} placeholder="Select Value Type" id="typeDropdown" onChange={(e, {value}) => this.handleTypeDropdown(e, value)} />
-          <Dropdown selection options={comparators} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
+          <Dropdown search searchInput={{ type: 'text' }} selection options={types} defaultValue={types[0].value} placeholder="Select Value Type" id="typeDropdown" onChange={(e, {value}) => this.handleTypeDropdown(e, value)} />
+          <Dropdown search searchInput={{ type: 'text' }} selection options={comparators} defaultValue={comparators[0].value} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
           { valueRender }
         </div>
         <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
