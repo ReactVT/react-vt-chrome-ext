@@ -18,6 +18,7 @@ class TestLocation extends Component {
       event.preventDefault();
       let currentTest = this.props.stateIsNowProp.test;
       // MENU VALIDATION --->
+      let arrayIndexEl = document.getElementById('selectorIndexInput');
       // if selector is blank
       if (currentTest.selector === '') {
         this.error=(<Message negative>
@@ -62,16 +63,21 @@ class TestLocation extends Component {
           <p>Please select a modifier from the dropdown.</p>
 </Message>);
         this.forceUpdate();
+      } else if (this.currentModifier === 'index' && !arrayIndexEl.value) {
+          this.error=(<Message negative>
+        <Message.Header>Index Required</Message.Header>
+        <p>Please enter a number in the input field.</p>
+</Message>);
+        this.forceUpdate();
       } else {
         if (this.currentModifier === 'index') {
-          let arrayIndex = document.getElementById('selectorIndexInput').value;
-          arrayIndex = '[' + arrayIndex + ']'
-          this.props.saveTestProperty('selectorModifier', arrayIndex);
+          let indexSave = '[' + arrayIndexEl.value + ']'
+          this.props.saveTestProperty('selectorModifier', indexSave);
         }
         if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
         // if selector modifier is set to length, skip to renderTest3
-        if (this.props.stateIsNowProp.test.selectorModifier === 'index') this.props.renderTest2();
-        else this.props.renderTest3();
+        if (this.props.stateIsNowProp.test.selectorModifier === 'index') this.props.renderTest3();
+        else this.props.renderTest2();
       }
     };
 
@@ -81,19 +87,21 @@ class TestLocation extends Component {
         this.props.saveTestProperty('compName', this.props.compName);
       }
       this.props.saveTestProperty('selector', value);
+      this.error = '';
     }
 
     handleSelectorNameDropdown(event, value) {
       this.currentSelectorName = value;
       this.props.saveTestProperty('selectorName', value);
       if (this.props.stateIsNowProp.test.selector !== 'component') this.props.saveTestProperty('loc', this.locObj[value]);
-      
+      this.error = '';
     }
 
     handleSelectorModifierDropdown(event, value) {
       // semanticUI doesn't like empty string for value
       this.currentModifier = value;
       this.props.saveTestProperty('selectorModifier', value);
+      this.error = '';
     }
 
     handleBack() {
@@ -121,7 +129,8 @@ class TestLocation extends Component {
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input placeholder='Click on a node' value={this.props.compAddress} disabled />);
+      selectorNameRender = (<Input transparent placeholder='Click on a node' className = 'form-control' value={this.props.compAddress} disabled />);
+      if (this.props.compAddress) this.error = '';
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
         let components = this.props.stateIsNowProp.nodeStore.node;
