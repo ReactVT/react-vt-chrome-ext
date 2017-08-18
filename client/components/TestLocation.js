@@ -36,31 +36,31 @@ class TestLocation extends Component {
       } else if (currentTest.selector === 'component' && currentTest.selectorName === '') {
         this.error=(<Message negative>
           <Message.Header>Component Required</Message.Header>
-          <p>Please select a component from the dropdown.</p>
+          <p>Please type or select a component from the dropdown.</p>
 </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'id' && currentTest.selectorName === '') {
         this.error=(<Message negative>
           <Message.Header>ID Required</Message.Header>
-          <p>Please select an ID from the dropdown.</p>
+          <p>Please type or select an ID from the dropdown.</p>
 </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'class' && currentTest.selectorName === '') {
         this.error=(<Message negative>
           <Message.Header>Class Required</Message.Header>
-          <p>Please select a class from the dropdown.</p>
+          <p>Please type or select a class from the dropdown.</p>
 </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'tag' && currentTest.selectorName === '') {
         this.error=(<Message negative>
           <Message.Header>Tag Required</Message.Header>
-          <p>Please select a tag from the dropdown.</p>
+          <p>Please type or select a tag from the dropdown.</p>
 </Message>);
         this.forceUpdate();
       } else if ((currentTest.selector === 'component' || currentTest.selector === 'class' || currentTest.selector === 'tag') && currentTest.selectorModifier === '') {
         this.error=(<Message negative>
           <Message.Header>Modifier Required</Message.Header>
-          <p>Please select a modifier from the dropdown.</p>
+          <p>Please type or select a modifier from the dropdown.</p>
 </Message>);
         this.forceUpdate();
       } else if (this.currentModifier === 'index' && !arrayIndexEl.value) {
@@ -73,9 +73,11 @@ class TestLocation extends Component {
         if (this.currentModifier === 'index') {
           let indexSave = '[' + arrayIndexEl.value + ']'
           this.props.saveTestProperty('selectorModifier', indexSave);
+          console.log('IN TEST LOC SUBMIT DATA', currentTest)
         }
         if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
-        this.props.renderTest2();
+        if (this.currentModifier === '.length') this.props.renderTest3();
+        else this.props.renderTest2();
       }
     };
 
@@ -161,9 +163,9 @@ class TestLocation extends Component {
       } 
       // SelectorModifier logic
       if (this.currentSelector !== 'id' && selectorName.length > 0) {
-        selectorModifierRender = (<Dropdown placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
+        selectorModifierRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
       }
-      selectorNameRender=(<Dropdown placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
+      selectorNameRender=(<Dropdown search searchInput={{ type: 'text' }} placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
     // If selector modifier is index
     if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
@@ -180,7 +182,7 @@ class TestLocation extends Component {
 
         <div className="form-group">
           <label>Selector <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <Dropdown selection options={selector} placeholder="Selector" id="selectorDropdown" onChange={(e, {value})=>this.handleSelectorDropdown(e, value)} />
+          <Dropdown search searchInput={{ type: 'text' }} selection options={selector} placeholder="Type or Select from Dropdown" id="selectorDropdown" onChange={(e, {value})=>this.handleSelectorDropdown(e, value)} />
           <br />
           { selectorNameRender }
           <br />

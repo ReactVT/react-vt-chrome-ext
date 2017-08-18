@@ -49,7 +49,7 @@ function assertionListReducer(state = [], action){
       }
       localStorage.setItem("asserts", JSON.stringify(newState));
       return newState;
-    case 'CLEAR_RESULTS':
+    case 'CLEAR_RESULTS_FROM_LIST':
       newState = state.slice();
       // iterate through each block
       for (let i = 0; i < newState.length; i += 1) {

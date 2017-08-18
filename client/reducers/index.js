@@ -17,6 +17,8 @@ import selectedItemReducer from './selectedItemReducer.js';
 import globalColorReducer from './globalColorReducer.js';
 import selectedColorReducer from './selectedColorReducer.js';
 import backgroundConnectionReducer from './backgroundConnectionReducer.js'
+import firstLoadReducer from './firstLoadReducer.js'
+
 
 const rootReducer = combineReducers(
     {
@@ -37,6 +39,7 @@ const rootReducer = combineReducers(
         searchButton: searchButtonReducer,
         testResults: testResultsReducer, 
         backgroundConnection: backgroundConnectionReducer,
+        firstLoad: firstLoadReducer,
     });
 
 export default rootReducer;

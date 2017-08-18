@@ -52,7 +52,8 @@ class TestExpect extends Component {
     this.props.saveTestProperty('type', '');
     this.props.saveTestProperty('dataType', '');
     this.props.saveTestProperty('value', '');
-    this.props.renderTest2();
+    if (this.props.stateIsNowProp.test.selectorModifier === '.length') this.props.renderTest1();
+    else this.props.renderTest2();
   }
 
   render () {
@@ -84,7 +85,7 @@ class TestExpect extends Component {
     } else if (currentDataType === "number") {
       valueRender = (<Input type="number" id="value-input" placeholder='Enter Number' onChange={(e, {value}) => this.handleValue(e, value)} />);
     } else if (currentDataType === "boolean") {
-      valueRender = (<Dropdown placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
+      valueRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
     }
 
     return (
