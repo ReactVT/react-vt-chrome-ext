@@ -26,6 +26,7 @@ html, body{
   margin-left: 5px;
   margin-top: 5px;
   margin-bottom: 0;
+  text-align: right; 
 }
 
 li {
@@ -80,7 +81,8 @@ li {
   vertical-align: top;
   margin: 5px;
   margin-left: 0px;
-  border-radius: 3px; 
+  border-radius: 3px;
+  margin-top: 10px; 
   border-left: solid 1px #CFD8D7; 
   padding: 3px;
   background-color: #DDE6E3;
@@ -202,7 +204,7 @@ rect {
   padding: 0.4em 0.2em;
   padding-left: 15px;
   transition: all .1s ease;   
-  color: rgba(255,255,255,.9);
+  color: rgba(11,11,11,.8);
   font-weight: 450;
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
@@ -212,12 +214,12 @@ rect {
 } 
 
 .accordion-asserts:hover {
-  color: rgba(255,255,255,1);
+  color: rgba(0,0,0,1);
   transition: all 0.2s ease-in; 
 }
 
 .accordion-asserts:active {
-  color: rgba(255,255,255,.9);
+  color: rgba(11,11,11,.8);
 }
 
 .accordion-content {

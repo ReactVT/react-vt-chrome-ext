@@ -60,6 +60,7 @@ function assertionListReducer(state = [], action){
         newState[i].passed = '';
         // iterate throguh block's asserts
         for (let j = 0; j < newState[i].asserts.length; j += 1) {
+          if (newState[i].asserts[j].type !== 'action') newState[i].asserts[j].actual = '';
           newState[i].asserts[j].passed = '';
         }
       }
