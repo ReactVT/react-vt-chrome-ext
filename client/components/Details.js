@@ -21,16 +21,21 @@ class Details extends Component {
         </div>
         ); 
     }
+
+
      
     if (currentItem.type === 'node') {
       let node = this.props.stateIsNowProp.nodeData;
+          console.log('in details', node);
       let id = node.id ? node.id : 'n/a'; 
       let nodeClass = node.class ? node.class : 'n/a'; 
 
 
       if (node.state && Object.keys(node.state).length > 0)  {
         let nodeState = Object.keys(node.state).map(item => {
-          return (<li><span className="boldDetail">{item}:</span> {node.state[item]}</li>)
+          let currState = node.state[item];
+          if (typeof currState === 'object') currState = JSON.stringify(currState);
+          return (<li><span className="boldDetail">{item}:</span> {currState}</li>)
         }); 
         state = (
           <div className="detailsFull">
@@ -44,7 +49,9 @@ class Details extends Component {
 
       if (node.props && Object.keys(node.props).length > 0) {
         let nodeProps = Object.keys(node.props).map(item => {
-          return (<li><span className="boldDetail">{item}:</span> {node.props[item]}</li>)
+          let currProp = node.props[item];
+          if (typeof currProp === 'object') currProp = JSON.stringify(currProp);
+          return (<li><span className="boldDetail">{item}:</span> {currProp}</li>)
         }); 
         props = (
           <div className="detailsFull">
@@ -87,6 +94,7 @@ class Details extends Component {
 
     // Logic for building a test details panel
     if (currentItem.type === 'test') {
+      console.log('in assert', currentItem);
       let curr = currentItem.assert; 
       let result = curr.passed ? curr.passed : 'In Progress';
       let name = curr.selectorName ? curr.selectorName : curr.compName; 
