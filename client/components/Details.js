@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import KeyInformation from '../components/KeyInformation';
 import ValueInformation from '../components/ValueInformation';
-
+import { Accordion, Grid } from 'semantic-ui-react';
 
 class Details extends Component {
 
@@ -26,39 +26,73 @@ class Details extends Component {
      
     if (currentItem.type === 'node') {
       let node = this.props.stateIsNowProp.nodeData;
-          console.log('in details', node);
       let id = node.id ? node.id : 'n/a'; 
       let nodeClass = node.class ? node.class : 'n/a'; 
 
-
+      // if state exists
       if (node.state && Object.keys(node.state).length > 0)  {
         let nodeState = Object.keys(node.state).map(item => {
           let currState = node.state[item];
-          if (typeof currState === 'object') currState = JSON.stringify(currState);
-          return (<li><span className="boldDetail">{item}:</span> {currState}</li>)
-        }); 
+          // iterate through current state if it is an array
+          if (currState.constructor === Array) {
+            const arrayRender = [];
+            currState.forEach((el, i)=> {
+              if (typeof el === 'object') el = JSON.stringify(el);
+              arrayRender.push(<li className="object-content">{el}</li>);
+            });
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}: </Grid.Column>
+          <Grid.Column className="grid-col">
+            <Accordion className="accordion-stateprops-block"> 
+              <Accordion.Title className="accordion-stateprops-title"> Array({currState.length}) </Accordion.Title> 
+              <Accordion.Content className="accordion-stateprops-content">
+                { arrayRender } 
+              </Accordion.Content>
+            </Accordion>
+          </Grid.Column></Grid.Row>);
+          }
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currState}</Grid.Column></Grid.Row>);
+        });
+        
         state = (
           <div className="detailsFull">
           <span className="detailName">State</span>
-          <ul className="detailsList">
+          <Grid divided='vertically' className="detailsList">
             {nodeState}
-          </ul>
-        </div>
+          </Grid>
+          </div>
         );
       } 
 
       if (node.props && Object.keys(node.props).length > 0) {
         let nodeProps = Object.keys(node.props).map(item => {
           let currProp = node.props[item];
-          if (typeof currProp === 'object') currProp = JSON.stringify(currProp);
-          return (<li><span className="boldDetail">{item}:</span> {currProp}</li>)
-        }); 
+          
+          if (currProp.constructor === Array) {
+            const arrayRender = [];
+            currProp.forEach((el, i)=> {
+              if (typeof el === 'object') el = JSON.stringify(el);
+              if (el === '') el = "''";
+              arrayRender.push(<li className="object-content">{el}</li>);
+            });
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}: </Grid.Column>
+          <Grid.Column className="grid-col">
+            <Accordion className="accordion-stateprops-block"> 
+              <Accordion.Title className="accordion-stateprops-title"> Array({currProp.length}) </Accordion.Title> 
+              <Accordion.Content className="accordion-stateprops-content">
+                { arrayRender } 
+              </Accordion.Content>
+            </Accordion>
+          </Grid.Column></Grid.Row>);
+          }
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currProp}</Grid.Column></Grid.Row>);
+        });
+
         props = (
           <div className="detailsFull">
           <span className="detailName">Props</span>
-            <ul className="detailsList">
-              {nodeProps}
-            </ul>
+          <Grid divided='vertically' className="detailsList">
+            {nodeProps}
+          </Grid>
           </div>
         );
       }

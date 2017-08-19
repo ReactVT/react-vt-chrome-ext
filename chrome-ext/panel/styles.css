@@ -12,12 +12,22 @@ html, body{
  margin-left: none;
  padding-left: 0;
  padding-right: 0;
- margin-top: 0;
- margin-bottom: 0;
+ margin-top: 0!important;
+ margin-bottom: 0!important;
 }
 
 .boldDetail {
   font-weight: 800;
+}
+
+.grid-row {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+
+.grid-col {
+  margin-top: 0!important;
+  margin-bottom: 0!important;
 }
 
 .detailName {
@@ -239,8 +249,11 @@ rect {
   padding: 0px;
 }
 
+.object-content {
+  overflow-wrap: break-word;
+}
 
-.accordion-block:hover{
+.accordion-block:hover {
   color: rgba(0,0,0,.8)!important;
   transition: all .2s ease!important;  
 }
@@ -248,6 +261,18 @@ rect {
 #topNameEditBlock {
   background-color: #619fb7;
   padding: 10px 20px;
+}
+
+.accordion-stateprops.block {
+  width: 100%!important;
+}
+
+.accordion-stateprops-content {
+  display: inline-block;
+}
+
+.accordion-stateprops-title {
+  padding: 0!important;
 }
 
 /* .result-icon {
