@@ -11,6 +11,7 @@ class TestData extends Component {
     this.error = '';
     this.currentProps;
     this.currentState;
+    this.noModifier;
   }
 
   componentWillMount() {
@@ -81,7 +82,10 @@ class TestData extends Component {
 
   handleModifierDropdown(event, value) {
     // semanticUI doesn't like empty string for value
-    if (value === 'none') value = '';
+    if (value === 'none') {
+      value = '';
+      this.noModifier = true;
+    }
     this.props.saveTestProperty('modifier', value);
     this.error = '';
     console.log('in modifier dropdown ', value, this.props.stateIsNowProp.test)
@@ -113,7 +117,7 @@ class TestData extends Component {
           <p>Please select from the dropdown.</p>
 </Message>);
         this.forceUpdate();
-      } else if (this.modifierRender !== '' && currentTest.modifier === '') {
+      } else if (this.modifierRender !== '' && currentTest.modifier === '' && !this.noModifier) {
         this.error=(<Message negative>
           <Message.Header>Modifier Required</Message.Header>
           <p>Please select from the dropdown.</p>
@@ -171,10 +175,11 @@ class TestData extends Component {
         console.log('string to parse', this.currentProps[currentProperty])
         value = this.currentProps[currentProperty];
       }
-      console.log('in modifier', value);
+      console.log('in modifier', this.currentState, currentProperty);
       if (value.constructor === Array) {
+        console.log('in modifier really array', value)
         this.modifierRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
-      }
+      } else this.modifierRender = '';
     }
     // if modifier is index
     if (this.props.stateIsNowProp.test.modifier === 'index') {
