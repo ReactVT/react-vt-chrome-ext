@@ -27,6 +27,8 @@ class TestData extends Component {
     if (selector === 'node') {
       this.currentProps = this.props.props;
       this.currentState = this.props.state;
+      this.handleCompName(this.props.compName);
+
     } else if (selector === 'component') {
       // get component props and state in the form of arrays
       // still needs to be specified with index modifier
@@ -63,6 +65,10 @@ class TestData extends Component {
     }
   }
 
+  handleCompName(name) {
+    // set component name for node
+    this.props.saveTestProperty('selectorName', name);
+  }
   handleCompAddress(loc) {
     // set location
     this.props.saveTestProperty('loc', loc);
