@@ -12,8 +12,8 @@ class Details extends Component {
     let self = this
     let currentItem = this.props.stateIsNowProp.selectedItem;
 
-    let props;
-    let state;
+    let props = '';
+    let state = '';
 
     if (currentItem.type === 'none') {
       display = (<div id="details-panel" style={{"padding": "5px"}}>
@@ -23,58 +23,67 @@ class Details extends Component {
     }
      
     if (currentItem.type === 'node') {
-        console.log('fixing a node', this.props.stateIsNowProp.nodeData);
-        display = (
-        <div id="details-panel" style={{"padding": "5px"}}>
-        <h5 id="detailsHeader">Details for Test Assertion</h5>
+      let node = this.props.stateIsNowProp.nodeData;
+      let id = node.id ? node.id : 'n/a'; 
+      let nodeClass = node.class ? node.class : 'n/a'; 
+
+
+      if (node.state && Object.keys(node.state).length > 0)  {
+        let nodeState = Object.keys(node.state).map(item => {
+          return (<li><span className="boldDetail">{item}:</span> {node.state[item]}</li>)
+        }); 
+        state = (
           <div className="detailsFull">
+          <span className="detailName">State</span>
+          <ul className="detailsList">
+            {nodeState}
+          </ul>
+        </div>
+        );
+      } 
+
+      if (node.props && Object.keys(node.props).length > 0) {
+        let nodeProps = Object.keys(node.props).map(item => {
+          return (<li><span className="boldDetail">{item}:</span> {node.props[item]}</li>)
+        }); 
+        props = (
+          <div className="detailsFull">
+          <span className="detailName">Props</span>
             <ul className="detailsList">
-              <h5 className="detailName">TEXT</h5>
-              <li><span className="boldDetail">Status:</span> bro</li>
-              <li><span className="boldDetail">Name:</span> bro</li>
-              <li><span className="boldDetail">Selector Modifier:</span> bro</li>
-              <li><span className="boldDetail">Property:</span> bro</li>
-              <li><span className="boldDetail">Data Type:</span> bro</li>
-              <li><span className="boldDetail">Expected:</span> bro</li>
+              {nodeProps}
             </ul>
           </div>
+        );
+      }
+
+
+
+
+
+
+
+
+        display = (
+          <div id="details-panel" style={{"padding": "5px"}}>
+          <h5 id="detailsHeader">Details for Selected Node</h5>
           <div className="detailsFull">
             <ul className="detailsList">
-              <li><span className="boldDetail">Assert ID:</span> bro</li>
-              <li><span className="boldDetail">Selector:</span> bro</li>
-              <li><span className="boldDetail">Source:</span> bro</li>
-              <li><span className="boldDetail">Modifier:</span> bro</li>
-              <li><span className="boldDetail">Evaluation:</span> bro</li>
-              <li><span className="boldDetail">Actual:</span> bro</li>
+              <li><span className="boldDetail">Name:</span> {node.name}</li>
+              <li><span className="boldDetail">Id:</span> {id}</li>
+              <li><span className="boldDetail">Class:</span> {nodeClass}</li>
             </ul>
-          </div>  
-        </div>
-        ); 
+            </div>
+            {state}
+            {props}
+            </div>);
 
 
 
-      // if (this.props.stateIsNowProp.nodeData.props) {
-      //   console.log('in props!!!!!');
-      //   props = Object.keys(this.props.stateIsNowProp.nodeData.props).map((val, index) => {
-      //     return (<li key={index}>{val}: {this.props.stateIsNowProp.nodeData.props[val]} </li>);
-      //   })
-      // }
-      // if (this.props.stateIsNowProp.nodeData.state) {
-      //   state = Object.keys(this.props.stateIsNowProp.nodeData.state).map((val, index) => {
-      //     return (<li key={index}>{val}: {JSON.stringify(this.props.stateIsNowProp.nodeData.state[val])} </li>);
-      //   })
-      // }
-      // display = (
-      //   <div id="details-panel" style={{"padding": "5px"}}>
-      //   <h4 className="page-header">Details</h4>
-      //   <h5 id="detailsName">{this.props.stateIsNowProp.nodeData.name}</h5>
-      //   <h5>Props</h5>
-      //   {props}
-      //   <h5>State</h5>
-      //   {state}
-      //   </div>
-      // );
+
+
+
     }
+
 
     // Logic for building a test details panel
     if (currentItem.type === 'test') {

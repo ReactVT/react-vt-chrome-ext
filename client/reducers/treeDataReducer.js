@@ -28,6 +28,8 @@ function nodeRender(nodes) {
         ytranslate={d.y}
         key={i}
         name={d.data.name}
+        id={d.data.id}
+        class={d.data.class}
         props={d.data.props}
         state={d.data.state}
         address={d.data.address}
