@@ -7,12 +7,107 @@ html, body{
   opacity: 1!important;
 }
 
+.detailsList {
+ list-style: none; 
+ margin-left: none;
+ padding-left: 0;
+ padding-right: 0;
+ margin-top: 0;
+ margin-bottom: 0;
+}
+
+.boldDetail {
+  font-weight: 800;
+}
+
+.detailName {
+  font-size: 14px;
+  font-weight: 200;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+li {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.hrDetail {
+  border-width: 1px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-color: #979E9D;
+}
+
+#details-left {
+  text-align: left; 
+  width: 47%;
+  height: 19vh;
+  display: inline-block;
+  vertical-align: top; 
+  margin: 5px;
+  margin-right: 0px;
+  border-radius: 3px;
+  padding: 3px;
+  padding-left: 0;
+  background-color: #DDE6E3;
+}
+
+#details-action {
+  text-align: left; 
+  width: 70%;
+  height: 19vh;
+  display: inline-block;
+  vertical-align: top; 
+  margin: 5px;
+  margin-right: 0px;
+  border-radius: 3px;
+  padding: 6px;
+  background-color: #DDE6E3;
+}
+
+#detailsHeader {
+  text-align: center; 
+  margin-bottom: 0;
+}
+
+.detailsFull {
+  text-align: left; 
+  width: 97%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  margin-left: 0px;
+  border-radius: 3px; 
+  border-left: solid 1px #CFD8D7; 
+  padding: 3px;
+  background-color: #DDE6E3;
+}
+
+#details-right {
+  text-align: left; 
+  width: 47%;
+  height: 19vh;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  margin-left: 0px;
+  border-radius: 3px; 
+  border-left: solid 1px #CFD8D7; 
+  padding: 3px;
+  background-color: #DDE6E3;
+}
+
 #details-panel {
   height: 25vh;
   padding: 5px;
   overflow-y: auto; 
   background-color: #d5e0e5;
   border-bottom: 2px solid gray;
+  font-size: 12px;
+  text-align: center;
 }
 
 .editAssert {
@@ -112,7 +207,7 @@ rect {
   border-left: 1px solid rgba(34,36,38,.15);
   border-bottom: 1px solid rgba(34,36,38,.15);  
   overflow-x: hidden;
-  background-color: #5e8291!important;
+  background-color: #AFC0D4!important;
 
 } 
 
@@ -134,7 +229,7 @@ rect {
 }
 
 .accordion-block{
-  color: rgba(0,0,0,.6)!important;
+  color: rgba(255,0,0,.6)!important;
   transition: all .1s ease;
 }
 
