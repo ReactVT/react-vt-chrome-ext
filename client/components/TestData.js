@@ -193,7 +193,7 @@ class TestData extends Component {
     }
 
     return (
-
+      <div id="sourceContainer">
       <form onSubmit={(event)=>{
         this.handleSubmit(event);
         }}>
@@ -201,14 +201,15 @@ class TestData extends Component {
         <h3 className="subheader">Set Source</h3>
 
         <div className="form-group">
-          { this.sourceRender } { propertyRender } 
+          <div id="chooseSource">{ this.sourceRender } { propertyRender }</div> 
           <br />
-          { this.modifierRender } { indexRender }
+          <div id="chooseSourceMod">{ this.modifierRender }</div>  <div id="chooseSourceIndex">{ indexRender }</div>
         </div>
         <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
         <Button primary type="submit" className="btn btn-primary">Save</Button>
         {this.error}
       </form>
+      </div>
 
     );
   }

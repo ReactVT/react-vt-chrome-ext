@@ -32,14 +32,16 @@ class NameAssertionBlock extends Component {
   }
   render() {
     return (
-      <form onSubmit={(event)=>{
-        this.saveHandler(event);
-        }}>
-        <h4>Assertion Block Name </h4>
-        <Input label={{ icon: 'asterisk' }} labelPosition='right corner' type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
-        <Button id="nameBlockButton" primary size="tiny">Save Block</Button>
-        {this.error}
-      </form>
+      <div id="newAssertionBlockDiv">
+        <form onSubmit={(event)=>{
+          this.saveHandler(event);
+          }}>
+          <h4>Assertion Block Name </h4>
+          <Input type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
+          <Button id="nameBlockButton" primary size="tiny">Save Block</Button>
+          {this.error}
+        </form>
+      </div>
     )
   }
 }
