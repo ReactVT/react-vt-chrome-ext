@@ -163,35 +163,38 @@ class TestLocation extends Component {
       } 
       // SelectorModifier logic
       if (this.currentSelector !== 'id' && selectorName.length > 0) {
-        selectorModifierRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
+        selectorModifierRender = (<Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
       }
-      selectorNameRender=(<Dropdown search searchInput={{ type: 'text' }} placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
+      selectorNameRender=(<Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
     }
     // If selector modifier is index
     if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
-          indexRender = (<Input placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
+          indexRender = (<Input className="dropdownSel" placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
     }
   
     return (
-
-      <form onSubmit={(event)=>{
-        this.handleSubmitEventForAction(event);
-        }}>
-
-        <h3 className="subheader">Select Target</h3>
-
-        <div className="form-group">
-          <label>Selector <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <Dropdown search searchInput={{ type: 'text' }} selection options={selector} placeholder="Type or Select from Dropdown" id="selectorDropdown" onChange={(e, {value})=>this.handleSelectorDropdown(e, value)} />
-          <br />
-          { selectorNameRender }
-          <br />
-          { selectorModifierRender } { indexRender }
-        </div>
-        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
-        <Button primary type="submit" className="btn btn-primary">Save</Button>
-        {this.error}
-      </form>
+      <div id="testLocationContainer">
+        <form onSubmit={(event)=>{
+          this.handleSubmitEventForAction(event);
+          }}>
+  
+          <h3 className="subheader">Select Target</h3>
+  
+          <div className="form-group">
+            <label id="selLabel">Selector <span style={ {color: "#ffaaaa"} }>*</span></label>
+            <Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} selection options={selector} placeholder="Select from Dropdown" id="selectorDropdown" onChange={(e, {value})=>this.handleSelectorDropdown(e, value)} />
+            <br />
+            <div id="selectorContainer">
+            { selectorNameRender }
+            <br />
+            { selectorModifierRender } { indexRender }
+            </div>
+          </div>
+          <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+          <Button primary type="submit" className="btn btn-primary">Save</Button>
+          {this.error}
+        </form>
+      </div>
 
     );
   }

@@ -142,8 +142,104 @@ li {
 
 }
 
+#testLocationContainer {
+  text-align: center;
+  margin: auto;
+}
+
+.dropdownSel {
+  margin-bottom: 10px;
+}
+
+#sourceContainer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+#expectContain {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+#selLabel {
+  margin-right: 5px;
+}
+
+#selectorContainer {
+  text-align: right; 
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+
+#expectButtons {
+  margin-top: 15px;
+}
+
+.dropDown {
+  margin-bottom: 5px;
+}
+
 #topNameEditBlock {
   margin: 0;
+}
+
+#chooseSource {
+  margin-bottom: -10px;
+}
+
+#chooseSourceMod {
+  margin-bottom: 10px;
+}
+
+#chooseSourceIndex {
+  margin-bottom: 10px;
+}
+
+#newActionContainer {
+  text-align: center;
+
+}
+
+#newAssertionBlockDiv {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+}
+
+.inputLabel {
+  margin-right: 10px;
+}
+
+#eventComponent {
+  float: left;
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: block;
+}
+
+#eventDropDown {
+  width: 100px !important;
+}
+
+#actionComponent {
+  float: left;
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: block;
+}
+
+#assertionBlockName {
+  display: block;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 250px;
 }
 
 .editAssert:last-of-type {
@@ -162,6 +258,9 @@ li {
 
 #nameBlockButton {
   margin-top: 10px;
+  display: block;
+  float: right;
+  margin-right: 50px;
 }
 
 rect { 

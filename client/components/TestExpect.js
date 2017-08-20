@@ -85,26 +85,29 @@ class TestExpect extends Component {
     } else if (currentDataType === "number") {
       valueRender = (<Input type="number" id="value-input" placeholder='Enter Number' onChange={(e, {value}) => this.handleValue(e, value)} />);
     } else if (currentDataType === "boolean") {
-      valueRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
+      valueRender = (<Dropdown className="dropDown" search searchInput={{ type: 'text' }} placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
     }
 
     return (
-
-      <form onSubmit={(event)=>{
-        this.handleSubmit(event);
-        }}>
-
-        <h3 className="subheader">Set Expectation</h3>
-
-        <div className="form-group">
-          <Dropdown search searchInput={{ type: 'text' }} selection options={types} defaultValue={types[0].value} placeholder="Select Value Type" id="typeDropdown" onChange={(e, {value}) => this.handleTypeDropdown(e, value)} />
-          <Dropdown search searchInput={{ type: 'text' }} selection options={comparators} defaultValue={comparators[0].value} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
-          { valueRender }
-        </div>
-        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
-        <Button primary type="submit" className="btn btn-primary">Save Test</Button>
-        {this.error}
-      </form>
+      <div id="expectContain">
+        <form onSubmit={(event)=>{
+          this.handleSubmit(event);
+          }}>
+  
+          <h3 className="subheader">Set Expectation</h3>
+  
+          <div className="form-group">
+            <Dropdown className="dropDown" search searchInput={{ type: 'text' }} selection options={types} defaultValue={types[0].value} placeholder="Select Value Type" id="typeDropdown" onChange={(e, {value}) => this.handleTypeDropdown(e, value)} />
+            <Dropdown className="dropDown" search searchInput={{ type: 'text' }} selection options={comparators} defaultValue={comparators[0].value} placeholder="Select comparator" id="comparatorDropdown" onChange={(e, {value}) => this.handleComparatorDropdown(e, value)} />
+            { valueRender }
+          </div>
+          <div id="expectButtons">
+            <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
+            <Button primary type="submit" className="btn btn-primary">Save Test</Button>
+          </div>
+          {this.error}
+        </form>
+      </div> 
 
     );
   }
