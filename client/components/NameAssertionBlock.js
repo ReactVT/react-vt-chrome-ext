@@ -17,7 +17,7 @@ class NameAssertionBlock extends Component {
     const assertionList = this.props.stateIsNowProp.assertionList;
     for (let i = 0; i < assertionList.length; i += 1) {
       if (input === assertionList[i].name || input.length === 0){ 
-        this.error=(<Message negative>
+        this.error=(<Message id="invalidName" negative>
           <Message.Header>Invalid Name</Message.Header>
           <p>Name already exists. Please try another name.</p>
 </Message>);
@@ -39,6 +39,7 @@ class NameAssertionBlock extends Component {
           <h4>Assertion Block Name </h4>
           <Input type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
           <Button id="nameBlockButton" primary size="tiny">Save Block</Button>
+          <br />
           {this.error}
         </form>
       </div>

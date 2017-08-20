@@ -247,6 +247,10 @@ li {
   margin-left: 10px;
 }
 
+#invalidName {
+  margin-top: 50px;
+}
+
 .button-container{
   text-align: center;
   margin-bottom: 10px;
