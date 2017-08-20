@@ -52,27 +52,29 @@ class AddAssertionsForAction extends Component {
     ];
     if (this.props.compName) this.error = '';
     return (
-      <form onSubmit={(event)=>{
-        this.handleSubmit(event);
-        }}>
-
-        <h3 className="subheader">Action</h3>
-
-        <div className="form-group">
-          <label>Component <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <Input transparent placeholder="Click on Node" className="form-control" required ref="componentName" value={this.props.compName} disabled/>
-        </div>
-
-        <div className="form-group">
-          <label>Type of Event <span style={ {color: "#ffaaaa"} }>*</span></label>
-          <Dropdown search searchInput={{ type: 'text' }} 
-          selection options={eventOptions} defaultValue={eventOptions[0].value} onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
-        </div>
-        
-        <Button inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
-        <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
-        {this.error}
-      </form>
+      <div id="newActionContainer">
+        <form onSubmit={(event)=>{
+          this.handleSubmit(event);
+          }}>
+  
+          <h3 className="subheader">Action</h3>
+  
+          <div id ="actionComponent" className="form-group">
+            <label className="inputLabel">Component <span style={ {color: "#ffaaaa"} }>*</span></label>
+            <Input transparent placeholder="Click on Node" className="form-control" required ref="componentName" value={this.props.compName} disabled/>
+          </div>
+  
+          <div id="eventComponent" className="form-group">
+            <label className="inputLabel">Event <span style={ {color: "#ffaaaa"} }>*</span></label>
+            <Dropdown id="eventDropDown" search searchInput={{ type: 'text' }} 
+            selection options={eventOptions} defaultValue={eventOptions[0].value} onChange={(e, { value })=>this.handleEventDropdown(e, value)} />
+          </div>
+          
+          <Button inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
+          <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
+          {this.error}
+        </form>
+      </div>
     );
   }
 };
