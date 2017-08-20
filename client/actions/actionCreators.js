@@ -1,3 +1,10 @@
+export function setAppName(payload) {
+  return {
+    type: 'SET_APP_NAME', 
+    payload
+  }
+}
+
 export function setBackgroundConnection(payload) {
   return {
     type: 'SET_BACKGROUND_CONNECTION', 
