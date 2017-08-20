@@ -54,6 +54,7 @@ class ReactTree extends Component {
         if (data.type === 'virtualdom') {
           // check for first traversal to accomodate app refreshes
           if (data.first === true) {
+            self.props.setAppName(data.topNode);
             self.sendAsserts();
             // clear last result
             self.props.clearResults();
