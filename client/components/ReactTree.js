@@ -14,13 +14,14 @@ class ReactTree extends Component {
 
   constructor(props) {
     super(props); 
-    this.backgroundPageConnection = null; 
+    this.backgroundPageConnection = null;
+    this.pageName = document.title;  
     // this.onResize = this.onResize.bind(this)
     // this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
 
   sendAsserts() {
-    const loadedAsserts = localStorage.getItem("asserts");
+    const loadedAsserts = localStorage.getItem(this.pageName);
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
       console.log('in assert to be sent back', loadedAsserts);

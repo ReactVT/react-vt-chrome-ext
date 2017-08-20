@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 
 function assertionListReducer(state = [], action){
   let newState;
+  let title = document.title; 
   switch(action.type) {
     case 'ADD_ASSERTION_TO_LIST':
       newState = state.slice();
       newState.push(action.payload);
-      localStorage.setItem("asserts", JSON.stringify(newState));
+      localStorage.setItem(title, JSON.stringify(newState));
       return newState;
     case 'LOAD_ASSERTION_LIST': 
       return action.payload;
@@ -50,7 +51,7 @@ function assertionListReducer(state = [], action){
           break;
         }
       }
-      localStorage.setItem("asserts", JSON.stringify(newState));
+      localStorage.setItem(title, JSON.stringify(newState));
       return newState;
     case 'CLEAR_RESULTS_FROM_LIST':
       newState = state.slice();
