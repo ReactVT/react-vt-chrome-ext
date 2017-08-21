@@ -48,7 +48,7 @@ class AddAssertionsForAction extends Component {
       { key: 1, text: 'Click', value: 'click' },
       { key: 2, text: 'Double Click', value: 'dblclick' },
       { key: 3, text: 'Right Click', value: 'contextmenu' },
-      { key: 4, text: 'Enter', value: 'keyup' }      
+      { key: 4, text: 'Enter', value: 'keypress' }      
     ];
     if (this.props.compName) this.error = '';
     return (
