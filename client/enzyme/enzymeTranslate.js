@@ -33,7 +33,9 @@ function generateTest(list, app, nodestr) {
 // TODO - Add mocha? 
 function addDependencies() {
   let dependents = `const expect = require('chai').expect;${newLine}`;
+  dependents += `import React from 'react';${newLine}`;
   dependents += `import { mount } from 'enzyme';${newLine}`;
+  dependents += `import 'jsdom-global/register';${newLine}`;
   dependents += `import App from 'fill this in with proper path';${doubleLine}`;
   return dependents; 
 }
@@ -43,7 +45,7 @@ function startDescribe(app) {
   let result = `describe('React VT Tests', () => {${newLine}`; 
   result += `${oneSpace}let wrapper;${newLine}`; 
   result += `${oneSpace}beforeEach(() => {${newLine}`; 
-  result += `${twoSpace}wrapper = mount<${app} />);${newLine}`; 
+  result += `${twoSpace}wrapper = mount(<${app} />);${newLine}`; 
   result += `${oneSpace}});${doubleLine}`; 
   return result;   
 }
@@ -55,6 +57,7 @@ function addBlock(block) {
     if (assert.type === 'action') result += addAction(assert);
     else result += addTest(assert); 
   }); 
+  result += `${oneSpace}});${doubleLine}`; 
   return result;  
 }
 
@@ -149,7 +152,7 @@ function stateTest(assert) {
 // TODO - special handling for on-enter? 
 function addAction(assert) {
   let result = translateLoc(assert.loc);
-  result += `simulate(${assert.event});${newLine}`; 
+  result += `simulate('${assert.event}');${newLine}`; 
   return result; 
 }
 
