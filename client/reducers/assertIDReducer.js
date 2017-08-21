@@ -8,6 +8,9 @@ function assertIDReducer(state = 1, action) {
       newState += 1;
       return newState;
       break;
+    case 'RESET_ASSERT_ID':
+      return 1;
+      break;
     default:
       return state;
   }

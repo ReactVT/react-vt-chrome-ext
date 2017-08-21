@@ -265,6 +265,12 @@ export function incrementAssertId() {
   }
 }
 
+export function resetAssertId() {
+  return {
+    type: 'RESET_ASSERT_ID'
+  }
+}
+
 export function createSearchButtons(payload) {
   return {
     type: 'SEARCH_BUTTON',
