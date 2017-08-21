@@ -24,7 +24,6 @@ class ReactTree extends Component {
     const loadedAsserts = localStorage.getItem(this.pageName);
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
-      console.log('in assert to be sent back', loadedAsserts);
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: JSON.parse(loadedAsserts), 
