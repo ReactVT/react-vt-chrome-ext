@@ -3,6 +3,11 @@ import { render } from 'react-dom';
 import { Button, Accordion, Icon } from 'semantic-ui-react';
 
 class EditAssertionBlock extends Component {
+  constructor(props) {
+    super(props);
+    this.pageName = document.title;  
+  }
+
   handleSaveAssertionBlock() {
     console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
     this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
@@ -16,7 +21,7 @@ class EditAssertionBlock extends Component {
 
   handleDelete(id) {
     this.props.deleteAssertion(id);
-    localStorage.setItem("asserts", JSON.stringify(this.props.stateIsNowProp.assertionList));
+    localStorage.setItem(this.pageName, JSON.stringify(this.props.stateIsNowProp.assertionList));
   }
 
   clickAction(assert) {
