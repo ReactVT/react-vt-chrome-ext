@@ -277,3 +277,20 @@ export function createSearchButtons(payload) {
     payload
   }
 }
+
+export function noData() {
+  return {
+    type: 'NO_DATA',
+  };
+}
+
+export function reactRouter() {
+  return {
+    type: 'REACT_ROUTER',
+  };
+}
+export function noError() {
+  return {
+    type: 'NO_ERROR',
+  };
+}
