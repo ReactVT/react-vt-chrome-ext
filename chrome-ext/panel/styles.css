@@ -25,6 +25,10 @@ html, body{
   padding-bottom: 0!important;
 }
 
+.grid-row:before {
+  content: none!important;
+}
+
 .grid-col {
   margin-top: 0!important;
   margin-bottom: 0!important;
@@ -372,6 +376,7 @@ rect {
 
 .accordion-stateprops-content {
   display: inline-block;
+  width: 190px;
 }
 
 .accordion-stateprops-title {

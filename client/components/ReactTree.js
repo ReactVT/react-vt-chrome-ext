@@ -15,7 +15,7 @@ class ReactTree extends Component {
   constructor(props) {
     super(props); 
     this.backgroundPageConnection = null;
-    this.pageName = document.title;  
+    this.pageName = document.title;
     // this.onResize = this.onResize.bind(this)
     // this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
@@ -49,8 +49,13 @@ class ReactTree extends Component {
 
     // Listens for messages from backgroundjs to get the parsed dom tree
     self.backgroundPageConnection.onMessage.addListener(function(data) {
-        console.log('d3tree received message from content script', data);
-        if (data.type === 'virtualdom') {
+      console.log('d3tree received message from content script', data);
+      if (data.type === 'virtualdom') {
+        console.log('IN REACT TREE DATA', data);
+        // check for react-router incompatibility
+        if (data.data.virtualDom === 'reactRouter') self.props.reactRouter();
+        else {
+          self.props.noError();
           // check for first traversal to accomodate app refreshes
           if (data.first === true) {
             self.props.setAppName(data.topNode);
@@ -75,9 +80,10 @@ class ReactTree extends Component {
                 if(i === self.props.stateIsNowProp.treeData[0][0].length-1 && !checkContainer.includes(self.props.stateIsNowProp.selectedItem.debugId)) {
                   self.props.removeSelectedNode();  
                 }
-            })
+            });
           }
         }
+      }
         if (data.type === 'test-result') {
           let resultObj = data.data;
           self.props.loadResults(resultObj);
@@ -147,9 +153,10 @@ class ReactTree extends Component {
       let compName = this.props.stateIsNowProp.nodeData.name; 
       let props = this.props.stateIsNowProp.nodeData.props; 
       let state = this.props.stateIsNowProp.nodeData.state;
-      
-    if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
-        return (<h1>Waiting for Data</h1>)
+    if (this.props.stateIsNowProp.error === 'reactRouter') {
+      return (<h1>React Router not supported</h1>);
+    } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
+        return (<h1>Waiting for Data</h1>);
     } else {
         return (
    <div>

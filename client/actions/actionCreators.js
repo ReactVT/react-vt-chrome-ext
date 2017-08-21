@@ -265,9 +265,32 @@ export function incrementAssertId() {
   }
 }
 
+export function resetAssertId() {
+  return {
+    type: 'RESET_ASSERT_ID'
+  }
+}
+
 export function createSearchButtons(payload) {
   return {
     type: 'SEARCH_BUTTON',
     payload
   }
+}
+
+export function noData() {
+  return {
+    type: 'NO_DATA',
+  };
+}
+
+export function reactRouter() {
+  return {
+    type: 'REACT_ROUTER',
+  };
+}
+export function noError() {
+  return {
+    type: 'NO_ERROR',
+  };
 }

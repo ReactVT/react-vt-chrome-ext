@@ -19,6 +19,7 @@ import selectedColorReducer from './selectedColorReducer.js';
 import backgroundConnectionReducer from './backgroundConnectionReducer.js';
 import firstLoadReducer from './firstLoadReducer.js';
 import appNameReducer from './appNameReducer.js';
+import errorReducer from './errorReducer.js';
 
 
 const rootReducer = combineReducers(
@@ -41,7 +42,8 @@ const rootReducer = combineReducers(
         testResults: testResultsReducer, 
         backgroundConnection: backgroundConnectionReducer,
         firstLoad: firstLoadReducer,
-        appName: appNameReducer
+        appName: appNameReducer,
+        error: errorReducer,
     });
 
 export default rootReducer;

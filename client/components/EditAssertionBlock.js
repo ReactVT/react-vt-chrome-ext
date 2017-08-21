@@ -10,6 +10,7 @@ class EditAssertionBlock extends Component {
 
   handleSaveAssertionBlock() {
     console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
+    this.props.resetAssertId();
     this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
     this.props.renderViewMode();
     this.props.toggleAssertionBlock();

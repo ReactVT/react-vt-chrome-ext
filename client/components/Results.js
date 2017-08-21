@@ -36,6 +36,7 @@ class Results extends Component {
       if (currentResult.result === true && currentResult.comparator === 'action') {
         this.results.push(
           <List.Item>
+            <List.Icon name="arrow right" color='green' />
          ID{currentResult.assertID} Action from {currentResult.assertionBlock} was performed
 </List.Item>);
         // if test passes

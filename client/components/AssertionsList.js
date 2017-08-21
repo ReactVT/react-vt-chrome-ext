@@ -81,7 +81,9 @@ class AssertionsList extends Component {
           let comparator;
           let classOrId;
           // Pass/Fail status of assertion
-          if (assertion.passed === true) passFailIcon = ( <List.Icon className="result-icon" name="checkmark" color='green' /> );
+          if (assertion.passed === true) 
+            if (assertion.type === 'action') passFailIcon = ( <List.Icon className="result-icon" name="arrow right" color='green' /> );
+            else passFailIcon = ( <List.Icon className="result-icon" name="checkmark" color='green' /> );
           else if (assertion.passed === false) passFailIcon = (<List.Icon className="result-icon" name="x" color='red' />);
           // Comparator
           if (assertion.type === 'equal') {
@@ -100,7 +102,7 @@ class AssertionsList extends Component {
 
           // Action/Test
           if (assertion.type === 'action') {
-            assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</div>);
+            assertText.push(<div className='accordion-asserts' onClick={()=>this.handleAssertDetailAction(assertion)} >{ passFailIcon }ID{assertion.assertID} Action: {assertion.event} on {assertion.compName}</div>);
           } else {
             // component
             if (assertion.selector === 'component') {
