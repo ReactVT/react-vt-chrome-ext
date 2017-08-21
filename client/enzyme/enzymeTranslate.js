@@ -17,7 +17,7 @@ function generateTest(list, app, nodestr) {
 
   // With valid input, we can start building our result. 
   // First, we start by adding all dependencies
-  let result = addDependencies();
+  let result = addDependencies(app);
   // Then we add our Describe syntax to begin our test  
   result += startDescribe(app);
   // Now we loop through and add each assertion block as an it statement 
@@ -31,12 +31,12 @@ function generateTest(list, app, nodestr) {
 
 // Adds any needed dependencies to the top of the file
 // TODO - Add mocha? 
-function addDependencies() {
+function addDependencies(app) {
   let dependents = `const expect = require('chai').expect;${newLine}`;
   dependents += `import React from 'react';${newLine}`;
   dependents += `import { mount } from 'enzyme';${newLine}`;
   dependents += `import 'jsdom-global/register';${newLine}`;
-  dependents += `import App from 'fill this in with proper path';${doubleLine}`;
+  dependents += `import ${app} from 'fill this in with proper path';${doubleLine}`;
   return dependents; 
 }
 
