@@ -409,6 +409,12 @@ rect {
   padding: 0!important;
 }
 
+.inputValue {
+  float: right;
+  width: 245px;
+  padding-top: 5px;
+  padding-right: 50px;
+}
 /* .result-icon {
   font-size: 2em!important;
   height: 0!important;
