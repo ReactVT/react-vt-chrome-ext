@@ -65,6 +65,7 @@ function assertionListReducer(state = [], action){
           newState[i].asserts[j].passed = '';
         }
       }
+      localStorage.setItem(title, JSON.stringify(newState));
       return newState;
     default:
       return state;
