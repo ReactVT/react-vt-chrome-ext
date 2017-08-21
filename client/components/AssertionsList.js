@@ -63,14 +63,12 @@ class AssertionsList extends Component {
         const assertText = [];
         let styling;
         // Block pass/fail status
-        if (block.passed === true) styling = ({'background': 'rgba(76, 175, 80, 0.5)', 'transition': 'all .25s ease-in'});
-        else if (block.passed === false) styling = ({'background': 'rgba(255, 0, 0, 0.3)', 'transition': 'all .25s ease-in'});
-        else styling = ({'background': '#98AEC8',
-  'color': 'rgba(0,0,0,.9)',
-  'transition': 'all .1s ease'});
+        if (block.passed === true) styling = 'accordion-pass';
+        else if (block.passed === false) styling = 'accordion-fail';
+        else styling = 'accordion-block';
 
         assertionlist.push(
-            <Accordion.Title style={styling} className='accordion-block'>
+            <Accordion.Title style={{'background': '#98AEC8'}} className={styling}>
               <Icon name='dropdown' />
               { block.name } 
               <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(block.name)} />
