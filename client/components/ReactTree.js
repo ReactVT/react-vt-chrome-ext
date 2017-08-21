@@ -24,7 +24,6 @@ class ReactTree extends Component {
     const loadedAsserts = localStorage.getItem(this.pageName);
     if (loadedAsserts) {
       this.props.loadAssertionList(JSON.parse(loadedAsserts));
-      console.log('in assert to be sent back', loadedAsserts);
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: JSON.parse(loadedAsserts), 
@@ -55,12 +54,12 @@ class ReactTree extends Component {
           // check for first traversal to accomodate app refreshes
           if (data.first === true) {
             self.props.setAppName(data.topNode);
-            self.sendAsserts();
             // clear last result
             self.props.clearResults();
             // clear results from blocks and asserts in list
             self.props.clearResultsFromList();
             self.props.firstLoad();
+            self.sendAsserts();
           } else self.props.notFirstLoad();
 
           self.props.loadTreeData(data.data.virtualDom);
