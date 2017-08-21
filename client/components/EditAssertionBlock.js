@@ -34,6 +34,7 @@ class EditAssertionBlock extends Component {
   }
 
   handleCancel() {
+    this.props.resetAssertId();   
     // Empty out assertion block
     this.props.deleteAssertionBlock(this.props.stateIsNowProp.assertionBlock.name);
     this.props.renderViewMode();

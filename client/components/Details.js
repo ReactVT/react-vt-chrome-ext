@@ -40,7 +40,7 @@ class Details extends Component {
               if (typeof el === 'object') el = JSON.stringify(el);
               arrayRender.push(<li className="object-content">{el}</li>);
             });
-          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}: </Grid.Column>
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}: </Grid.Column>
           <Grid.Column className="grid-col">
             <Accordion className="accordion-stateprops-block"> 
               <Accordion.Title className="accordion-stateprops-title"> Array({currState.length}) </Accordion.Title> 
@@ -50,7 +50,7 @@ class Details extends Component {
             </Accordion>
           </Grid.Column></Grid.Row>);
           }
-          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currState}</Grid.Column></Grid.Row>);
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currState}</Grid.Column></Grid.Row>);
         });
         
         state = (
@@ -74,7 +74,7 @@ class Details extends Component {
               if (el === '') el = "''";
               arrayRender.push(<li className="object-content">{el}</li>);
             });
-          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}: </Grid.Column>
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}: </Grid.Column>
           <Grid.Column className="grid-col">
             <Accordion className="accordion-stateprops-block"> 
               <Accordion.Title className="accordion-stateprops-title"> Array({currProp.length}) </Accordion.Title> 
@@ -84,7 +84,7 @@ class Details extends Component {
             </Accordion>
           </Grid.Column></Grid.Row>);
           }
-          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={4} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currProp}</Grid.Column></Grid.Row>);
+          return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currProp}</Grid.Column></Grid.Row>);
         });
 
         props = (
@@ -166,6 +166,7 @@ class Details extends Component {
     // Logic for building an action details panel
     if (currentItem.type === 'action') {
       let actionStatus = currentItem.assert.passed ? 'Done' : 'In Progress';
+      let onEnter = (currentItem.assert.event === 'keypress') ? (<li><span className="boldDetail">Input Text:</span> {currentItem.assert.inputValue}</li>) : '';
       display = (
         <div id="details-panel" style={{"padding": "5px"}}>
         <h5 id="detailsHeader">Details for Action Assertion</h5>
@@ -174,6 +175,7 @@ class Details extends Component {
               <li><span className="boldDetail">Status:</span> {actionStatus}</li>
               <li><span className="boldDetail">Assert ID:</span> {currentItem.assert.assertID}</li>
               <li><span className="boldDetail">Event:</span> {currentItem.assert.event}</li>
+              { onEnter }
               <li><span className="boldDetail">Name:</span> {currentItem.assert.compName}</li>
             </ul>
           </div>

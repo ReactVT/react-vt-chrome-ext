@@ -80,7 +80,7 @@ class AssertionsList extends Component {
           let classOrId;
           // Pass/Fail status of assertion
           if (assertion.passed === true) 
-            if (assertion.type === 'action') passFailIcon = ( <List.Icon className="result-icon" name="arrow right" color='green' /> );
+            if (assertion.type === 'action') passFailIcon = ( <List.Icon className="result-icon" name="arrow right" color='blue' /> );
             else passFailIcon = ( <List.Icon className="result-icon" name="checkmark" color='green' /> );
           else if (assertion.passed === false) passFailIcon = (<List.Icon className="result-icon" name="x" color='red' />);
           // Comparator
