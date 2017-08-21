@@ -1,4 +1,4 @@
-function actionReducer(state = { assertID: 0, type: 'action', event: 'click', compName: '', loc: [], passed: '' }, action) {
+function actionReducer(state = { assertID: 0, type: 'action', event: 'click', compName: '', loc: [], inputValue: '', passed: '' }, action) {
   let newState;
   switch(action.type) {
     case 'SAVE_ACTION_PROPERTY':
@@ -14,7 +14,7 @@ function actionReducer(state = { assertID: 0, type: 'action', event: 'click', co
       return newState;
     case 'CLEAR_ACTION':
       let oldState = Object.assign({}, state);
-      newState = { assertID: oldState.assertID, type: 'action', event: 'click', compName: '', loc: [], passed: '' };
+      newState = { assertID: oldState.assertID, type: 'action', event: 'click', compName: '', loc: [], inputValue: '', passed: '' };
       return newState;
     default:
       return state;

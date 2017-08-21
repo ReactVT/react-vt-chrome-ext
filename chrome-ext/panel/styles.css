@@ -18,11 +18,14 @@ html, body{
 
 .boldDetail {
   font-weight: 800;
+  overflow-wrap: break-word;
+  
 }
 
 .grid-row {
   padding-top: 0!important;
   padding-bottom: 0!important;
+
 }
 
 .grid-row:before {
@@ -32,6 +35,7 @@ html, body{
 .grid-col {
   margin-top: 0!important;
   margin-bottom: 0!important;
+  padding-right: 0!important;
 }
 
 .detailName {
@@ -376,7 +380,7 @@ rect {
 
 .accordion-stateprops-content {
   display: inline-block;
-  width: 190px;
+  width: 180px;
 }
 
 .accordion-stateprops-title {
