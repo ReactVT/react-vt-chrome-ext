@@ -230,7 +230,7 @@ class ReactTree extends Component {
                 // filter="url(#filter1)">
               */}
 
-                <g transform={"translate(20,350)"}>
+                <g transform={"translate(30,308) scale(0.8)"}>
                   {this.props.stateIsNowProp.treeData[0][1]} 
                   {this.props.stateIsNowProp.treeData[0][0]}                  
                 </g>
