@@ -127,8 +127,8 @@ class AssertionsList extends Component {
       return (
         <div>
           <div className='button-container'>
-            <Button primary size='mini' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
-            <Button primary size='mini' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme</Button>
+            <Button inverted color="yellow" primary size='mini' className="btn btn-primary new" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
+            <Button inverted color="yellow" primary size='mini' type="button" className="btn btn-primary new" onClick={()=>this.saveEnzyme()}> Export to Enzyme</Button>
           </div>
           <div className="accordion-container">
             <Accordion styled>

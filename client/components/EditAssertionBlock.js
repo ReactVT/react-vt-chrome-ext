@@ -61,7 +61,7 @@ class EditAssertionBlock extends Component {
     }
     return (
       <div>
-        <div className='button-container'>
+        <div className='button-container-edit'>
           <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
           <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
           <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>

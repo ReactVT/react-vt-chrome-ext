@@ -261,8 +261,31 @@ li {
 
 .button-container{
   text-align: center;
-  margin-bottom: 10px;
+  background: #396083;
+  position: fixed;
+  top: 25vh;
+  width: 100%;
+  height: 40px;
+  padding-top: 5px;
+  z-index: 999;
 }
+
+.button-container-edit{
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.accordion-container {
+  margin-top: 40px;
+}
+
+/* #assertions-panel .btn-primary.new {
+  padding: 8px!important;
+  color: #C8CF50!important;
+  box-shadow: 0 0 0 2px #C8CF50 inset!important;
+  background: transparent!important;
+} */
 
 #nameBlockButton {
   margin-top: 10px;
@@ -278,8 +301,7 @@ rect {
 #assertions-panel {
   height: 55vh;
   background-color: #d5e0e5;    
-  overflow-y: auto;
-  padding-top: 10px;   
+  overflow-y: auto;   
 }
 
 .breadcrumb a:hover{
@@ -326,9 +348,6 @@ rect {
 /* .accordion-block {
   border: solid 1px black;
 } */
-.accordion-container {
-
-}
 
  .accordion-asserts {
   cursor: pointer;
