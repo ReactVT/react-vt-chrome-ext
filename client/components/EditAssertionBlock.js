@@ -57,7 +57,7 @@ class EditAssertionBlock extends Component {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
         assertions.push(
-          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
+          <div className='editAssert' onClick={()=> this.clickAction(el)}>ID{el.assertID} Action: { el.event } on {el.compName}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         } else {
           let evaluator; 
           if (el.type === 'equal') evaluator = 'Equal'; 
@@ -65,17 +65,27 @@ class EditAssertionBlock extends Component {
           if (el.type === 'lessthan') evaluator = 'be Less than'; 
           if (el.type === 'notequal') evaluator = 'not Equal'; 
           assertions.push(
-            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
+            <div className='editAssert' onClick={()=> this.clickTest(el)}>ID{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         }
       });
     }
     return (
       <div>
         <div className='button-container-edit'>
-          <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
-          <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
-          <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
-          <Button primary size="small" type="button" className="ui primary basic button" id="newTestButton"onClick={()=>this.props.renderTestMode()}>New Test</Button>
+          <Button animated color="green" size="tiny" type="submit" className="btn btn-primary " onClick={()=>this.handleSaveAssertionBlock()}>
+                <Button.Content visible>Save Assertion Block</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='save' />
+                </Button.Content>
+          </Button>
+          <Button animated primary inverted color="red" size="tiny" type="button" onClick={()=>this.handleCancel()} className="btn btn-primary">
+              <Button.Content visible>Cancel</Button.Content>
+              <Button.Content hidden>
+                <Icon name='delete' />
+              </Button.Content>
+          </Button>
+          <Button primary inverted color="blue" size="small" type="button" className="assert-button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
+          <Button primary inverted color="blue" size="small" type="button" id="newTestButton" className="assert-button" onClick={()=>this.props.renderTestMode()}>New Test</Button>
         </div>
         <div id='topNameEditBlock'>Assertion Block: {this.props.stateIsNowProp.assertionBlock.name} </div>
           { assertions }

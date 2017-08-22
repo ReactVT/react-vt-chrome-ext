@@ -142,7 +142,8 @@ li {
 
 .editAssert:hover {
   color: rgba(255,255,255,1);
-    transition: all 0.2s ease-in; 
+  transition: all 0.2s ease-in; 
+  cursor: pointer;
 
 }
 
@@ -324,6 +325,17 @@ rect {
   color: #2185d0;
   box-shadow: 0 0 0 2px #2185d0 inset!important;
   background-color: transparent;
+}
+
+#assertions-panel .assert-button {
+  color: #2185d0!important;
+  box-shadow: 0 0 0 1px #2185d0 inset!important;
+  background-color: transparent;
+}
+
+#assertions-panel .assert-button:hover {
+  background-color: #2185d0!important;
+  color: white!important;
 }
 
 #results-panel {
