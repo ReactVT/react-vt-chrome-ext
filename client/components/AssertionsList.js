@@ -14,7 +14,8 @@ class AssertionsList extends Component {
     this.props.renderNameAssertionMode();
   }
 
-  handleDelete(name) {
+  handleDelete(e, name) {
+    e.stopPropagation();
     this.props.deleteAssertionBlock(name);
     this.props.stateIsNowProp.backgroundConnection.postMessage({
         type: 'assertion',
@@ -71,7 +72,7 @@ class AssertionsList extends Component {
             <Accordion.Title style={{'background': '#98AEC8'}} className={styling}>
               <Icon name='dropdown' />
               { block.name } 
-              <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(block.name)} />
+              <Icon name='delete' style={{'float': 'right'}} onClick={(e) => this.handleDelete(e, block.name)} />
             </Accordion.Title>);
         // loop through all asserts in block
         block.asserts.forEach((assertion, i)=> {

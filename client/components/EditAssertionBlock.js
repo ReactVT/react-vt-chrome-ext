@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Accordion, Icon } from 'semantic-ui-react';
+import { Button, Accordion, Icon, Message } from 'semantic-ui-react';
 
 class EditAssertionBlock extends Component {
   constructor(props) {
     super(props);
-    this.pageName = document.title;  
+    this.pageName = document.title; 
+    this.error = ''; 
   }
 
   handleSaveAssertionBlock() {
     console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
-    this.props.resetAssertId();
-    this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
-    this.props.renderViewMode();
-    this.props.toggleAssertionBlock();
+
+    if (this.props.stateIsNowProp.assertionBlock.asserts.length === 0) {
+      this.error=(<Message negative>
+        <Message.Header>Assertions Required</Message.Header>
+        <p>Please create an action or test to continue.</p>
+</Message>);
+      this.forceUpdate();
+    } else {
+      this.props.resetAssertId();
+      this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
+      this.props.renderViewMode();
+      this.props.toggleAssertionBlock();
+    }
   }
 
   handleEdit() {
@@ -69,6 +79,7 @@ class EditAssertionBlock extends Component {
         </div>
         <div id='topNameEditBlock'>Assertion Block: {this.props.stateIsNowProp.assertionBlock.name} </div>
           { assertions }
+          { this.error }
       </div>
     )
   }
