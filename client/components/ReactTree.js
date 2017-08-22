@@ -56,9 +56,9 @@ class ReactTree extends Component {
         if (data.data.virtualDom === 'reactRouter') self.props.reactRouter();
         else {
           self.props.noError();
+          self.props.setAppName(data.topNode);
           // check for first traversal to accomodate app refreshes
           if (data.first === true) {
-            self.props.setAppName(data.topNode);
             // clear last result
             self.props.clearResults();
             // clear results from blocks and asserts in list
