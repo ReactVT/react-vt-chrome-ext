@@ -12,6 +12,7 @@ class Assertions extends Component {
   render () {
     let view;
     console.log('this props viewmode', this.props)
+    // Conditional rendering
     if (this.props.stateIsNowProp.viewMode === 'viewBlocks') view = (<AssertionsList {...this.props}/>);
     else if (this.props.stateIsNowProp.viewMode === 'nameAssertionBlock') view =(<NameAssertionBlock {...this.props}/>); 
     else if (this.props.stateIsNowProp.viewMode === 'editBlock') view = (<EditAssertionBlock {...this.props}/>);
@@ -21,9 +22,6 @@ class Assertions extends Component {
     return (
       <div id="assertions-panel">
         { view }
-            {/* <AddAssertionsForAction {...this.props}/> 
-            <AddAssertionsForTest {...this.props}/>
-            <AddAssertionBlock {...this.props}/>          */}
       </div>
     );
   }

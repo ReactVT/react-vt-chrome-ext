@@ -15,6 +15,7 @@ class AssertionsList extends Component {
   }
 
   handleDelete(e, name) {
+    // Stops event from propegating to parents
     e.stopPropagation();
     this.props.deleteAssertionBlock(name);
     this.props.stateIsNowProp.backgroundConnection.postMessage({
@@ -22,10 +23,6 @@ class AssertionsList extends Component {
         message: name, 
         flag: 'delete'
       });
-  }
-
-  handleEdit() {
-    console.log('edit');
   }
 
   handleAssertDetailAction(assert) {
@@ -37,6 +34,7 @@ class AssertionsList extends Component {
     this.props.selectedTest(assert);
   }
 
+  // Hacky method of doing enzyme downloads on the fly
   saveEnzyme() {
     let text = generateTest(this.props.stateIsNowProp.assertionList, this.props.stateIsNowProp.appName, this.props.stateIsNowProp.nodeStore);
     const data = new Blob([text], {type: 'text/plain'});

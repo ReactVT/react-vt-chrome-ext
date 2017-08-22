@@ -9,14 +9,11 @@ window.addEventListener('message', function(event) {
   if (event.data.type === 'virtualdom' || event.data.type === 'test-result') {
     // send received data to backgroundjs
     port.postMessage(event.data);
-    console.log("content script received this from webpage: ", event.data);
-    // console.log("stringified dom ", JSON.stringify(event.data.data));
   }
 }, false);
 
 // listening for messages from backgroundjs
 port.onMessage.addListener(function(message,sender){
-  console.log('content script received this from backgroundjs: ', message, sender);
   // send message from background js to webpage
   window.postMessage(message, "*");
 });
