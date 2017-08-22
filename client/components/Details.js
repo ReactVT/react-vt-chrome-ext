@@ -130,12 +130,14 @@ class Details extends Component {
     if (currentItem.type === 'test') {
       console.log('in assert', currentItem);
       let curr = currentItem.assert; 
-      let result = curr.passed ? curr.passed : 'In Progress';
       let name = curr.selectorName ? curr.selectorName : curr.compName; 
       let selectorModifier = curr.selectorModifier ? curr.selectorModifier : 'n/a'; 
       let actual = curr.actual ? curr.actual : 'n/a';
       let property = curr.property ? curr.property : 'n/a';
       let mod = curr.modifier ? curr.modifier : 'n/a';
+      let result = 'In Progress'; 
+      if (curr.passed) result = 'Passed'; 
+      else if (curr.passed === false) result = 'Failed'; 
       display = (
         <div id="details-panel" style={{"padding": "5px"}}>
         <h5 id="detailsHeader">Details for Test Assertion</h5>
