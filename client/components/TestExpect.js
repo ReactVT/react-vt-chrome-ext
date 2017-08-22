@@ -112,7 +112,7 @@ class TestExpect extends Component {
             { valueRender }
           </div>
           <div id="expectButtons">
-            <Button animated primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">
+            <Button animated primary inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary back">
               <Button.Content visible>Back</Button.Content>
               <Button.Content hidden>
                 <Icon name='left arrow' />

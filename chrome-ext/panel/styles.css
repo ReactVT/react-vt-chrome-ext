@@ -282,9 +282,19 @@ rect {
   padding-top: 10px;   
 }
 
+.breadcrumb a:hover{
+  cursor: unset!important;
+}
+
 .btn-primary {
   margin-right: 10px!important;
   margin-bottom: 10px!important;
+}
+
+#assertions-panel .btn-primary.back {
+  color: #2185d0;
+  box-shadow: 0 0 0 2px #2185d0 inset!important;
+  background-color: transparent;
 }
 
 #results-panel {
