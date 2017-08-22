@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import { Button, Icon, Dropdown, Input, Message, Breadcrumb, Progress } from 'semantic-ui-react';
 
 class TestLocation extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class TestLocation extends Component {
     const selectorModifier = [
       { key: 1, text: 'Length', value: '.length' },
       { key: 2, text: 'Index', value: 'index' }
-    ]
+    ];
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
@@ -166,10 +166,11 @@ class TestLocation extends Component {
         selectorModifierRender = (<Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={selectorModifier} id="selectorModifierDropdown" onChange={(e, {value})=>this.handleSelectorModifierDropdown(e, value)} />);
       }
       selectorNameRender=(<Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
-    }
-    // If selector modifier is index
-    if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
-          indexRender = (<Input className="dropdownSel" placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
+      
+      // If selector modifier is index
+      if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
+            indexRender = (<Input className="dropdownSel" placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
+      }
     }
   
     return (
@@ -177,7 +178,16 @@ class TestLocation extends Component {
         <form onSubmit={(event)=>{
           this.handleSubmitEventForAction(event);
           }}>
-  
+          <Breadcrumb size='tiny'>
+            <Breadcrumb.Section link>Test</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Target</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Source</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Expectation</Breadcrumb.Section>
+          </Breadcrumb>
+          <Progress size='tiny' color='yellow' percent={25} />
           <h3 className="subheader">Select Target</h3>
   
           <div className="form-group">
@@ -190,8 +200,18 @@ class TestLocation extends Component {
             { selectorModifierRender } { indexRender }
             </div>
           </div>
-          <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
-          <Button primary type="submit" className="btn btn-primary">Save</Button>
+          <Button animated primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">
+            <Button.Content visible>Back</Button.Content>
+            <Button.Content hidden>
+              <Icon name='left arrow' />
+            </Button.Content>
+          </Button>
+          <Button animated primary type="submit" className="btn btn-primary">
+            <Button.Content visible>Next</Button.Content>
+            <Button.Content hidden>
+              <Icon name='right arrow' />
+            </Button.Content>
+          </Button>
           {this.error}
         </form>
       </div>
