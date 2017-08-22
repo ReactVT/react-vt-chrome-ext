@@ -67,7 +67,7 @@ class EditAssertionBlock extends Component {
           <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
           <Button primary size="small" type="button" className="ui primary basic button" id="newTestButton"onClick={()=>this.props.renderTestMode()}>New Test</Button>
         </div>
-        <div id='topNameEditBlock'>Assertion Block: Block Name </div>
+        <div id='topNameEditBlock'>Assertion Block: {this.props.stateIsNowProp.assertionBlock.name} </div>
           { assertions }
       </div>
     )
