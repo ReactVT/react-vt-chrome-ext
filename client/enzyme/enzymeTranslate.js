@@ -22,7 +22,7 @@ function generateTest(list, app, nodestr) {
   result += startDescribe(app);
   // Now we loop through and add each assertion block as an it statement 
   list.forEach(item => {
-    result += addBlock(item); 
+    if (checkKeyPress(item)) result += addBlock(item); 
   }); 
   // After looping we close our describe function and are finished
   result += '});'
@@ -38,6 +38,14 @@ function addDependencies(app) {
   dependents += `import 'jsdom-global/register';${newLine}`;
   dependents += `import ${app} from 'fill this in with proper path';${doubleLine}`;
   return dependents; 
+}
+
+function checkKeyPress(block) {
+  let asserts = block.asserts; 
+  for (let i = 0; i < asserts.length; i++) {
+    if (asserts[i].type === 'action' && asserts[i].event === 'keypress') return false; 
+  }
+  return true; 
 }
 
 // Starts our test file with an initial describe function that will contain all assertion blocks
