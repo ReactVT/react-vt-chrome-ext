@@ -14,7 +14,8 @@ class AssertionsList extends Component {
     this.props.renderNameAssertionMode();
   }
 
-  handleDelete(name) {
+  handleDelete(e, name) {
+    e.stopPropagation();
     this.props.deleteAssertionBlock(name);
     this.props.stateIsNowProp.backgroundConnection.postMessage({
         type: 'assertion',
@@ -71,7 +72,7 @@ class AssertionsList extends Component {
             <Accordion.Title style={{'background': '#98AEC8'}} className={styling}>
               <Icon name='dropdown' />
               { block.name } 
-              <Icon name='delete' style={{'float': 'right'}} onClick={() => this.handleDelete(block.name)} />
+              <Icon name='delete' style={{'float': 'right'}} onClick={(e) => this.handleDelete(e, block.name)} />
             </Accordion.Title>);
         // loop through all asserts in block
         block.asserts.forEach((assertion, i)=> {
@@ -127,8 +128,8 @@ class AssertionsList extends Component {
       return (
         <div>
           <div className='button-container'>
-            <Button primary size='mini' className="btn btn-primary" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
-            <Button primary size='mini' type="button" className="btn btn-primary" onClick={()=>this.saveEnzyme()}> Export to Enzyme</Button>
+            <Button inverted color="yellow" primary size='mini' className="btn btn-primary new" onClick={()=>this.handleNewAssertionBlock()}> New Assertion Block</Button>
+            <Button inverted color="yellow" primary size='mini' type="button" className="btn btn-primary new" onClick={()=>this.saveEnzyme()}> Export to Enzyme</Button>
           </div>
           <div className="accordion-container">
             <Accordion styled>

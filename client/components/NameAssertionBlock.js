@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Input, Message } from 'semantic-ui-react';
+import { Button, Input, Message, Icon } from 'semantic-ui-react';
 
 
 class NameAssertionBlock extends Component {
@@ -30,6 +30,11 @@ class NameAssertionBlock extends Component {
       this.props.renderEditMode();
     } else this.forceUpdate();
   }
+
+  handleBack() {
+    this.props.renderViewMode();
+  }
+
   render() {
     return (
       <div id="newAssertionBlockDiv">
@@ -37,8 +42,21 @@ class NameAssertionBlock extends Component {
           this.saveHandler(event);
           }}>
           <h4>Assertion Block Name </h4>
-          <Input type="text" className="form-control" id="assertionBlockName" placeholder="Enter name" required ref="assertionBlockName" />
-          <Button id="nameBlockButton" primary size="tiny">Save Block</Button>
+          <Input type="text" className="form-control" id="assertionBlockName" placeholder="e.g. 'should render button'" required ref="assertionBlockName" />
+          <div className='button-container-right'>
+          <Button animated primary inverted color="red" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">
+              <Button.Content visible>Cancel</Button.Content>
+              <Button.Content hidden>
+                <Icon name='delete' />
+              </Button.Content>
+            </Button>
+            <Button animated primary size="tiny" type="submit" className="btn btn-primary">
+                <Button.Content visible>Save</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='save' />
+                </Button.Content>
+            </Button>
+          </div>
           <br />
           {this.error}
         </form>

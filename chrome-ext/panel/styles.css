@@ -261,8 +261,38 @@ li {
 
 .button-container{
   text-align: center;
-  margin-bottom: 10px;
+  background: #396083;
+  position: fixed;
+  top: 25vh;
+  width: 100%;
+  height: 40px;
+  padding-top: 5px;
+  z-index: 999;
 }
+
+.button-container-edit{
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.button-container-right{
+  float: right;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 42px;
+}
+
+.accordion-container {
+  margin-top: 40px;
+}
+
+/* #assertions-panel .btn-primary.new {
+  padding: 8px!important;
+  color: #C8CF50!important;
+  box-shadow: 0 0 0 2px #C8CF50 inset!important;
+  background: transparent!important;
+} */
 
 #nameBlockButton {
   margin-top: 10px;
@@ -278,13 +308,22 @@ rect {
 #assertions-panel {
   height: 55vh;
   background-color: #d5e0e5;    
-  overflow-y: auto;
-  padding-top: 10px;   
+  overflow-y: auto;   
+}
+
+.breadcrumb a:hover{
+  cursor: unset!important;
 }
 
 .btn-primary {
   margin-right: 10px!important;
   margin-bottom: 10px!important;
+}
+
+#assertions-panel .btn-primary.back {
+  color: #2185d0;
+  box-shadow: 0 0 0 2px #2185d0 inset!important;
+  background-color: transparent;
 }
 
 #results-panel {
@@ -316,9 +355,6 @@ rect {
 /* .accordion-block {
   border: solid 1px black;
 } */
-.accordion-container {
-
-}
 
  .accordion-asserts {
   cursor: pointer;
@@ -371,17 +407,17 @@ rect {
 }
 
 .accordion-pass {
-  color: rgba(9,160,77,.85)!important;
+  color: rgba(19,140,97,1)!important;
   transition: all .2s ease-in!important;
 }
 
 .accordion-pass:hover {
-  color: rgba(19,140,97,1)!important;
+  color: rgba(8, 160, 77, 1)!important;
   transition: all .1s ease!important;
 }
 
 .accordion-fail {
-  color: rgba(255,0,0,.7)!important;
+  color: rgba(210, 0, 0, 0.70)!important;
   transition: all .2s ease-in!important;
 }
 

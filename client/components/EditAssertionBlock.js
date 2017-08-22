@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Accordion, Icon } from 'semantic-ui-react';
+import { Button, Accordion, Icon, Message } from 'semantic-ui-react';
 
 class EditAssertionBlock extends Component {
   constructor(props) {
     super(props);
-    this.pageName = document.title;  
+    this.pageName = document.title; 
+    this.error = ''; 
   }
 
   handleSaveAssertionBlock() {
     console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
-    this.props.resetAssertId();
-    this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
-    this.props.renderViewMode();
-    this.props.toggleAssertionBlock();
+
+    if (this.props.stateIsNowProp.assertionBlock.asserts.length === 0) {
+      this.error=(<Message negative>
+        <Message.Header>Assertions Required</Message.Header>
+        <p>Please create an action or test to continue.</p>
+</Message>);
+      this.forceUpdate();
+    } else {
+      this.props.resetAssertId();
+      this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
+      this.props.renderViewMode();
+      this.props.toggleAssertionBlock();
+    }
   }
 
   handleEdit() {
@@ -47,7 +57,7 @@ class EditAssertionBlock extends Component {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
         assertions.push(
-          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}</div>);
+          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         } else {
           let evaluator; 
           if (el.type === 'equal') evaluator = 'Equal'; 
@@ -55,13 +65,13 @@ class EditAssertionBlock extends Component {
           if (el.type === 'lessthan') evaluator = 'be Less than'; 
           if (el.type === 'notequal') evaluator = 'not Equal'; 
           assertions.push(
-            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}</div>);
+            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         }
       });
     }
     return (
       <div>
-        <div className='button-container'>
+        <div className='button-container-edit'>
           <Button primary positive size="tiny" className="btn btn-primary" onClick={()=>this.handleSaveAssertionBlock()}>Save Assertion Block</Button> 
           <Button primary negative size="tiny" type="button" className="btn btn-primary" onClick={()=>this.handleCancel()}>Cancel</Button> 
           <Button primary  size="small" type="button" className="ui primary basic button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
@@ -69,6 +79,7 @@ class EditAssertionBlock extends Component {
         </div>
         <div id='topNameEditBlock'>Assertion Block: {this.props.stateIsNowProp.assertionBlock.name} </div>
           { assertions }
+          { this.error }
       </div>
     )
   }

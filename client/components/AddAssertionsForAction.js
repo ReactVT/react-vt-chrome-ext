@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Input, Dropdown, Message } from 'semantic-ui-react';
+import { Button, Input, Dropdown, Message, Icon } from 'semantic-ui-react';
 
 class AddAssertionsForAction extends Component {
   constructor(props) {
@@ -90,9 +90,18 @@ class AddAssertionsForAction extends Component {
             { inputValueRender }
 
           </div>
-          
-          <Button inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
-          <Button primary size="small" type="submit" className="btn btn-primary">Save</Button>
+          <Button animated visible inverted color="blue" size="tiny" primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary back">
+            <Button.Content visible>Back</Button.Content>
+            <Button.Content hidden>
+              <Icon name='left arrow' />
+            </Button.Content>
+          </Button>
+          <Button animated primary type="submit" className="btn btn-primary">
+                <Button.Content visible>Save</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='save' />
+                </Button.Content>
+            </Button>
           {this.error}
         </form>
       </div>
