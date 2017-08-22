@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import {ReactSVGPanZoom, setPointOnViewerCenter} from 'react-svg-pan-zoom';
 import { SortablePane, Pane } from 'react-sortable-pane';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Loader } from 'semantic-ui-react'
 import Nodes from './Nodes.js';
 import Links from './Links.js';
 import Details from '../components/Details';
@@ -156,7 +156,7 @@ class ReactTree extends Component {
     if (this.props.stateIsNowProp.error === 'reactRouter') {
       return (<h1>React Router not supported</h1>);
     } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
-        return (<h1>Waiting for Data</h1>);
+        return (<div><h1><Loader active inline /> Waiting for Data</h1></div>);
     } else {
         return (
    <div>
