@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import { Button, Icon, Dropdown, Input, Message, Breadcrumb, Progress } from 'semantic-ui-react';
 
 class TestData extends Component {
   constructor(props) {
@@ -197,7 +197,16 @@ class TestData extends Component {
       <form onSubmit={(event)=>{
         this.handleSubmit(event);
         }}>
-
+        <Breadcrumb size='tiny'>
+            <Breadcrumb.Section link>Test</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Target</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Source</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Expectation</Breadcrumb.Section>
+          </Breadcrumb>
+          <Progress size='tiny' color='yellow' percent={50} />
         <h3 className="subheader">Set Source</h3>
 
         <div className="form-group">
@@ -205,8 +214,18 @@ class TestData extends Component {
           <br />
           <div id="chooseSourceMod">{ this.modifierRender }</div>  <div id="chooseSourceIndex">{ indexRender }</div>
         </div>
-        <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>
-        <Button primary type="submit" className="btn btn-primary">Save</Button>
+        <Button animated primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">
+            <Button.Content visible>Back</Button.Content>
+            <Button.Content hidden>
+              <Icon name='left arrow' />
+            </Button.Content>
+          </Button>
+        <Button animated primary type="submit" className="btn btn-primary">
+            <Button.Content visible>Next</Button.Content>
+            <Button.Content hidden>
+              <Icon name='right arrow' />
+            </Button.Content>
+        </Button>
         {this.error}
       </form>
       </div>

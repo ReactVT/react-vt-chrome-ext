@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Select } from 'semantic-ui-react'
-import { Button, Dropdown, Input, Message } from 'semantic-ui-react';
+import { Button, Dropdown, Input, Message, Icon, Breadcrumb, Progress } from 'semantic-ui-react';
 
 class TestExpect extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class TestExpect extends Component {
     this.props.saveTestProperty('dataType', 'string');
     this.props.saveTestProperty('type', 'equal');
   }
+
   handleSubmit(event) {
       event.preventDefault();
       let currentTest = this.props.stateIsNowProp.test;
@@ -93,7 +94,16 @@ class TestExpect extends Component {
         <form onSubmit={(event)=>{
           this.handleSubmit(event);
           }}>
-  
+          <Breadcrumb size='tiny'>
+            <Breadcrumb.Section link>Test</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Target</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section link>Source</Breadcrumb.Section>
+            <Breadcrumb.Divider icon='right chevron' />
+            <Breadcrumb.Section active>Expectation</Breadcrumb.Section>
+          </Breadcrumb>
+          <Progress size='tiny' color='yellow' percent={75} />
           <h3 className="subheader">Set Expectation</h3>
   
           <div className="form-group">
@@ -102,8 +112,18 @@ class TestExpect extends Component {
             { valueRender }
           </div>
           <div id="expectButtons">
-            <Button primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">Back</Button>        
-            <Button primary type="submit" className="btn btn-primary">Save Test</Button>
+            <Button animated primary type="button" onClick={()=>this.handleBack()} className="btn btn-primary">
+              <Button.Content visible>Back</Button.Content>
+              <Button.Content hidden>
+                <Icon name='left arrow' />
+              </Button.Content>
+            </Button>
+            <Button animated primary type="submit" className="btn btn-primary">
+                <Button.Content visible>Save</Button.Content>
+                <Button.Content hidden>
+                  <Icon name='save' />
+                </Button.Content>
+            </Button>
           </div>
           {this.error}
         </form>
