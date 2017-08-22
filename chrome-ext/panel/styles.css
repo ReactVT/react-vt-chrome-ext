@@ -142,7 +142,8 @@ li {
 
 .editAssert:hover {
   color: rgba(255,255,255,1);
-    transition: all 0.2s ease-in; 
+  transition: all 0.2s ease-in; 
+  cursor: pointer;
 
 }
 
@@ -326,6 +327,17 @@ rect {
   background-color: transparent;
 }
 
+#assertions-panel .assert-button {
+  color: #2185d0!important;
+  box-shadow: 0 0 0 1px #2185d0 inset!important;
+  background-color: transparent;
+}
+
+#assertions-panel .assert-button:hover {
+  background-color: #2185d0!important;
+  color: white!important;
+}
+
 #results-panel {
   border: solid 1px black;
   background-color: black;
@@ -403,6 +415,7 @@ rect {
 
 .accordion-block:hover {
   color: rgba(0,0,0,.9)!important;
+  background-color: #AFC0D4!important;
   transition: all .1s ease!important; 
 }
 
@@ -413,16 +426,18 @@ rect {
 
 .accordion-pass:hover {
   color: rgba(8, 160, 77, 1)!important;
+  background-color: #AFC0D4!important;
   transition: all .1s ease!important;
 }
 
 .accordion-fail {
-  color: rgba(210, 0, 0, 0.70)!important;
+  color: rgba(245, 0, 0, 0.70)!important;
   transition: all .2s ease-in!important;
 }
 
 .accordion-fail:hover {
   color: rgba(255,0,0,1)!important;
+  background-color: #AFC0D4!important;
   transition: all .1s ease!important;
 }
 

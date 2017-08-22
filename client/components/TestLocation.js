@@ -133,7 +133,7 @@ class TestLocation extends Component {
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
       selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input transparent placeholder='Click on a node' className = 'form-control' value={this.props.compAddress} disabled />);
+      selectorNameRender = (<Input transparent placeholder='Click on a node' className = 'form-control' value={this.props.compName} disabled />);
       if (this.props.compAddress) this.error = '';
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
