@@ -47,7 +47,7 @@ class EditAssertionBlock extends Component {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
         assertions.push(
-          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}</div>);
+          <div className='editAssert' onClick={()=> this.clickAction(el)}>{el.assertID} Action: { el.event } on {el.compName}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         } else {
           let evaluator; 
           if (el.type === 'equal') evaluator = 'Equal'; 
@@ -55,7 +55,7 @@ class EditAssertionBlock extends Component {
           if (el.type === 'lessthan') evaluator = 'be Less than'; 
           if (el.type === 'notequal') evaluator = 'not Equal'; 
           assertions.push(
-            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}</div>);
+            <div className='editAssert' onClick={()=> this.clickTest(el)}>{el.assertID} Expect {el.selectorName} to {evaluator} {el.value}<Icon name='delete' style={{'float': 'right'}} onClick={()=>this.handleDelete(el.assertID)} /></div>);
         }
       });
     }
