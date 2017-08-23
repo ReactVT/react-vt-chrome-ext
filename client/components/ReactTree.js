@@ -95,7 +95,6 @@ class ReactTree extends Component {
 
     if (this.props.stateIsNowProp.toggleAssertion) {
       this.props.toggleAssertionBlock();
-      console.log('inside toggle');
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]

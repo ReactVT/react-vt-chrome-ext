@@ -28,7 +28,6 @@ function assertionListReducer(state = [], action){
             }
             // check if assert's result property is false or blank
             if (assertion.passed === false) {
-              console.log('IN SAVE RESULT TO BLOCK FALSE', assertion)
               allPass = false;
               newState[i].passed = false;
               break;
@@ -41,7 +40,6 @@ function assertionListReducer(state = [], action){
           break;
         }
       }
-      console.log('IN SAVE RESULT TO BLOCK', newState);
       return newState;
     case 'DELETE_ASSERTION_BLOCK':
       newState = state.slice();

@@ -29,7 +29,6 @@ class Nodes extends Component {
             onClick={()=>{
               const obj = {'state': this.props.state, 'id': this.props.id, 'class': this.props.class, 'props': this.props.props, 'name': this.props.name, 'address': this.props.address}; 
               self.props.getNodeData(obj);
-              console.log('this.props.debugId inside NODE', this.props.debugId)
               self.props.selectedNode(this, this.props.debugId);  
             }}
             />
