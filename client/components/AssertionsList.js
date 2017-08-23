@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import generateTest from './../enzyme/enzymeTranslate'
-
-import ValueInformation from './ValueInformation';
 import { Button, Accordion, Icon, List } from 'semantic-ui-react';
 
 class AssertionsList extends Component {
