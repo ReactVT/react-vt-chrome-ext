@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "react-vt-chrome-ext",
-  "description": "Front-end for react-vt",
-  "version": "1.0",
+  "name": "React VT",
+  "description": "Visual Testing Tool for React Applications",
+  "version": "0.2.0",
   "content_scripts": [
     {
       "matches": ["http://*/*"],
