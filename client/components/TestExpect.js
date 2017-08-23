@@ -32,7 +32,6 @@ class TestExpect extends Component {
         this.props.renderTest1();
         this.props.renderEditMode();
       }
-      console.log('CURENT TEST IN TEST EXPECT', currentTest)
   }
   
   handleTypeDropdown(event, value) {

@@ -39,7 +39,6 @@ class TestData extends Component {
 
       this.currentProps = this.props.stateIsNowProp.nodeStore.node[compName].props[index];
       this.currentState = this.props.stateIsNowProp.nodeStore.node[compName].state[index];
-      console.log('IN COMPONENT CONDITIONAL', compName, index, 'this.currentProps and state', this.currentProps, this.currentState, address)
     }
     // for node/component
     if (selector === 'node' || selector === 'component') {
@@ -53,7 +52,6 @@ class TestData extends Component {
         this.sourceRender = (<Input transparent className="form-control" placeholder='Props' value='' disabled />);
         // choose between state and props
       } else if (this.currentProps && this.currentState) {
-        console.log('in both props and state', this.props);
         this.sourceRender = (<Dropdown search searchInput={{ type: 'text' }} selection options={sourceNode} placeholder="Select Source" id="sourceDropdown" onChange={(e, {value})=>this.handleSourceDropdown(e, value)} />);
       } else {
         this.sourceRender = (<Input transparent className="form-control" placeholder='No Props or State Here' disabled />);
@@ -77,13 +75,11 @@ class TestData extends Component {
   handleSourceDropdown(event, value) {
     this.props.saveTestProperty('source', value);
     this.error = '';
-    console.log('inhandle source dropdown', this.props.stateIsNowProp.test)
   }
 
   handlePropertyDropdown(event, value) {
     this.props.saveTestProperty('property', value);
     this.error = '';
-    console.log('in property dropdown ', value, this.props.stateIsNowProp.test)
   }
 
   handleModifierDropdown(event, value) {
@@ -94,8 +90,6 @@ class TestData extends Component {
     }
     this.props.saveTestProperty('modifier', value);
     this.error = '';
-    console.log('in modifier dropdown ', value, this.props.stateIsNowProp.test)
-    
   }
   handleBack() {
     // clear out test state before going back
@@ -145,7 +139,6 @@ class TestData extends Component {
   }
 
   render () {
-    console.log('in render', this.props.stateIsNowProp.test)
     let propertyRender;
     let indexRender;
     const source = this.props.stateIsNowProp.test.source; 
@@ -174,16 +167,10 @@ class TestData extends Component {
     // Modifier
     if (currentProperty !== '') {
       let value;
-      if (source === 'state') {
-        value = this.currentState[currentProperty];
-      } else {
-        console.log('props parse ', this.currentProps, currentProperty);
-        console.log('string to parse', this.currentProps[currentProperty])
-        value = this.currentProps[currentProperty];
-      }
-      console.log('in modifier', this.currentState, currentProperty);
+      if (source === 'state') value = this.currentState[currentProperty];
+      else value = this.currentProps[currentProperty];
+
       if (value.constructor === Array) {
-        console.log('in modifier really array', value)
         this.modifierRender = (<Dropdown search searchInput={{ type: 'text' }} placeholder="Select Modifier" selection options={modifierOptions} id="modifierDropdown" onChange={(e, {value}) => this.handleModifierDropdown(e, value)} />);
       } else this.modifierRender = '';
     }

@@ -73,7 +73,6 @@ class TestLocation extends Component {
         if (this.currentModifier === 'index') {
           let indexSave = '[' + arrayIndexEl.value + ']'
           this.props.saveTestProperty('selectorModifier', indexSave);
-          console.log('IN TEST LOC SUBMIT DATA', currentTest)
         }
         if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
         if (this.currentModifier === '.length') this.props.renderTest3();
