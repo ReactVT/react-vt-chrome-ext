@@ -8,25 +8,24 @@ class AddAssertionsForAction extends Component {
     this.error = '';
   }
 
+  // Logic for saving an assertion
   handleSubmit(event) {
       event.preventDefault();
       let inputValueEl = document.getElementById('inputValue');
-      // this.props.saveActionProperty('assertID', this.props.stateIsNowProp.assertID);
-      // this.props.setActionLocation(this.props.compAddress);
-      // this.props.saveActionProperty('compName', this.props.compName);
-      console.log('IN HANDLE SUBMIT', this.props.stateIsNowProp.action, inputValueEl)
+      
+      // Sets error for node test missing a selected component
       if (!this.props.compName) {
-        this.error=(<Message negative>
+        this.error = (<Message negative>
           <Message.Header>Component Required</Message.Header>
           <p>Please click on a node.</p>
-</Message>);
+          </Message>);
         this.forceUpdate();
       } else if (this.props.stateIsNowProp.action.event === 'keypress' && !inputValueEl.value) {
-        console.log('IN INPUTVALUE EL CONDITONAL')
+        // Set error for keypress test without a value inputed
         this.error=(<Message negative>
           <Message.Header>Input Value Required</Message.Header>
           <p>Please enter a value to check on Enter</p>
-</Message>);
+          </Message>);
         this.forceUpdate();
       } else if (this.props.compName) {
         let newAction = this.props.stateIsNowProp.action;
@@ -43,12 +42,14 @@ class AddAssertionsForAction extends Component {
       }
   }
 
+    // Saves action property to redux store on change
     handleEventDropdown(event, value) {
       this.props.saveActionProperty('event', value);
       console.log('handled event dropdown', value)
       this.error = ''
     }
 
+    // Clears our the action we've been making and renders previous panel
     handleBack() {
       // Clear out action before going back
       this.props.clearAction();
@@ -57,6 +58,7 @@ class AddAssertionsForAction extends Component {
 
   render () {
     let inputValueRender;
+    // Values for our event dropdown
     const eventOptions = [
       { key: 1, text: 'Click', value: 'click' },
       { key: 2, text: 'Double Click', value: 'dblclick' },
@@ -68,7 +70,7 @@ class AddAssertionsForAction extends Component {
     if (this.props.stateIsNowProp.action.event === 'keypress') {
       inputValueRender = (<Input placeholder="Value to check before Enter" className="inputValue" id="inputValue" type="text" />);
     }
-
+    
     return (
       <div id="newActionContainer">
         <form onSubmit={(event)=>{

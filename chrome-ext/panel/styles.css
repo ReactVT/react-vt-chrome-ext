@@ -36,6 +36,8 @@ html, body{
   margin-top: 0!important;
   margin-bottom: 0!important;
   padding-right: 0!important;
+  width: 175px!important;
+  overflow-wrap: break-word;
 }
 
 .detailName {
@@ -316,6 +318,11 @@ rect {
   cursor: unset!important;
 }
 
+#assertions-panel .breadcrumb a{
+  color: grey;
+  cursor: unset!important;
+}
+
 .btn-primary {
   margin-right: 10px!important;
   margin-bottom: 10px!important;
@@ -326,6 +333,17 @@ rect {
   box-shadow: 0 0 0 2px #2185d0 inset!important;
   background-color: transparent;
 }
+
+#assertions-panel .btn-primary.back:hover {
+  background-color: #2185d0!important;
+  color: #fff;
+  text-shadow: none;
+}
+
+#test-save {
+  margin-top: 10px;
+}
+
 
 #assertions-panel .assert-button {
   color: #2185d0!important;

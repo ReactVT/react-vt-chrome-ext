@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import KeyInformation from '../components/KeyInformation';
 import ValueInformation from '../components/ValueInformation';
 import { Accordion, Grid } from 'semantic-ui-react';
 
@@ -10,20 +9,21 @@ class Details extends Component {
     let display;
 
     let self = this
+    // Grab a reference to our selected item from the redux store
     let currentItem = this.props.stateIsNowProp.selectedItem;
 
     let props = '';
     let state = '';
 
+    // Simple display if nothing is selected
     if (currentItem.type === 'none') {
       display = (<div id="details-panel" style={{"padding": "5px"}}>
         <h4>Select a node or assertion</h4>
         </div>
         ); 
     }
-
-
-     
+    
+    // Render logic for details if a node is selected
     if (currentItem.type === 'node') {
       let node = this.props.stateIsNowProp.nodeData;
       let id = node.id ? node.id : 'n/a'; 
@@ -31,13 +31,15 @@ class Details extends Component {
 
       // if state exists
       if (node.state && Object.keys(node.state).length > 0)  {
+        // Loop through our state and build out our grid based on its contents
         let nodeState = Object.keys(node.state).map(item => {
           let currState = node.state[item];
           // iterate through current state if it is an array
           if (currState.constructor === Array) {
             const arrayRender = [];
             currState.forEach((el, i)=> {
-              if (typeof el === 'object') el = JSON.stringify(el);
+              // if it's an element that is not a string
+              if (typeof el !== 'string') el = JSON.stringify(el);
               arrayRender.push(<li className="object-content">{el}</li>);
             });
           return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}: </Grid.Column>
@@ -50,9 +52,12 @@ class Details extends Component {
             </Accordion>
           </Grid.Column></Grid.Row>);
           }
+          
+          if (typeof currState !== 'string') currState = JSON.stringify(currState);
           return (<Grid.Row columns={2} className="grid-row"><Grid.Column width={5} className="boldDetail grid-col">{item}:</Grid.Column><Grid.Column className="grid-col">{currState}</Grid.Column></Grid.Row>);
         });
         
+        // Construct our state object with all of our state details contained in the nodeState array
         state = (
           <div className="detailsFull">
           <span className="detailName">State</span>
@@ -63,6 +68,7 @@ class Details extends Component {
         );
       } 
 
+      // Here we do the same thing with props that we did with state, build out an array of components to render
       if (node.props && Object.keys(node.props).length > 0) {
         let nodeProps = Object.keys(node.props).map(item => {
           let currProp = node.props[item];
@@ -97,13 +103,7 @@ class Details extends Component {
         );
       }
 
-
-
-
-
-
-
-
+        // Build out our final display now that we've collected our state and props info
         display = (
           <div id="details-panel" style={{"padding": "5px"}}>
           <h5 id="detailsHeader">Details for Selected Node</h5>
@@ -117,12 +117,6 @@ class Details extends Component {
             {state}
             {props}
             </div>);
-
-
-
-
-
-
     }
 
 
@@ -132,7 +126,10 @@ class Details extends Component {
       let curr = currentItem.assert; 
       let name = curr.selectorName ? curr.selectorName : curr.compName; 
       let selectorModifier = curr.selectorModifier ? curr.selectorModifier : 'n/a'; 
-      let actual = curr.actual ? curr.actual : 'n/a';
+      let actual; 
+      if (curr.actual && typeof curr.actual === 'string') actual = curr.actual;
+      else if (curr.actual) actual = JSON.stringify(curr.actual);
+      else actual = 'n/a';
       let property = curr.property ? curr.property : 'n/a';
       let mod = curr.modifier ? curr.modifier : 'n/a';
       let result = 'In Progress'; 

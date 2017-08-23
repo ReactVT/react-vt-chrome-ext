@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import KeyInformation from '../components/KeyInformation';
-
 import ValueInformation from '../components/ValueInformation';
 
 

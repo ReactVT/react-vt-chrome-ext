@@ -1,7 +1,5 @@
 // load content script
-chrome.tabs.executeScript({file: "content-script/script.js"}, function() {
-        console.log("content script loaded");
-      });
+chrome.tabs.executeScript({file: "content-script/script.js"}, function() {});
 // Define virtualDOM variable
 var webpageData;
 // Define ports
@@ -39,12 +37,10 @@ chrome.runtime.onConnect.addListener(function(port) {
 
   // Store contentscript port in variable once contentscript->backgroundjs connection established
   if (port.name === 'contentscript-port') {
-    console.log('found contentscript port');
     contentscriptPort = port;
   }
   // listen for messages from content script and from panel
   port.onMessage.addListener(function(data) {
-    console.log('background received message', data);
     // Backgroundjs receives virtualdom data from content script
     // relay webpage data to d3 panel with established panelID port
     if (data.type === 'virtualdom' || data.type === 'test-result') {
@@ -55,14 +51,12 @@ chrome.runtime.onConnect.addListener(function(port) {
     else if (data.name === 'panelToBackgroundInit') {
       // Save port to panelID variable
       panelId = connections[data.tabId]
-      console.log('checking connection', connections);
       // Relay virtualDOM data to d3panel after initial connection made
       panelId.postMessage(webpageData);
     }
     else if (data.type === 'assertion') {
       // Relay assertion data to content script
       // port = chrome.runtime.connect({name: "contentscript-port"});
-      console.log('in assertion condtional', port)
       contentscriptPort.postMessage(data);
     }
   });

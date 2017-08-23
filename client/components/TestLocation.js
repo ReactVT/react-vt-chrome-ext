@@ -200,18 +200,8 @@ class TestLocation extends Component {
             { selectorModifierRender } { indexRender }
             </div>
           </div>
-          <Button animated primary inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary back">
-            <Button.Content visible>Back</Button.Content>
-            <Button.Content hidden>
-              <Icon name='left arrow' />
-            </Button.Content>
-          </Button>
-          <Button animated primary type="submit" className="btn btn-primary">
-            <Button.Content visible>Next</Button.Content>
-            <Button.Content hidden>
-              <Icon name='right arrow' />
-            </Button.Content>
-          </Button>
+          <Button primary inverted color="blue" size="tiny" type="button" onClick={()=>this.handleBack()} className="btn btn-primary back">Back</Button>
+          <Button primary type="submit" className="btn btn-primary">Next</Button>
           {this.error}
         </form>
       </div>
