@@ -95,7 +95,6 @@ class ReactTree extends Component {
 
     if (this.props.stateIsNowProp.toggleAssertion) {
       this.props.toggleAssertionBlock();
-      console.log('inside toggle');
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
@@ -146,7 +145,7 @@ class ReactTree extends Component {
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-            width={1500}
+            width={'100vw'}
             height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}

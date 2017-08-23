@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 function selectedItemReducer(state = {type: 'none', node: null, assert: {}, debugId: null}, action) {
   switch(action.type) {
     case 'SELECTED_NODE':
-    console.log("DEBUG ID inside SELECT: " , action.debugId)
       return {type: 'node', node: action.payload, assert: {}, debugId: action.debugId};
     case 'SELECTED_ACTION':
       return {type: 'action', node: null, assert: action.payload}; 

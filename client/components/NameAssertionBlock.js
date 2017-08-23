@@ -11,7 +11,6 @@ class NameAssertionBlock extends Component {
   saveHandler(event) {
     event.preventDefault();
     let input = document.getElementById('assertionBlockName').value;
-    console.log('save clicked', input)
     let invalid = false;
     // VALIDATE ASSERTION NAME FOR DUPES
     const assertionList = this.props.stateIsNowProp.assertionList;

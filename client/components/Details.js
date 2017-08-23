@@ -121,7 +121,6 @@ class Details extends Component {
 
     // Logic for building a test details panel
     if (currentItem.type === 'test') {
-      console.log('in assert', currentItem);
       let curr = currentItem.assert; 
       let name = curr.selectorName ? curr.selectorName : curr.compName; 
       let selectorModifier = curr.selectorModifier ? curr.selectorModifier : 'n/a'; 

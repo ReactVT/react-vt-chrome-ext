@@ -9,7 +9,6 @@ function testResultsReducer(state = {
 
   switch(action.type) {
     case 'LOAD_RESULTS':
-      console.log('in reducertest', action.payload)
       return action.payload;
     case 'CLEAR_RESULTS':
       return {
