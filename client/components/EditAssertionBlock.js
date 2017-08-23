@@ -9,25 +9,25 @@ class EditAssertionBlock extends Component {
     this.error = ''; 
   }
 
+  // Logic for saving a new assertion block
   handleSaveAssertionBlock() {
-    console.log('IN EDIT BLOCK COMP ADD ASSERTIONBLOCK TO LIST', this.props.stateIsNowProp.assertionBlock)
-
+    // Make sure our current assertion block has stuff added to it
     if (this.props.stateIsNowProp.assertionBlock.asserts.length === 0) {
       this.error=(<Message negative>
         <Message.Header>Assertions Required</Message.Header>
         <p>Please create an action or test to continue.</p>
-</Message>);
+        </Message>);
       this.forceUpdate();
     } else {
+      // Resets assertionID so it starts at 1 on next block
       this.props.resetAssertId();
+      // Adds assertionblock to assertion list
       this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
+      // Resets our render mode to the default panel
       this.props.renderViewMode();
+      // 
       this.props.toggleAssertionBlock();
     }
-  }
-
-  handleEdit() {
-    
   }
 
   handleDelete(id) {
@@ -50,7 +50,6 @@ class EditAssertionBlock extends Component {
     this.props.renderViewMode();
   }
   render() {
-    console.log('after test save', this.props.stateIsNowProp.test)
     let assertions = [];
     let assertsArray = this.props.stateIsNowProp.assertionBlock.asserts;
     if(assertsArray.length > 0) {

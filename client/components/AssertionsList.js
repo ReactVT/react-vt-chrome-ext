@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Blocks from './Blocks';
-
-import KeyInformation from './KeyInformation';
 import generateTest from './../enzyme/enzymeTranslate'
 
 import ValueInformation from './ValueInformation';
