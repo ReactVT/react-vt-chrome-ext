@@ -204,7 +204,7 @@ class ReactTree extends Component {
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-            width={1500}
+            width={'100vw'}
             height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
