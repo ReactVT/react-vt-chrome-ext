@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import ValueInformation from '../components/ValueInformation';
 import { Accordion, Grid } from 'semantic-ui-react';
 
 class Details extends Component {
