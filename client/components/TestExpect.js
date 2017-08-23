@@ -17,7 +17,7 @@ class TestExpect extends Component {
   handleSubmit(event) {
       event.preventDefault();
       let currentTest = this.props.stateIsNowProp.test;
-      if (currentTest.value === '') {
+      if (currentTest.value === '' && currentTest.dataType !== 'null' && currentTest.dataType !== 'undefined') {
         this.error=(<Message negative>
           <Message.Header>Value Required</Message.Header>
           <p>Please input an expected value.</p>
@@ -69,12 +69,7 @@ class TestExpect extends Component {
       { key: 4, text: 'Undefined', value: 'undefined' },
       { key: 5, text: 'Null', value: 'null' },      
     ];
-    const comparators = [
-      { key: 1, text: ' = ', value: 'equal' },
-      { key: 2, text: ' != ', value: 'notequal' },
-      { key: 3, text: ' > ', value: 'greaterthan' },
-      { key: 4, text: ' < ', value: 'lessthan' },
-    ];
+    let comparators;
     const boolean = [
       { key: 1, text: 'True', value: 'true' },
       { key: 2, text: 'False', value: 'false' },
@@ -88,6 +83,18 @@ class TestExpect extends Component {
     } else if (currentDataType === "boolean") {
       valueRender = (<Dropdown className="dropDown" search searchInput={{ type: 'text' }} placeholder="Select Boolean" selection options={boolean} id="booleanDropdown" onChange={(e, {value}) => this.handleValue(e, value)} />);
     }
+
+    // Comparator logic
+    if (currentDataType === 'boolean' || currentDataType === 'undefined' || currentDataType === 'null') comparators = [
+      { key: 1, text: ' = ', value: 'equal' },
+      { key: 2, text: ' != ', value: 'notequal' },
+    ];
+    else comparators = [
+      { key: 1, text: ' = ', value: 'equal' },
+      { key: 2, text: ' != ', value: 'notequal' },
+      { key: 3, text: ' > ', value: 'greaterthan' },
+      { key: 4, text: ' < ', value: 'lessthan' },
+    ];
 
     return (
       <div id="expectContain">
