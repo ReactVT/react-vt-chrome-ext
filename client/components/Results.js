@@ -21,6 +21,11 @@ class Results extends Component {
     let resultRender = 'Waiting for test results..';
     let resultsCountRender = [];
     let currentResult = this.props.stateIsNowProp.testResults;
+    let actual;
+    
+    if (currentResult.actual && typeof currentResult.actual === 'string') actual = currentResult.actual;
+    else if (currentResult.actual) actual = JSON.stringify(currentResult.actual);
+
     // Clear terminal if a refresh was triggered
     if (this.props.stateIsNowProp.firstLoad === true) {
       this.results = [];
@@ -45,13 +50,13 @@ class Results extends Component {
         this.results.push(
           <List.Item>
           <List.Icon name="checkmark" color='green' />
-         ID{currentResult.assertID} Test from {currentResult.assertionBlock} passed with '{currentResult.actual}'
+         ID{currentResult.assertID} Test from {currentResult.assertionBlock} passed with '{actual}'
 </List.Item>);
       // if test fails
     } else if (currentResult.result === false) {
       this.failCount += 1;
       this.results.push(<List.Item style={{'color':'red'}}>
-         FAILED: ID{currentResult.assertID} Test from {currentResult.assertionBlock} expected '{currentResult.actual}' to be '{currentResult.expected}'
+         FAILED: ID{currentResult.assertID} Test from {currentResult.assertionBlock} expected '{actual}' to be '{currentResult.expected}'
         </List.Item>);
       }
     }
