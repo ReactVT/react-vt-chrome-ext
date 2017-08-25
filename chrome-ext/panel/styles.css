@@ -1,6 +1,10 @@
 html, body{
   height:100%;
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+#waiting {
+  padding: 10px;
 }
 
 .form-control {
