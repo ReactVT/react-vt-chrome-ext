@@ -107,7 +107,10 @@ class ReactTree extends Component {
       let props = this.props.stateIsNowProp.nodeData.props; 
       let state = this.props.stateIsNowProp.nodeData.state;
     if (this.props.stateIsNowProp.error === 'reactRouter') {
-      return (<h1>React Router not supported</h1>);
+      return (
+      <div id="waiting">
+      <p>React Router is currently unsupported. If you would like to voice your interest for this feature, please create an issue on our <a href="https://github.com/ReactVT/react-vt" target="_blank">GitHub repository</a>.</p>
+      </div>);
     } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
         return (<div id="waiting">
             <h1><Loader active inline /> Waiting for Data</h1>
