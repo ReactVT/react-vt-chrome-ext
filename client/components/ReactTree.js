@@ -109,7 +109,13 @@ class ReactTree extends Component {
     if (this.props.stateIsNowProp.error === 'reactRouter') {
       return (<h1>React Router not supported</h1>);
     } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
-        return (<div><h1><Loader active inline /> Waiting for Data</h1></div>);
+        return (<div id="waiting">
+            <h1><Loader active inline /> Waiting for Data</h1>
+            <p>If this is taking more than a few seconds, try refreshing your React application or referring back to the set up instructions and ensure each step has been followed. Full documentation and bug reporting can found <a href="https://github.com/ReactVT/react-vt" target="_blank">here</a>.</p>
+            <p>* Note that react-router and Next.js are currently unsupported.</p>
+            <br />
+            <img src="setup.png" alt="Set Up" />
+          </div>);
     } else {
         return (
    <div>
