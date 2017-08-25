@@ -6,27 +6,30 @@ const newLine = "\n";
 const doubleLine = "\n \n";
 const oneSpace = '  '; 
 const twoSpace = '    ';
-let nodeStore; 
+let nodeStore;
+let firstBlock;
+let stateNodes = {};   
 
 // Initial function call, eventually contains the final result of our test creatinon
 function generateTest(list, app, nodestr) {
-  nodeStore = nodestr; 
+  nodeStore = nodestr;
+  stateNodes[app] = true;  
   // If there are no asserts, return. 
   // This should never happen if our frontend works correctly.  
   if (list.length === 0) return; 
 
   // With valid input, we can start building our result. 
   // First, we start by adding all dependencies
-  let result = addDependencies(app);
+  firstBlock = addDependencies(app);
   // Then we add our Describe syntax to begin our test  
-  result += startDescribe(app);
+  let result = startDescribe(app);
   // Now we loop through and add each assertion block as an it statement 
   list.forEach(item => {
     if (checkKeyPress(item)) result += addBlock(item); 
   }); 
   // After looping we close our describe function and are finished
   result += '});'
-  return result; 
+  return firstBlock + newLine + result; 
 }
 
 // Adds any needed dependencies to the top of the file
@@ -36,7 +39,7 @@ function addDependencies(app) {
   dependents += `import React from 'react';${newLine}`;
   dependents += `import { mount } from 'enzyme';${newLine}`;
   dependents += `import 'jsdom-global/register';${newLine}`;
-  dependents += `import ${app} from 'fill this in with proper path';${doubleLine}`;
+  dependents += `import ${app} from 'fill this in with proper path';${newLine}`;
   return dependents; 
 }
 
@@ -149,6 +152,10 @@ function sourceTest(assert) {
 
 // Special handling for state tests
 function stateTest(assert) {
+  if (!stateNodes[assert.selectorName]) {
+    stateNodes[assert.selectorName] = true;
+    firstBlock += `import ${assert.selectorName} from 'fill this in with proper path';${newLine}`; 
+  }
   let result = `${twoSpace}wrapper = mount(<${assert.selectorName} />);${newLine}`; 
   if (assert.modifier === '') result += `${twoSpace}expect(wrapper.state().${assert.property}).`; 
   else result += `${twoSpace}expect(wrapper.state().${assert.property}${assert.modifier}).`;
