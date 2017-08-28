@@ -10,8 +10,8 @@ class Nodes extends Component {
 
     let currentColor;
 
-    if(this.props.debugId === this.props.stateIsNowProp.selectedItem.debugId) currentColor = this.props.stateIsNowProp.selectedColor
-    else currentColor = this.props.stateIsNowProp.globalColor
+    if(this.props.debugId === this.props.selectedItem.debugId) currentColor = this.props.selectedColor
+    else currentColor = this.props.globalColor
     
     if(this.props.children.length === 0 ) {
       x=18
