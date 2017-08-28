@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/actionCreators';
 import Nodes from './Nodes';
 
-function mapStateToProps(stateIsNowProp) {
+function mapStateToProps({globalColor, selectedColor, selectedItem}) {
   return {
-    stateIsNowProp
+    globalColor,
+    selectedItem,
+    selectedColor
   }
 }
 
