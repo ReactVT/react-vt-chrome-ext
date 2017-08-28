@@ -45,7 +45,6 @@ class AddAssertionsForAction extends Component {
     // Saves action property to redux store on change
     handleEventDropdown(event, value) {
       this.props.saveActionProperty('event', value);
-      console.log('handled event dropdown', value)
       this.error = ''
     }
 

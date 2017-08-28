@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-import ValueInformation from '../components/ValueInformation';
-
-
 function nodeDataReducer(state = {'state': null, 'props': null, 'address': null, 'name': null, 'debugId': null}, action) {
   switch(action.type) {
     case 'GET_NODE_DATA':

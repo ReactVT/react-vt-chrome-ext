@@ -16,8 +16,6 @@ class ReactTree extends Component {
     super(props); 
     this.backgroundPageConnection = null;
     this.pageName = document.title;
-    // this.onResize = this.onResize.bind(this)
-    // this.state = { screenWidth: screen.width, screenHeight: screen.height }
   }
 
   sendAsserts() {
@@ -49,9 +47,7 @@ class ReactTree extends Component {
 
     // Listens for messages from backgroundjs to get the parsed dom tree
     self.backgroundPageConnection.onMessage.addListener(function(data) {
-      console.log('d3tree received message from content script', data);
       if (data.type === 'virtualdom') {
-        console.log('IN REACT TREE DATA', data);
         // check for react-router incompatibility
         if (data.data.virtualDom === 'reactRouter') self.props.reactRouter();
         else {
@@ -89,58 +85,16 @@ class ReactTree extends Component {
           self.props.loadResults(resultObj);
           // Affect assertionList reducer to update results within the block
           self.props.saveResultToBlock(resultObj.assertionBlock, resultObj.assertID, resultObj.result, resultObj.actual);
-          console.log('d3 received results from content script', data.data);
         }
     });
     
-    // window.addEventListener('resize', this.onResize, false)
-    // this.onResize()
+
   }
 
-//   onResize() {
-//     console.log('this.state BEFORE', this.state)
-//     this.setState({ screenWidth: screen.width,
-//         screenHeight: screen.height})
-//         console.log('this.state AFTER', this.state)
-//   }
-
-// search() {
-//   let inputVal = this.refs.input.value
-  
-//   let svgBox = this.Viewer
-//   let self = this
-
-//   let searchCollection = []
-  
-//   this.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
-
-//     if(d.props.name === inputVal) {
-//       let xCoord = d.props.ytranslate + 100
-//       let yCoord = d.props.xtranslate + 360
-//       let node = d
-//       let obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address}; 
-
-//       searchCollection.push(
-//         <Dropdown.Item key={i} onClick={() => 
-//           {svgBox.setPointOnViewerCenter(xCoord, yCoord, 4);
-//           self.props.getNodeData(obj);}
-//           } 
-//         text ={d.props.name}/>)}
-    
-//   })
-
-//   this.props.createSearchButtons(searchCollection)
-// }
-
   render() {
-    // let arraySearchButtons;
-
-    // if (Object.keys(this.props.stateIsNowProp.searchButton).length === 0) arraySearchButtons = ''
-    // else arraySearchButtons = this.props.stateIsNowProp.searchButton
 
     if (this.props.stateIsNowProp.toggleAssertion) {
       this.props.toggleAssertionBlock();
-      console.log('inside toggle');
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
         message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
@@ -148,15 +102,23 @@ class ReactTree extends Component {
       }
       
       //Old way of getting details showing up, let's have this logic in the details component, not here
-      console.log('stateisnowprop', this.props.stateIsNowProp.nodeData)
       let compAddress = this.props.stateIsNowProp.nodeData.address; 
       let compName = this.props.stateIsNowProp.nodeData.name; 
       let props = this.props.stateIsNowProp.nodeData.props; 
       let state = this.props.stateIsNowProp.nodeData.state;
     if (this.props.stateIsNowProp.error === 'reactRouter') {
-      return (<h1>React Router not supported</h1>);
+      return (
+      <div id="waiting">
+      <p>React Router is currently unsupported. If you would like to voice your interest for this feature, please create an issue on our <a href="https://github.com/ReactVT/react-vt" target="_blank">GitHub repository</a>.</p>
+      </div>);
     } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
-        return (<div><h1><Loader active inline /> Waiting for Data</h1></div>);
+        return (<div id="waiting">
+            <h1><Loader active inline /> Waiting for Data</h1>
+            <p>If this is taking more than a few seconds, try refreshing your React application or referring back to the set up instructions and ensure each step has been followed. Full documentation and bug reporting can found <a href="https://github.com/ReactVT/react-vt" target="_blank">here</a>.</p>
+            <p>* Note that react-router and Next.js are currently unsupported.</p>
+            <br />
+            <img src="setup.png" alt="Set Up" />
+          </div>);
     } else {
         return (
    <div>
@@ -181,7 +143,7 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
-            < Results
+            <Results
             state={state}
             props={props}
             {...this.props}
@@ -189,22 +151,10 @@ class ReactTree extends Component {
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
-             {/* <input type="text" ref="input" />
-            <input
-            type="button"
-            value="Search"
-            onClick={()=>this.search()} 
-            />  */}
-          {/* 
-            <Dropdown text='Available Components'>
-              <Dropdown.Menu>
-              {arraySearchButtons}
-              </Dropdown.Menu>
-            </Dropdown> */}
 
             <ReactSVGPanZoom
             ref={Viewer => this.Viewer = Viewer}
-            width={1500}
+            width={'100vw'}
             height={'100vh'}
             tool={'auto'}
             style={{'position': 'absolute'}}
@@ -219,17 +169,6 @@ class ReactTree extends Component {
               height={"100%"}
               >
 
-              {/*  // <defs>
-                //   <filter id="filter1"    
-                //   x="-0.10000000000000001"
-                //   y="-0.10000000000000001">
-                //     <feBlend in="SourceGraphic" in2="blurOut" mode="lighten" />
-                //   </filter>
-                // </defs>
-                // <g transform={"translate(20,350)"}
-                // filter="url(#filter1)">
-              */}
-
                 <g transform={"translate(30,308) scale(0.8)"}>
                   {this.props.stateIsNowProp.treeData[0][1]} 
                   {this.props.stateIsNowProp.treeData[0][0]}                  
@@ -242,7 +181,6 @@ class ReactTree extends Component {
         )
       }
     }
-
 }
 
 export default ReactTree;
