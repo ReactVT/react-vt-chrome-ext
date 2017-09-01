@@ -12,7 +12,7 @@ const mapStateToProps = store => ({
 });
 
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
 
   saveTestProperty: (property, value) => {
     dispatch(actionCreators.saveTestProperty(property, value));
