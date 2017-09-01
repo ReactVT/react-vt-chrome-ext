@@ -1,6 +1,36 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Button, Icon, Dropdown, Input, Message, Breadcrumb, Progress } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  test: store.test, 
+  nodeStore: store.nodeStore,
+  nodeData: store.nodeData
+});
+
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+
+  saveTestProperty: (property, value) => {
+    dispatch(actionCreators.saveTestProperty(property, value));
+  },
+  setTestLocation: (address) => {
+    dispatch(actionCreators.setTestLocation(address));
+  },
+  renderTest2: () => {
+    dispatch(actionCreators.renderTest2());
+  },
+  renderTest3: () => {
+    dispatch(actionCreators.renderTest3());
+  },
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+}); 
+
 
 class TestLocation extends Component {
   constructor(props) {
@@ -16,7 +46,7 @@ class TestLocation extends Component {
 
   handleSubmitEventForAction(event) {
       event.preventDefault();
-      let currentTest = this.props.stateIsNowProp.test;
+      let currentTest = this.props.test;
       // MENU VALIDATION --->
       let arrayIndexEl = document.getElementById('selectorIndexInput');
       // if selector is blank
@@ -26,7 +56,7 @@ class TestLocation extends Component {
           <p>Please select from the dropdown.</p>
 </Message>);
         this.forceUpdate();
-      } else if (currentTest.selector === 'node' && !this.props.compAddress) {
+      } else if (currentTest.selector === 'node' && !this.props.nodeData.address) {
         // if selector is node but no node has been clicked
         this.error=(<Message negative>
           <Message.Header>Component Required</Message.Header>
@@ -74,7 +104,7 @@ class TestLocation extends Component {
           let indexSave = '[' + arrayIndexEl.value + ']'
           this.props.saveTestProperty('selectorModifier', indexSave);
         }
-        if (this.currentSelector === 'node') this.props.setTestLocation(this.props.compAddress);
+        if (this.currentSelector === 'node') this.props.setTestLocation(this.props.nodeData.address);
         if (this.currentModifier === '.length') this.props.renderTest3();
         else this.props.renderTest2();
       }
@@ -83,7 +113,7 @@ class TestLocation extends Component {
     handleSelectorDropdown(event, value) {
       this.currentSelector = value;
       if (value === 'node') {
-        this.props.saveTestProperty('compName', this.props.compName);
+        this.props.saveTestProperty('compName', this.props.nodeData.name);
       }
       this.props.saveTestProperty('selector', value);
       this.error = '';
@@ -92,7 +122,7 @@ class TestLocation extends Component {
     handleSelectorNameDropdown(event, value) {
       this.currentSelectorName = value;
       this.props.saveTestProperty('selectorName', value);
-      if (this.props.stateIsNowProp.test.selector !== 'component') this.props.saveTestProperty('loc', this.locObj[value]);
+      if (this.props.test.selector !== 'component') this.props.saveTestProperty('loc', this.locObj[value]);
       this.error = '';
     }
 
@@ -131,30 +161,31 @@ class TestLocation extends Component {
     ];
     // Selector and Selector name logic
     if (this.currentSelector === 'node') {
-      selectorName.push({ key: 1, text: this.props.compAddress, value: this.props.compAddress });
-      selectorNameRender = (<Input transparent placeholder='Click on a node' className = 'form-control' value={this.props.compName} disabled />);
-      if (this.props.compAddress) this.error = '';
+      console.log('address', this.props.nodeData.address);
+      selectorName.push({ key: 1, text: this.props.nodeData.address, value: this.props.nodeData.address });
+      selectorNameRender = (<Input transparent placeholder='Click on a node' className = 'form-control' value={this.props.nodeData.name} disabled />);
+      if (this.props.nodeData.address) this.error = '';
     } else if (this.currentSelector !== '') {
       if (this.currentSelector === 'component'){
-        let components = this.props.stateIsNowProp.nodeStore.node;
+        let components = this.props.nodeStore.node;
         Object.keys(components).forEach((compName, i)=> {
           selectorName.push({ key: i, text: compName, value: compName });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Components Found':'Select a Component';
       } else if (this.currentSelector === 'id') {
-        let id = this.props.stateIsNowProp.nodeStore.id;
+        let id = this.props.nodeStore.id;
         Object.keys(id).forEach((idName, i)=> {        
           selectorName.push({ key: i, text: idName, value: idName });
         });
         selectorNamePlaceholder = (Object.keys(id).length === 0) ? 'No IDs found':'Select an ID';
       } else if (this.currentSelector === 'class') {
-        let classes = this.props.stateIsNowProp.nodeStore.class;
+        let classes = this.props.nodeStore.class;
         Object.keys(classes).forEach((className, i)=> {          
           selectorName.push({ key: i, text: className, value: className });
         });
         selectorNamePlaceholder = (selectorName.length === 0) ? 'No Classes Found':'Select a Class';
       } else if (this.currentSelector === 'tag') {
-        let tags = this.props.stateIsNowProp.nodeStore.tag;
+        let tags = this.props.nodeStore.tag;
         Object.keys(tags).forEach((tagName, i)=> {
           selectorName.push({ key: i, text: tagName, value: tagName });
         });
@@ -167,7 +198,7 @@ class TestLocation extends Component {
       selectorNameRender=(<Dropdown className="dropdownSel" search searchInput={{ type: 'text' }} placeholder={selectorNamePlaceholder} selection options={selectorName} id="selectorNameDropdown" onChange={(e, {value})=>this.handleSelectorNameDropdown(e, value)} />);
       
       // If selector modifier is index
-      if (this.props.stateIsNowProp.test.selectorModifier === 'index') {
+      if (this.props.test.selectorModifier === 'index') {
             indexRender = (<Input className="dropdownSel" placeholder="Enter a Number" className="indexInput" id="selectorIndexInput" type="number" />);
       }
     }
@@ -208,5 +239,4 @@ class TestLocation extends Component {
     );
   }
 };
-
-export default TestLocation;
+export default connect(mapStateToProps, mapDispatchToProps)(TestLocation);
