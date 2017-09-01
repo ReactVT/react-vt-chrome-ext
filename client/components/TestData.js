@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Button, Icon, Dropdown, Input, Message, Breadcrumb, Progress } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  test: store.test, 
+  nodeStore: store.nodeStore,
+  nodeData: store.nodeData
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+
+  saveTestProperty: (property, value) => {
+    dispatch(actionCreators.saveTestProperty(property, value));
+  },
+  renderTest1: () => {
+    dispatch(actionCreators.renderTest2());
+  },
+  renderTest3: () => {
+    dispatch(actionCreators.renderTest3());
+  },
+});
+
 
 class TestData extends Component {
   constructor(props) {
@@ -21,24 +45,24 @@ class TestData extends Component {
       { key: 1, text: 'Props', value: 'props' },
       { key: 2, text: 'State', value: 'state' }
     ];
-    const selector = this.props.stateIsNowProp.test.selector;
+    const selector = this.props.test.selector;
 
     // determine props/state for node/component
     if (selector === 'node') {
-      this.currentProps = this.props.props;
-      this.currentState = this.props.state;
-      this.handleCompName(this.props.compName);
+      this.currentProps = this.props.nodeData.props;
+      this.currentState = this.props.nodeData.state;
+      this.handleCompName(this.props.nodeData.name);
 
     } else if (selector === 'component') {
       // get component props and state in the form of arrays
       // still needs to be specified with index modifier
-      let compName = this.props.stateIsNowProp.test.selectorName;
-      let index = parseInt(this.props.stateIsNowProp.test.selectorModifier.slice(1, -1));
-      let address = this.props.stateIsNowProp.nodeStore.node[compName].address[index];
+      let compName = this.props.test.selectorName;
+      let index = parseInt(this.props.test.selectorModifier.slice(1, -1));
+      let address = this.props.nodeStore.node[compName].address[index];
       this.handleCompAddress(address);
 
-      this.currentProps = this.props.stateIsNowProp.nodeStore.node[compName].props[index];
-      this.currentState = this.props.stateIsNowProp.nodeStore.node[compName].state[index];
+      this.currentProps = this.props.nodeStore.node[compName].props[index];
+      this.currentState = this.props.nodeStore.node[compName].state[index];
     }
     // for node/component
     if (selector === 'node' || selector === 'component') {
@@ -103,7 +127,7 @@ class TestData extends Component {
   handleSubmit(event) {
       event.preventDefault();
       // MENU VALIDATION --->
-      let currentTest = this.props.stateIsNowProp.test;
+      let currentTest = this.props.test;
       let arrayIndexEl = document.getElementById('indexInput');
       if (currentTest.source === '') {
         this.error=(<Message negative>
@@ -130,7 +154,7 @@ class TestData extends Component {
 </Message>);
         this.forceUpdate();
       } else {
-        if (this.props.stateIsNowProp.test.modifier === 'index') {
+        if (this.props.test.modifier === 'index') {
           let indexSave = '[' + arrayIndexEl.value + ']';
           this.props.saveTestProperty('modifier', indexSave);
         }
@@ -141,8 +165,8 @@ class TestData extends Component {
   render () {
     let propertyRender;
     let indexRender;
-    const source = this.props.stateIsNowProp.test.source; 
-    const currentProperty = this.props.stateIsNowProp.test.property;
+    const source = this.props.test.source; 
+    const currentProperty = this.props.test.property;
     const propertyOptions = [];
     const modifierOptions = [
       { key: 1, text: 'None', value: 'none' },
@@ -175,7 +199,7 @@ class TestData extends Component {
       } else this.modifierRender = '';
     }
     // if modifier is index
-    if (this.props.stateIsNowProp.test.modifier === 'index') {
+    if (this.props.test.modifier === 'index') {
       indexRender = (<Input placeholder="Enter a Number" className="indexInput" id="indexInput" type="number" />);
     }
 
@@ -211,4 +235,4 @@ class TestData extends Component {
   }
 };
 
-export default TestData;
+export default connect(mapStateToProps, mapDispatchToProps)(TestData);
