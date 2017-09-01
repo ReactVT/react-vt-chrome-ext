@@ -133,10 +133,10 @@ class ReactTree extends Component {
             {...this.props}
             />
             <Assertions 
-            compAddress={compAddress}
-            compName={compName}
-            state={state}
-            props={props}
+            // compAddress={compAddress}
+            // compName={compName}
+            // state={state}
+            // props={props}
             style={{"float": "right"}}
             saveActionAssertion={this.props.saveActionAssertion}
             saveTestAssertion={this.props.saveTestAssertion}
