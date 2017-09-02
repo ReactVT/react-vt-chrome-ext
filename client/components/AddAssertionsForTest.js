@@ -11,7 +11,7 @@ class AddAssertionsForTest extends Component {
     let testMode;
     if (this.props.stateIsNowProp.testMode === 'test1') testMode = ( <TestLocation />);
     else if (this.props.stateIsNowProp.testMode === 'test2') testMode = ( <TestData />);
-    else if (this.props.stateIsNowProp.testMode === 'test3') testMode = ( <TestExpect { ...this.props } />);
+    else if (this.props.stateIsNowProp.testMode === 'test3') testMode = ( <TestExpect />);
     return (
       <div>
         {testMode}
