@@ -142,11 +142,7 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             {...this.props} 
             />  
-            <Results
-            state={state}
-            props={props}
-            {...this.props}
-            />
+            <Results />
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >

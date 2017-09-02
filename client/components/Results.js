@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { List, Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  testResults: store.testResults, 
+  firstLoad: store.firstLoad,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+}); 
 
 class Results extends Component {
   constructor(props) {
@@ -20,14 +34,14 @@ class Results extends Component {
   render () {
     let resultRender = 'Waiting for test results..';
     let resultsCountRender = [];
-    let currentResult = this.props.stateIsNowProp.testResults;
+    let currentResult = this.props.testResults;
     let actual;
     
     if (currentResult.actual && typeof currentResult.actual === 'string') actual = currentResult.actual;
     else if (currentResult.actual) actual = JSON.stringify(currentResult.actual);
 
     // Clear terminal if a refresh was triggered
-    if (this.props.stateIsNowProp.firstLoad === true) {
+    if (this.props.firstLoad === true) {
       this.results = [];
       this.passCount = 0;
       this.failCount = 0;
@@ -78,4 +92,4 @@ class Results extends Component {
   }
 };
 
-export default Results;
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
