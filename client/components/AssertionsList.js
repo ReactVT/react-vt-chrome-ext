@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch) => ({
   renderNameAssertionMode: () => {
     dispatch(actionCreators.renderNameAssertionMode());
   },
-  deleteAssertionBlock: () => {
-    dispatch(actionCreators.deleteAssertionBlock());
+  deleteAssertionBlock: (name) => {
+    dispatch(actionCreators.deleteAssertionBlock(name));
   },
   selectedTest: (assert) => {
     dispatch(actionCreators.selectedTest(assert));
