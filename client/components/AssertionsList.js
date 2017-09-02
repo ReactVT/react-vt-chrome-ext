@@ -2,6 +2,33 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import generateTest from './../enzyme/enzymeTranslate'
 import { Button, Accordion, Icon, List } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  assertionList: store.assertionList, 
+  appName: store.appName,
+  nodeStore: store.nodeStore,  
+  backgroundConnection: store.backgroundConnection, 
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+
+  renderNameAssertionMode: () => {
+    dispatch(actionCreators.renderNameAssertionMode());
+  },
+  deleteAssertionBlock: () => {
+    dispatch(actionCreators.deleteAssertionBlock());
+  },
+  selectedTest: () => {
+    dispatch(actionCreators.selectedTest());
+  },
+  selectedAction: () => {
+    dispatch(actionCreators.selectedAction());
+  },
+});
 
 class AssertionsList extends Component {
   
@@ -13,7 +40,7 @@ class AssertionsList extends Component {
     // Stops event from propegating to parents
     e.stopPropagation();
     this.props.deleteAssertionBlock(name);
-    this.props.stateIsNowProp.backgroundConnection.postMessage({
+    this.props.backgroundConnection.postMessage({
         type: 'assertion',
         message: name, 
         flag: 'delete'
@@ -31,7 +58,7 @@ class AssertionsList extends Component {
 
   // Hacky method of doing enzyme downloads on the fly
   saveEnzyme() {
-    let text = generateTest(this.props.stateIsNowProp.assertionList, this.props.stateIsNowProp.appName, this.props.stateIsNowProp.nodeStore);
+    let text = generateTest(this.props.assertionList, this.props.appName, this.props.nodeStore);
     const data = new Blob([text], {type: 'text/plain'});
     // If we are replacing a previously generated file we need to
     // manually revoke the object URL to avoid memory leaks.
@@ -51,7 +78,7 @@ class AssertionsList extends Component {
 
   render() {
     let assertionlist = [];
-    let listArray = this.props.stateIsNowProp.assertionList;
+    let listArray = this.props.assertionList;
     if (listArray.length > 0) {
       listArray.forEach((block, i) => {
         const assertText = [];
@@ -136,4 +163,4 @@ class AssertionsList extends Component {
     
 };
 
-export default AssertionsList;
+export default connect(mapStateToProps, mapDispatchToProps)(AssertionsList);
