@@ -1,6 +1,47 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Button, Accordion, Icon, Message } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  assertionBlock: store.assertionBlock, 
+  assertionList: store.assertionList,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  resetAssertId: () => {
+    dispatch(actionCreators.resetAssertId());
+  },
+  addAssertionToList: (block) => {
+    dispatch(actionCreators.addAssertionToList(block));
+  },
+  renderViewMode: () => {
+    dispatch(actionCreators.renderViewMode());
+  },
+  renderActionMode: () => {
+    dispatch(actionCreators.renderActionMode());
+  },
+  renderTestMode: () => {
+    dispatch(actionCreators.renderTestMode());
+  },
+  toggleAssertionBlock: () => {
+    dispatch(actionCreators.toggleAssertionBlock());
+  },
+  deleteAssertion: (id) => {
+    dispatch(actionCreators.deleteAssertion(id));
+  },
+  deleteAssertionBlock: (block) => {
+    dispatch(actionCreators.deleteAssertionBlock(block));
+  },
+  selectedAction: (assert) => {
+    dispatch(actionCreators.selectedAction(assert));
+  },
+  selectedTest: (assert) => {
+    dispatch(actionCreators.selectedTest(assert));
+  },
+});
 
 class EditAssertionBlock extends Component {
   constructor(props) {
@@ -12,7 +53,7 @@ class EditAssertionBlock extends Component {
   // Logic for saving a new assertion block
   handleSaveAssertionBlock() {
     // Make sure our current assertion block has stuff added to it
-    if (this.props.stateIsNowProp.assertionBlock.asserts.length === 0) {
+    if (this.props.assertionBlock.asserts.length === 0) {
       this.error=(<Message negative>
         <Message.Header>Assertions Required</Message.Header>
         <p>Please create an action or test to continue.</p>
@@ -22,7 +63,7 @@ class EditAssertionBlock extends Component {
       // Resets assertionID so it starts at 1 on next block
       this.props.resetAssertId();
       // Adds assertionblock to assertion list
-      this.props.addAssertionToList(this.props.stateIsNowProp.assertionBlock);
+      this.props.addAssertionToList(this.props.assertionBlock);
       // Resets our render mode to the default panel
       this.props.renderViewMode();
       // 
@@ -32,7 +73,7 @@ class EditAssertionBlock extends Component {
 
   handleDelete(id) {
     this.props.deleteAssertion(id);
-    localStorage.setItem(this.pageName, JSON.stringify(this.props.stateIsNowProp.assertionList));
+    localStorage.setItem(this.pageName, JSON.stringify(this.props.assertionList));
   }
 
   clickAction(assert) {
@@ -46,12 +87,12 @@ class EditAssertionBlock extends Component {
   handleCancel() {
     this.props.resetAssertId();   
     // Empty out assertion block
-    this.props.deleteAssertionBlock(this.props.stateIsNowProp.assertionBlock.name);
+    this.props.deleteAssertionBlock(this.props.assertionBlock.name);
     this.props.renderViewMode();
   }
   render() {
     let assertions = [];
-    let assertsArray = this.props.stateIsNowProp.assertionBlock.asserts;
+    let assertsArray = this.props.assertionBlock.asserts;
     if(assertsArray.length > 0) {
       assertsArray.forEach((el, i) => {
         if (el.type === 'action') {
@@ -86,7 +127,7 @@ class EditAssertionBlock extends Component {
           <Button primary inverted color="blue" size="small" type="button" className="assert-button" onClick={()=>this.props.renderActionMode()}>New Action</Button>
           <Button primary inverted color="blue" size="small" type="button" id="newTestButton" className="assert-button" onClick={()=>this.props.renderTestMode()}>New Test</Button>
         </div>
-        <div id='topNameEditBlock'>Assertion Block: {this.props.stateIsNowProp.assertionBlock.name} </div>
+        <div id='topNameEditBlock'>Assertion Block: {this.props.assertionBlock.name} </div>
           { assertions }
           { this.error }
       </div>
@@ -94,4 +135,4 @@ class EditAssertionBlock extends Component {
   }
 }
 
-export default EditAssertionBlock;
+export default connect(mapStateToProps, mapDispatchToProps)(EditAssertionBlock);
