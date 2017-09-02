@@ -130,7 +130,6 @@ class ReactTree extends Component {
           <Pane id={1} key={1} width={300} height="100%">
             <Details
             style={{"float": "right"}}
-            {...this.props}
             />
             <Assertions 
             // compAddress={compAddress}
