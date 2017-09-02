@@ -16,7 +16,7 @@ class Assertions extends Component {
     else if (this.props.stateIsNowProp.viewMode === 'nameAssertionBlock') view =(<NameAssertionBlock />); 
     else if (this.props.stateIsNowProp.viewMode === 'editBlock') view = (<EditAssertionBlock />);
     else if (this.props.stateIsNowProp.viewMode === 'actionMenu') view = (<AddAssertionsForAction />);
-    else if (this.props.stateIsNowProp.viewMode === 'testMenu') view = (<AddAssertionsForTest {...this.props}/>);
+    else if (this.props.stateIsNowProp.viewMode === 'testMenu') view = (<AddAssertionsForTest />);
     // this.props.renderActionMode();
     return (
       <div id="assertions-panel">
