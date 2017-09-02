@@ -22,11 +22,11 @@ const mapDispatchToProps = (dispatch) => ({
   deleteAssertionBlock: () => {
     dispatch(actionCreators.deleteAssertionBlock());
   },
-  selectedTest: () => {
-    dispatch(actionCreators.selectedTest());
+  selectedTest: (assert) => {
+    dispatch(actionCreators.selectedTest(assert));
   },
-  selectedAction: () => {
-    dispatch(actionCreators.selectedAction());
+  selectedAction: (assert) => {
+    dispatch(actionCreators.selectedAction(assert));
   },
 });
 

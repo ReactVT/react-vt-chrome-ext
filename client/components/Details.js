@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Accordion, Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  selectedItem: store.selectedItem, 
+  nodeData: store.nodeData, 
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+}); 
 
 class Details extends Component {
 
@@ -9,7 +23,7 @@ class Details extends Component {
 
     let self = this
     // Grab a reference to our selected item from the redux store
-    let currentItem = this.props.stateIsNowProp.selectedItem;
+    let currentItem = this.props.selectedItem;
 
     let props = '';
     let state = '';
@@ -24,7 +38,7 @@ class Details extends Component {
     
     // Render logic for details if a node is selected
     if (currentItem.type === 'node') {
-      let node = this.props.stateIsNowProp.nodeData;
+      let node = this.props.nodeData;
       let id = node.id ? node.id : 'n/a'; 
       let nodeClass = node.class ? node.class : 'n/a'; 
 
@@ -186,4 +200,4 @@ class Details extends Component {
 }
 
 
-export default Details;
+export default connect(mapStateToProps, mapDispatchToProps)(Details);
