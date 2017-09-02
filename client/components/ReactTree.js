@@ -132,15 +132,11 @@ class ReactTree extends Component {
             style={{"float": "right"}}
             />
             <Assertions 
-            // compAddress={compAddress}
-            // compName={compName}
-            // state={state}
-            // props={props}
+            viewMode={this.props.stateIsNowProp.viewMode}
             style={{"float": "right"}}
             saveActionAssertion={this.props.saveActionAssertion}
             saveTestAssertion={this.props.saveTestAssertion}
             style={{"float": "right"}}
-            {...this.props} 
             />  
             <Results />
           </Pane> 

@@ -51,53 +51,60 @@ class TestLocation extends Component {
       let arrayIndexEl = document.getElementById('selectorIndexInput');
       // if selector is blank
       if (currentTest.selector === '') {
-        this.error=(<Message negative>
-          <Message.Header>Selector Required</Message.Header>
-          <p>Please select from the dropdown.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>Selector Required</Message.Header>
+            <p>Please select from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'node' && !this.props.nodeData.address) {
         // if selector is node but no node has been clicked
-        this.error=(<Message negative>
-          <Message.Header>Component Required</Message.Header>
-          <p>Please click on a node.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>Component Required</Message.Header>
+            <p>Please click on a node.</p>
+          </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'component' && currentTest.selectorName === '') {
-        this.error=(<Message negative>
-          <Message.Header>Component Required</Message.Header>
-          <p>Please type or select a component from the dropdown.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>Component Required</Message.Header>
+            <p>Please type or select a component from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'id' && currentTest.selectorName === '') {
-        this.error=(<Message negative>
-          <Message.Header>ID Required</Message.Header>
-          <p>Please type or select an ID from the dropdown.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>ID Required</Message.Header>
+            <p>Please type or select an ID from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'class' && currentTest.selectorName === '') {
         this.error=(<Message negative>
           <Message.Header>Class Required</Message.Header>
-          <p>Please type or select a class from the dropdown.</p>
-</Message>);
+            <p>Please type or select a class from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if (currentTest.selector === 'tag' && currentTest.selectorName === '') {
-        this.error=(<Message negative>
-          <Message.Header>Tag Required</Message.Header>
-          <p>Please type or select a tag from the dropdown.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>Tag Required</Message.Header>
+            <p>Please type or select a tag from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if ((currentTest.selector === 'component' || currentTest.selector === 'class' || currentTest.selector === 'tag') && currentTest.selectorModifier === '') {
-        this.error=(<Message negative>
-          <Message.Header>Modifier Required</Message.Header>
-          <p>Please type or select a modifier from the dropdown.</p>
-</Message>);
+        this.error=(
+          <Message negative>
+            <Message.Header>Modifier Required</Message.Header>
+            <p>Please type or select a modifier from the dropdown.</p>
+          </Message>);
         this.forceUpdate();
       } else if (this.currentModifier === 'index' && !arrayIndexEl.value) {
-          this.error=(<Message negative>
-        <Message.Header>Index Required</Message.Header>
-        <p>Please enter a number in the input field.</p>
-</Message>);
+          this.error=(
+          <Message negative>
+            <Message.Header>Index Required</Message.Header>
+            <p>Please enter a number in the input field.</p>
+          </Message>);
         this.forceUpdate();
       } else {
         if (this.currentModifier === 'index') {
