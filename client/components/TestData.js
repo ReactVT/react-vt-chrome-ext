@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actionCreators.saveTestProperty(property, value));
   },
   renderTest1: () => {
-    dispatch(actionCreators.renderTest2());
+    dispatch(actionCreators.renderTest1());
   },
   renderTest3: () => {
     dispatch(actionCreators.renderTest3());
