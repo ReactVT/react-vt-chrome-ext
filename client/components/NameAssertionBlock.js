@@ -1,6 +1,27 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Button, Input, Message, Icon } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  assertionList: store.assertionList, 
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+
+  newAssertionBlock: (value) => {
+    dispatch(actionCreators.newAssertionBlock(value));
+  },
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+  renderViewMode: () => {
+    dispatch(actionCreators.renderViewMode());
+  },
+}); 
 
 
 class NameAssertionBlock extends Component {
@@ -13,7 +34,7 @@ class NameAssertionBlock extends Component {
     let input = document.getElementById('assertionBlockName').value;
     let invalid = false;
     // VALIDATE ASSERTION NAME FOR DUPES
-    const assertionList = this.props.stateIsNowProp.assertionList;
+    const assertionList = this.props.assertionList;
     for (let i = 0; i < assertionList.length; i += 1) {
       if (input === assertionList[i].name || input.length === 0){ 
         this.error=(<Message id="invalidName" negative>
@@ -64,4 +85,4 @@ class NameAssertionBlock extends Component {
   }
 }
 
-export default NameAssertionBlock;
+export default connect(mapStateToProps, mapDispatchToProps)(NameAssertionBlock);

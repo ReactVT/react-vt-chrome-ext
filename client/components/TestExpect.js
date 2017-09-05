@@ -2,6 +2,40 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Select } from 'semantic-ui-react'
 import { Button, Dropdown, Input, Message, Icon, Breadcrumb, Progress } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  test: store.test, 
+  assertID: store.assertID, 
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+
+  saveTestProperty: (property, value) => {
+    dispatch(actionCreators.saveTestProperty(property, value));
+  },
+  incrementAssertId: () => {
+    dispatch(actionCreators.incrementAssertId());
+  },
+  saveAssertion: (test) => {
+    dispatch(actionCreators.saveAssertion(test));
+  },
+  clearTest: () => {
+    dispatch(actionCreators.clearTest());
+  },
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+  renderTest1: () => {
+    dispatch(actionCreators.renderTest1());
+  },
+  renderTest2: () => {
+    dispatch(actionCreators.renderTest2());
+  },
+
+}); 
 
 class TestExpect extends Component {
   constructor(props) {
@@ -16,7 +50,7 @@ class TestExpect extends Component {
 
   handleSubmit(event) {
       event.preventDefault();
-      let currentTest = this.props.stateIsNowProp.test;
+      let currentTest = this.props.test;
       if (currentTest.value === '' && currentTest.dataType !== 'null' && currentTest.dataType !== 'undefined') {
         this.error=(<Message negative>
           <Message.Header>Value Required</Message.Header>
@@ -24,10 +58,10 @@ class TestExpect extends Component {
 </Message>);
         this.forceUpdate();
       } else {
-        let tempTest = this.props.stateIsNowProp.test; 
-        tempTest.assertID = this.props.stateIsNowProp.assertID;
+        let tempTest = this.props.test; 
+        tempTest.assertID = this.props.assertID;
         this.props.incrementAssertId();
-        this.props.saveAssertion(this.props.stateIsNowProp.test);
+        this.props.saveAssertion(this.props.test);
         this.props.clearTest();
         this.props.renderTest1();
         this.props.renderEditMode();
@@ -52,7 +86,7 @@ class TestExpect extends Component {
     this.props.saveTestProperty('type', '');
     this.props.saveTestProperty('dataType', '');
     this.props.saveTestProperty('value', '');
-    if (this.props.stateIsNowProp.test.selectorModifier === '.length') this.props.renderTest1();
+    if (this.props.test.selectorModifier === '.length') this.props.renderTest1();
     else this.props.renderTest2();
   }
 
@@ -60,7 +94,7 @@ class TestExpect extends Component {
     let comparatorRender;
     let typeRender;
     let valueRender;
-    const currentDataType = this.props.stateIsNowProp.test.dataType;
+    const currentDataType = this.props.test.dataType;
     const types = [
       { key: 1, text: 'String', value: 'string' },
       { key: 2, text: 'Number', value: 'number' },
@@ -134,4 +168,4 @@ class TestExpect extends Component {
   }
 };
 
-export default TestExpect;
+export default connect(mapStateToProps, mapDispatchToProps)(TestExpect);

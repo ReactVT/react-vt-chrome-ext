@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 
 
 // Import Components
-import App from './components/App';
+import ReactTree from './components/ReactTree';
 
 // import react router deps
 import { Provider } from 'react-redux';
@@ -14,7 +14,7 @@ import 'semantic-ui-css/semantic.min.css';
 const router = (
   <Provider store={store}>
 
-      <App />
+      <ReactTree />
 
   </Provider>
 )

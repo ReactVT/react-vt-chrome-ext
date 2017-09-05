@@ -3,12 +3,74 @@ import { render } from 'react-dom';
 import {ReactSVGPanZoom, setPointOnViewerCenter} from 'react-svg-pan-zoom';
 import { SortablePane, Pane } from 'react-sortable-pane';
 import { Dropdown, Loader } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
 import Nodes from './Nodes.js';
 import Links from './Links.js';
 import Details from '../components/Details';
 import Assertions from '../components/Assertions';
 import AssertionsList from './AssertionsList.js';
 import Results from '../components/Results.js';
+
+const mapStateToProps = store => ({
+  selectedItem: store.selectedItem,
+  treeData: store.treeData, 
+  toggleAssertion: store.toggleAssertion,  
+  assertionList: store.assertionList, 
+  nodeData: store.nodeData, 
+  error: store.error, 
+  viewMode: store.viewMode,
+
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+  loadAssertionList: (asserts) => {
+    dispatch(actionCreators.loadAssertionList(asserts));
+  },
+  setBackgroundConnection: (address) => {
+    dispatch(actionCreators.setBackgroundConnection(address));
+  },
+  toggleAssertionBlock: () => {
+    dispatch(actionCreators.toggleAssertionBlock());
+  },
+  noError: () => {
+    dispatch(actionCreators.noError());
+  },
+  setAppName: (node) => {
+    dispatch(actionCreators.setAppName(node));
+  },
+  clearResults: () => {
+    dispatch(actionCreators.clearResults());
+  },
+  clearResultsFromList: () => {
+    dispatch(actionCreators.clearResultsFromList());
+  },
+  firstLoad: () => {
+    dispatch(actionCreators.firstLoad());
+  },
+  notFirstLoad: () => {
+    dispatch(actionCreators.notFirstLoad());
+  },
+  loadTreeData: (data) => {
+    dispatch(actionCreators.loadTreeData(data));
+  },
+  loadNodeStore: (data) => {
+    dispatch(actionCreators.loadNodeStore(data));
+  },
+  removeSelectedNode: (data) => {
+    dispatch(actionCreators.loadNodeStore(data));
+  },
+  loadResults: (data) => {
+    dispatch(actionCreators.loadResults(data));
+  },
+  saveResultToBlock: (block, id, result, actual) => {
+    dispatch(actionCreators.saveResultToBlock(block, id, result, actual));
+  },
+  getNodeData: (obj) => {
+    dispatch(actionCreators.getNodeData(obj));
+  },
+}); 
 
 class ReactTree extends Component {
 
@@ -40,13 +102,13 @@ class ReactTree extends Component {
     this.props.setBackgroundConnection(self.backgroundPageConnection);
     this.sendAsserts();
     // send tabId to backgroundjs to establish connection
-    self.backgroundPageConnection.postMessage({
+    this.backgroundPageConnection.postMessage({
       name: 'panelToBackgroundInit',
       tabId: chrome.devtools.inspectedWindow.tabId
     });
 
     // Listens for messages from backgroundjs to get the parsed dom tree
-    self.backgroundPageConnection.onMessage.addListener(function(data) {
+    this.backgroundPageConnection.onMessage.addListener(function(data) {
       if (data.type === 'virtualdom') {
         // check for react-router incompatibility
         if (data.data.virtualDom === 'reactRouter') self.props.reactRouter();
@@ -65,15 +127,15 @@ class ReactTree extends Component {
 
           self.props.loadTreeData(data.data.virtualDom);
           self.props.loadNodeStore(data.data.nodeStore);
-          if (self.props.stateIsNowProp.selectedItem.debugId !== null) {
+          if (self.props.selectedItem.debugId !== null) {
             checkContainer = []
-            self.props.stateIsNowProp.treeData[0][0].map(function (d, i) {
+            self.props.treeData[0][0].map(function (d, i) {
               checkContainer.push(d.props.debugId)
-                if(d.props.debugId === self.props.stateIsNowProp.selectedItem.debugId) {
+                if(d.props.debugId === self.props.selectedItem.debugId) {
                   const obj = {'state': d.props.state, 'props': d.props.props, 'name': d.props.name, 'address': d.props.address, 'debugId': d.props.debugId}; 
                   self.props.getNodeData(obj);
                 } 
-                if(i === self.props.stateIsNowProp.treeData[0][0].length-1 && !checkContainer.includes(self.props.stateIsNowProp.selectedItem.debugId)) {
+                if(i === self.props.treeData[0][0].length-1 && !checkContainer.includes(self.props.selectedItem.debugId)) {
                   self.props.removeSelectedNode();  
                 }
             });
@@ -87,31 +149,24 @@ class ReactTree extends Component {
           self.props.saveResultToBlock(resultObj.assertionBlock, resultObj.assertID, resultObj.result, resultObj.actual);
         }
     });
-    
-
   }
 
   render() {
 
-    if (this.props.stateIsNowProp.toggleAssertion) {
+    if (this.props.toggleAssertion) {
       this.props.toggleAssertionBlock();
       this.backgroundPageConnection.postMessage({
         type: 'assertion',
-        message: this.props.stateIsNowProp.assertionList[this.props.stateIsNowProp.assertionList.length - 1]
+        message: this.props.assertionList[this.props.assertionList.length - 1]
       });
       }
       
-      //Old way of getting details showing up, let's have this logic in the details component, not here
-      let compAddress = this.props.stateIsNowProp.nodeData.address; 
-      let compName = this.props.stateIsNowProp.nodeData.name; 
-      let props = this.props.stateIsNowProp.nodeData.props; 
-      let state = this.props.stateIsNowProp.nodeData.state;
-    if (this.props.stateIsNowProp.error === 'reactRouter') {
+    if (this.props.error === 'reactRouter') {
       return (
       <div id="waiting">
       <p>React Router is currently unsupported. If you would like to voice your interest for this feature, please create an issue on our <a href="https://github.com/ReactVT/react-vt" target="_blank">GitHub repository</a>.</p>
       </div>);
-    } else if (Object.keys(this.props.stateIsNowProp.treeData).length === 0) {
+    } else if (Object.keys(this.props.treeData).length === 0) {
         return (<div id="waiting">
             <h1><Loader active inline /> Waiting for Data</h1>
             <p>If this is taking more than a few seconds, try refreshing your React application or referring back to the set up instructions and ensure each step has been followed. Full documentation and bug reporting can found <a href="https://github.com/ReactVT/react-vt" target="_blank">here</a>.</p>
@@ -130,24 +185,15 @@ class ReactTree extends Component {
           <Pane id={1} key={1} width={300} height="100%">
             <Details
             style={{"float": "right"}}
-            {...this.props}
             />
             <Assertions 
-            compAddress={compAddress}
-            compName={compName}
-            state={state}
-            props={props}
+            viewMode={this.props.viewMode}
             style={{"float": "right"}}
             saveActionAssertion={this.props.saveActionAssertion}
             saveTestAssertion={this.props.saveTestAssertion}
             style={{"float": "right"}}
-            {...this.props} 
             />  
-            <Results
-            state={state}
-            props={props}
-            {...this.props}
-            />
+            <Results />
           </Pane> 
 
           <Pane id={0} key={0} width={1000} height="100%" >
@@ -170,8 +216,8 @@ class ReactTree extends Component {
               >
 
                 <g transform={"translate(30,308) scale(0.8)"}>
-                  {this.props.stateIsNowProp.treeData[0][1]} 
-                  {this.props.stateIsNowProp.treeData[0][0]}                  
+                  {this.props.treeData[0][1]} 
+                  {this.props.treeData[0][0]}                  
                 </g>
               </svg> 
             </ReactSVGPanZoom>  
@@ -183,4 +229,4 @@ class ReactTree extends Component {
     }
 }
 
-export default ReactTree;
+export default connect(mapStateToProps, mapDispatchToProps)(ReactTree);

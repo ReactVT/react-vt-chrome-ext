@@ -1,6 +1,35 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Button, Input, Dropdown, Message, Icon } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
+
+const mapStateToProps = store => ({
+  action: store.action,
+  assertID: store.assertID,
+  nodeData: store.nodeData,
+});
+
+
+const mapDispatchToProps = dispatch => ({
+
+  saveActionProperty: (property, value) => {
+    dispatch(actionCreators.saveActionProperty(property, value));
+  },
+  saveAssertion: (newAction) => {
+    dispatch(actionCreators.saveAssertion(newAction));
+  },
+  incrementAssertId: () => {
+    dispatch(actionCreators.incrementAssertId());
+  },
+  clearAction: () => {
+    dispatch(actionCreators.clearAction());
+  },
+  renderEditMode: () => {
+    dispatch(actionCreators.renderEditMode());
+  },
+});
 
 class AddAssertionsForAction extends Component {
   constructor(props) {
@@ -14,25 +43,25 @@ class AddAssertionsForAction extends Component {
       let inputValueEl = document.getElementById('inputValue');
       
       // Sets error for node test missing a selected component
-      if (!this.props.compName) {
+      if (!this.props.nodeData.name) {
         this.error = (<Message negative>
           <Message.Header>Component Required</Message.Header>
           <p>Please click on a node.</p>
           </Message>);
         this.forceUpdate();
-      } else if (this.props.stateIsNowProp.action.event === 'keypress' && !inputValueEl.value) {
+      } else if (this.props.action.event === 'keypress' && !inputValueEl.value) {
         // Set error for keypress test without a value inputed
         this.error=(<Message negative>
           <Message.Header>Input Value Required</Message.Header>
           <p>Please enter a value to check on Enter</p>
           </Message>);
         this.forceUpdate();
-      } else if (this.props.compName) {
-        let newAction = this.props.stateIsNowProp.action;
-        newAction.loc = this.props.compAddress;
-        newAction.compName = this.props.compName;
-        newAction.assertID = this.props.stateIsNowProp.assertID;
-        if (this.props.stateIsNowProp.action.event === 'keypress' && inputValueEl.value) {
+      } else if (this.props.nodeData.name) {
+        let newAction = this.props.action;
+        newAction.loc = this.props.nodeData.address;
+        newAction.compName = this.props.nodeData.name;
+        newAction.assertID = this.props.assertID;
+        if (this.props.action.event === 'keypress' && inputValueEl.value) {
           newAction.inputValue = inputValueEl.value;
         }
         this.props.incrementAssertId();
@@ -64,9 +93,9 @@ class AddAssertionsForAction extends Component {
       { key: 3, text: 'Right Click', value: 'contextmenu' },
       { key: 4, text: 'Enter', value: 'keypress' }      
     ];
-    if (this.props.compName && this.props.stateIsNowProp.action.event !== 'keypress') this.error = '';
+    if (this.props.nodeData.name && this.props.action.event !== 'keypress') this.error = '';
 
-    if (this.props.stateIsNowProp.action.event === 'keypress') {
+    if (this.props.action.event === 'keypress') {
       inputValueRender = (<Input placeholder="Value to check before Enter" className="inputValue" id="inputValue" type="text" />);
     }
     
@@ -80,7 +109,7 @@ class AddAssertionsForAction extends Component {
   
           <div id ="actionComponent" className="form-group">
             <label className="inputLabel">Component <span style={ {color: "#ffaaaa"} }>*</span></label>
-            <Input transparent placeholder="Click on Node" className="form-control" required ref="componentName" value={this.props.compName} disabled/>
+            <Input transparent placeholder="Click on Node" className="form-control" required ref="componentName" value={this.props.nodeData.name} disabled/>
           </div>
   
           <div id="eventComponent" className="form-group">
@@ -110,4 +139,4 @@ class AddAssertionsForAction extends Component {
   }
 };
 
-export default AddAssertionsForAction;
+export default connect(mapStateToProps, mapDispatchToProps)(AddAssertionsForAction);
