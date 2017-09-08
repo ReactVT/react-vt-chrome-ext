@@ -6,7 +6,7 @@
   "version": "0.2.1",
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["content-script/script.js"]
     }
   ],
